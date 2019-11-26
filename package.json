@@ -1,16 +1,16 @@
 {
-  "name": "{[{name}]}",
+  "name": "algorithms",
   "version": "1.0.0",
-  "description": "{[{description}]}",
+  "description": "algorithms freecodecamp",
   "main": "index.js",
-  "author": "{[{author}]}",
+  "author": "Serge Bayet",
   "scripts": {
     "lint": "eslint src test",
     "lint:fix": "eslint --fix src test",
     "clean:node": "rm -rf index.js lib",
-    "clean:browser": "rm -rf {[{name}]}*.js",
+    "clean:browser": "rm -rf algorithms*.js",
     "clean": "npm run clean:node && npm run clean:browser",
-    "minify": "uglifyjs {[{name}]}.js -o {[{name}]}.min.js  --compress --mangle --comments /Copyright/",
+    "minify": "uglifyjs algorithms.js -o algorithms.min.js  --compress --mangle --comments /Copyright/",
     "build:browser": "rollup -c && npm run minify",
     "build:node": "babel src -d .",
     "build": "npm run build:browser && npm run build:node",
@@ -39,5 +39,8 @@
     "rollup": "^1.26.3",
     "rollup-plugin-babel": "^4.3.3",
     "uglify-js": "^3.6.8"
+  },
+  "dependencies": {
+    "rollup-plugin-node-builtins": "^2.1.2"
   }
 }

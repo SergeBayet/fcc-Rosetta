@@ -7,7 +7,7 @@
     "src/**/*.js"
   ],
   "exclude": [
-    "{[{name}]}.js",
+    "algorithms.js",
     "lib/**/*.js"
   ]
 }

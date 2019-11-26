@@ -1,9 +1,9 @@
 {
-  "name": "{[{name}]}",
-  "main": "{[{name}]}.js",
-  "homepage": "{[{repoUrl}]}",
-  "authors": ["{[{author}]}"],
-  "description": "{[{description}]}",
+  "name": "algorithms",
+  "main": "algorithms.js",
+  "homepage": "",
+  "authors": ["Serge Bayet"],
+  "description": "algorithms freecodecamp",
   "license": "MIT",
   "ignore": [
     "**/.*",
