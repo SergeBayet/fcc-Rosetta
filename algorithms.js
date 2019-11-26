@@ -636,11 +636,11 @@
       key: "gcd",
       value: function gcd(a, b) {
         if (b > 0) {
-          console.log('Appel récursif gcd(' + b + ', ' + a + ' % ' + b + ')');
-          console.log('            => gcd(' + b + ', ' + a % b + ')');
+          //console.log('Appel récursif gcd(' + b + ', ' + a + ' % ' + b + ')');
+          //console.log('            => gcd(' + b + ', ' + a % b + ')');
           return this.gcd(b, a % b);
         } else {
-          console.log('Résultat final b = 0  =>  ' + a);
+          //console.log('Résultat final b = 0  =>  ' + a);
           return a;
         }
       }
@@ -940,6 +940,58 @@
         }
 
         return res;
+      }
+      /*
+      Hero's formula for the area of a triangle given the length of its three sides a, b, and c is given by:
+       A=sqrt(s(s−a)(s−b)(s−c))
+        
+       where s is half the perimeter of the triangle; that is,
+       s=(a+b+c)/2.
+       Heronian triangles are triangles whose sides and area are all integers.
+       An example is the triangle with sides 3, 4, 5 whose area is 6 (and whose perimeter is 12).
+       Note that any triangle whose sides are all an integer multiple of 3, 4, 5; such as 6, 8, 10, will also be a Heronian triangle.
+       Define a Primitive Heronian triangle as a Heronian triangle where the greatest common divisor
+       of all three sides is 1 (unity).
+       This will exclude, for example, triangle 6, 8, 10.
+       Implement a function based on Hero's formula that returns the first nth ordered triangles in an array of arrays.
+      */
+
+    }, {
+      key: "heronianTriangle",
+      value: function heronianTriangle(n) {
+        var _this = this;
+
+        // Good luck!
+        var res = [];
+        var a = 1,
+            b = 1,
+            c = 1;
+
+        for (c = 1; a <= 200; c++) {
+          for (b = 1; b <= c; b++) {
+            for (a = 1; a <= b; a++) {
+              if (this.gcd(a, this.gcd(b, c)) == 1) {
+                var areaTriangle = this.area(a, b, c);
+
+                if (areaTriangle - parseInt(areaTriangle) == 0 && areaTriangle > 0) {
+                  res.push([a, b, c]);
+                }
+              }
+            }
+          }
+        }
+
+        res.sort(function (a, b) {
+          return _this.area(a[0], a[1], a[2]) - _this.area(b[0], b[1], b[2]);
+        });
+        return res.slice(0, n);
+      }
+    }, {
+      key: "area",
+      value: function area(a, b, c) {
+        var s = (a + b + c) / 2;
+        var area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
+        return area;
       }
     }]);
 
