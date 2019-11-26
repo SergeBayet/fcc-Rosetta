@@ -78,5 +78,57 @@ export default class algorithms {
 
 		return ret;
 	}
+	/*
+	Rosetta Code: Hailstone sequence
+
+	The Hailstone sequence of numbers can be generated from a starting positive integer, n by:
+
+    If n is 1 then the sequence ends
+    If n is even then the next n of the sequence = n/2
+    If n is odd then the next n of the sequence = (3 * n) + 1
+
+	The (unproven) Collatz conjecture is that the hailstone sequence for any starting number always terminates.
+
+	The hailstone sequence is also known as hailstone numbers (because the values are usually subject to multiple descents and ascents like hailstones in a cloud), or as the Collatz sequence.
+
+
+    Create a routine to generate the hailstone sequence for a number
+    Use the routine to show that the hailstone sequence for the number 27 has 112 elements starting with 27, 82, 41, 124 and ending with 8, 4, 2, 1
+    Show the number less than 100,000 which has the longest hailstone sequence together with that sequence's length. (But don't show the actual sequence!)
+
+	*/
+	hailstoneSequence() {
+		let res = [];
+		let res27;
+		// Good luck!
+
+		res27 = calculate(27);
+
+		let number, max = 0;
+		for (let i = 1; i <= 100000; i++) {
+			let l = calculate(i);
+			if (l.length > max) {
+				max = l.length;
+				number = i;
+			}
+		}
+
+		function calculate(n) {
+			let sequence = [];
+			//let index 
+			while (n > 1) {
+				sequence.push(n);
+				if (n % 2 === 0) {
+					n = n / 2;
+				}
+				else {
+					n = 3 * n + 1;
+				}
+			}
+			sequence.push(1)
+			return sequence;
+		}
+		return [[...res27.slice(0, 4).concat([8, 4, 2, 1])], [max, number]];
+	}
 }
 

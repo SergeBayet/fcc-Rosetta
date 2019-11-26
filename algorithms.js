@@ -62,6 +62,26 @@
     return Constructor;
   }
 
+  function _toConsumableArray(arr) {
+    return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
+  }
+
+  function _arrayWithoutHoles(arr) {
+    if (Array.isArray(arr)) {
+      for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
+
+      return arr2;
+    }
+  }
+
+  function _iterableToArray(iter) {
+    if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
+  }
+
+  function _nonIterableSpread() {
+    throw new TypeError("Invalid attempt to spread non-iterable instance");
+  }
+
   var inherits;
 
   if (typeof Object.create === 'function') {
@@ -654,6 +674,57 @@
 
         ret = population.slice(startIndex, endIndex + 1);
         return ret;
+      }
+      /*
+      Rosetta Code: Hailstone sequence
+      	The Hailstone sequence of numbers can be generated from a starting positive integer, n by:
+          If n is 1 then the sequence ends
+         If n is even then the next n of the sequence = n/2
+         If n is odd then the next n of the sequence = (3 * n) + 1
+      	The (unproven) Collatz conjecture is that the hailstone sequence for any starting number always terminates.
+      	The hailstone sequence is also known as hailstone numbers (because the values are usually subject to multiple descents and ascents like hailstones in a cloud), or as the Collatz sequence.
+      
+         Create a routine to generate the hailstone sequence for a number
+         Use the routine to show that the hailstone sequence for the number 27 has 112 elements starting with 27, 82, 41, 124 and ending with 8, 4, 2, 1
+         Show the number less than 100,000 which has the longest hailstone sequence together with that sequence's length. (But don't show the actual sequence!)
+      	*/
+
+    }, {
+      key: "hailstoneSequence",
+      value: function hailstoneSequence() {
+        var res27; // Good luck!
+
+        res27 = calculate(27);
+        var number,
+            max = 0;
+
+        for (var i = 1; i <= 100000; i++) {
+          var l = calculate(i);
+
+          if (l.length > max) {
+            max = l.length;
+            number = i;
+          }
+        }
+
+        function calculate(n) {
+          var sequence = []; //let index 
+
+          while (n > 1) {
+            sequence.push(n);
+
+            if (n % 2 === 0) {
+              n = n / 2;
+            } else {
+              n = 3 * n + 1;
+            }
+          }
+
+          sequence.push(1);
+          return sequence;
+        }
+
+        return [_toConsumableArray(res27.slice(0, 4).concat([8, 4, 2, 1])), [max, number]];
       }
     }]);
 
