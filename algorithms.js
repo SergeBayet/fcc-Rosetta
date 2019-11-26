@@ -993,6 +993,59 @@
         var area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
         return area;
       }
+      /*
+      Rosetta Code: Hofstadter Figure-Figure sequences
+       These two sequences of positive integers are defined as:
+       R(1)=1 ; S(1)=2
+      R(n)=R(n−1)+S(n−1),n>1.
+       The sequence S(n)
+      is further defined as the sequence of positive integers not present in R(n)
+       .
+       Sequence R
+       starts:
+       1, 3, 7, 12, 18, ...
+       Sequence S
+       starts:
+       2, 4, 5, 6, 8, ...
+       Create two functions named ffr and ffs that when given n return R(n) or S(n) respectively. (Note that R(1) = 1 and S(1) = 2 to avoid off-by-one errors).
+       No maximum value for n should be assumed.
+      */
+
+    }, {
+      key: "extendsRS",
+      value: function extendsRS(n) {
+        var R = [null, 1, 3];
+        var S = [null, 2, 4];
+        var i = 3;
+
+        while (i <= n) {
+          R[i] = R[i - 1] + S[i - 1];
+
+          for (var j = S[S.length - 1] + 1; j < R[i]; j++) {
+            if (R.indexOf(j) == -1) {
+              S.push(j);
+            }
+          }
+
+          i++;
+        }
+
+        return [R, S];
+      }
+    }, {
+      key: "ffr",
+      value: function ffr(n) {
+        if (n == 1) return 1;
+        var RS = this.extendsRS(n);
+        return RS[0][n];
+      }
+    }, {
+      key: "ffs",
+      value: function ffs(n) {
+        if (n == 1) return 2;
+        var RS = this.extendsRS(n);
+        return RS[1][n];
+      }
     }]);
 
     return algorithms;
