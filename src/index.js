@@ -60,21 +60,23 @@ export default class algorithms {
 
 	maximumSubsequence(population) {
 		let ret = [];
+		let startIndex = 0;
+		let endIndex = 0;
+		let max = 0;
+		for (let i = 0; i < population.length; i++) {
+			let k = 0;
+			for (let j = i; j < population.length; j++) {
+				k += population[j];
+				if (k > max) {
+					max = k;
+					startIndex = i;
+					endIndex = j;
+				}
+			}
+		}
+		ret = population.slice(startIndex, endIndex + 1);
+
 		return ret;
 	}
 }
 
-let a = new algorithms();
-
-// Tests
-
-console.log(a.gray(false, 45));
-console.log(a.gray(true, 177));
-console.log(a.gray(true, 177));
-console.log(a.gray(true, 425));
-console.log(a.gray(true, 870));
-console.log(a.gray(false, 233));
-console.log(a.gray(false, 381));
-console.log(a.gray(false, 725));
-
-console.log(a.gcd(24, 36));

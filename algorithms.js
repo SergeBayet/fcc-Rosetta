@@ -634,23 +634,31 @@
       key: "maximumSubsequence",
       value: function maximumSubsequence(population) {
         var ret = [];
+        var startIndex = 0;
+        var endIndex = 0;
+        var max = 0;
+
+        for (var i = 0; i < population.length; i++) {
+          var k = 0;
+
+          for (var j = i; j < population.length; j++) {
+            k += population[j];
+
+            if (k > max) {
+              max = k;
+              startIndex = i;
+              endIndex = j;
+            }
+          }
+        }
+
+        ret = population.slice(startIndex, endIndex + 1);
         return ret;
       }
     }]);
 
     return algorithms;
   }();
-  var a = new algorithms(); // Tests
-
-  console.log(a.gray(false, 45));
-  console.log(a.gray(true, 177));
-  console.log(a.gray(true, 177));
-  console.log(a.gray(true, 425));
-  console.log(a.gray(true, 870));
-  console.log(a.gray(false, 233));
-  console.log(a.gray(false, 381));
-  console.log(a.gray(false, 725));
-  console.log(a.gcd(24, 36));
 
   return algorithms;
 
