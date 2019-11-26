@@ -7,7 +7,7 @@ export default class algorithms {
     console.log('hello from algorithms');
   }
 	/*
-	Rosetta Code: Gray code
+  Rosetta Code: Gray code
 
 	Gray code is a form of binary encoding where transitions between consecutive numbers differ by only one bit.
 
@@ -96,7 +96,7 @@ export default class algorithms {
     Use the routine to show that the hailstone sequence for the number 27 has 112 elements starting with 27, 82, 41, 124 and ending with 8, 4, 2, 1
     Show the number less than 100,000 which has the longest hailstone sequence together with that sequence's length. (But don't show the actual sequence!)
 
-	*/
+  */
   hailstoneSequence() {
     let res = [];
     let res27;
@@ -225,6 +225,87 @@ export default class algorithms {
       ret[value] = vals[key];
     });
     return ret;
+  }
+
+  /*
+  Rosetta Code: Hash join
+
+    An inner join is an operation that combines two data tables into one table, based on matching column values. The simplest way of implementing this operation is the nested loop join algorithm, but a more scalable alternative is the hash join algorithm.
+
+    The "hash join" algorithm consists of two steps:
+
+    Hash phase: Create a multimap from one of the two tables, mapping from each join column value to all the rows that contain it.
+        The multimap must support hash-based lookup which scales better than a simple linear search, because that's the whole point of this algorithm.
+        Ideally we should create the multimap for the smaller table, thus minimizing its creation time and memory size.
+    Join phase: Scan the other table, and find matching rows by looking in the multimap created before.
+
+    In pseudo-code, the algorithm could be expressed as follows:
+
+    let A = the first input table (or ideally, the larger one)
+    let B = the second input table (or ideally, the smaller one)
+    let jA = the join column ID of table A
+    let jB = the join column ID of table B
+    let MB = a multimap for mapping from single values to multiple rows of table B (starts out empty)
+    let C = the output table (starts out empty)
+    for each row b in table B:
+      place b in multimap MB under key b(jB)
+    for each row a in table A:
+      for each row b in multimap MB under key a(jA):
+        let c = the concatenation of row a and row b
+        place row c in table C
+
+    Implement the "hash join" algorithm as a function and demonstrate that it passes the test-case listed below. The function should accept two arrays of objects and return an array of combined objects.
+
+    Input
+
+    A = 	
+    Age 	Name
+    27 	Jonah
+    18 	Alan
+    28 	Glory
+    18 	Popeye
+    28 	Alan
+        B = 	
+    Character 	Nemesis
+    Jonah 	Whales
+    Jonah 	Spiders
+    Alan 	Ghosts
+    Alan 	Zombies
+    Glory 	Buffy
+    jA = 	Name (i.e. column 1) 	jB = 	Character (i.e. column 0)
+      
+
+    Output
+
+    A_age 	A_name 	B_character 	B_nemesis
+    27 	Jonah 	Jonah 	Whales
+    27 	Jonah 	Jonah 	Spiders
+    18 	Alan 	Alan 	Ghosts
+    18 	Alan 	Alan 	Zombies
+    28 	Glory 	Glory 	Buffy
+    28 	Alan 	Alan 	Ghosts
+    28 	Alan 	Alan 	Zombies
+
+    The order of the rows in the output table is not significant.
+  */
+  hashJoin(hash1, hash2) {
+    // Good luck!
+    let res = [];
+    for (let elA of hash1) {
+      console.log(elA);
+      for (let elB of hash2) {
+        if (elA.name == elB.character) {
+          res.push({
+            A_age: elA.age,
+            A_name: elA.name,
+            B_character: elB.character,
+            B_nemesis: elB.nemesis
+          })
+        }
+      }
+    }
+
+    return res;
   }
 }
 
