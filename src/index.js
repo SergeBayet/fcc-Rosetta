@@ -160,5 +160,58 @@ export default class algorithms {
 
     return true
   }
+  /*
+  Rosetta Code: Harshad or Niven series
+
+  The Harshad or Niven numbers are positive integers ≥ 1 that are divisible by the sum of their digits.
+
+  For example, 42 is a Harshad number as 42 is divisible by (4 + 2) without remainder.
+
+  Assume that the series is defined as the numbers in increasing order.
+
+  Implement a function to generate successive members of the Harshad sequence.
+
+  Use it to list the first twenty members of the sequence and list the first Harshad number greater than 1000.
+  */
+  isHarshadOrNiven() {
+    const res = {
+      firstTwenty: [],
+      firstOver1000: undefined
+    };
+    // Change after this line
+    let i = 1;
+    let count = 1;
+    while (count <= 20) {
+      if (calculate(i)) {
+        res.firstTwenty.push(i);
+        count++;
+      }
+      i++;
+    }
+    let found = false;
+    i = 1001;
+    while (!found) {
+      if (calculate(i)) {
+        res.firstOver1000 = i;
+        found = true;
+      }
+      i++;
+    }
+
+    function calculate(num) {
+      let m = 0;
+      let str = num.toString();
+      for (let i = 0; i < str.length; i++) {
+        m += parseInt(str.charAt(i));
+      };
+      if (i % m == 0) {
+        return true
+
+      }
+      return false;
+    }
+    return res;
+  }
+
 }
 
