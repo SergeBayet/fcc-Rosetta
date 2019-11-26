@@ -814,6 +814,20 @@
 
         return res;
       }
+      /* Rosetta Code: Hash from two arrays
+       Using two Arrays of equal length, create a Hash object where the elements from one array (the keys) are linked to the elements of the other (the values).
+      
+      */
+
+    }, {
+      key: "arrToObj",
+      value: function arrToObj(keys, vals) {
+        var ret = {};
+        keys.forEach(function (value, key) {
+          ret[value] = vals[key];
+        });
+        return ret;
+      }
     }]);
 
     return algorithms;
