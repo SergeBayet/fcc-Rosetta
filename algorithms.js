@@ -958,9 +958,63 @@
       }
       /*
       Project Euler: Problem 11: Largest product in a grid
-      In the 20×20 grid below, four numbers along a diagonal line have been marked in red.
+       In the 20×20 grid below, four numbers along a diagonal line have been marked in red.
       */
 
+    }, {
+      key: "largestGridProduct",
+      value: function largestGridProduct() {
+        var arr = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [[40, 17, 81, 18, 57], [74, 4, 36, 16, 29], [36, 42, 69, 73, 45], [51, 54, 69, 16, 92], [7, 97, 57, 32, 16]];
+        // Good luck!
+        var n = 4;
+        var prod,
+            max = 0; // Diagonally left
+
+        for (var i = 0; i <= arr.length - n; i++) {
+          for (var j = arr.length - 1; j >= n - 1; j--) {
+            prod = arr[i][j] * arr[i + 1][j - 1] * arr[i + 2][j - 2] * arr[i + 3][j - 3];
+
+            if (prod > max) {
+              max = prod;
+            }
+          }
+        } // Diagonally right
+
+
+        for (var _i3 = 0; _i3 <= arr.length - n; _i3++) {
+          for (var _j = 0; _j <= arr.length - n; _j++) {
+            prod = arr[_i3][_j] * arr[_i3 + 1][_j + 1] * arr[_i3 + 2][_j + 2] * arr[_i3 + 3][_j + 3];
+
+            if (prod > max) {
+              max = prod;
+            }
+          }
+        } // Vertical
+
+
+        for (var _i4 = 0; _i4 < arr[0].length; _i4++) {
+          for (var _j2 = 0; _j2 <= arr.length - n; _j2++) {
+            prod = arr[_j2][_i4] * arr[_j2 + 1][_i4] * arr[_j2 + 2][_i4] * arr[_j2 + 3][_i4];
+
+            if (prod > max) {
+              max = prod;
+            }
+          }
+        } // Horizontal
+
+
+        for (var _i5 = 0; _i5 < arr.length; _i5++) {
+          for (var _j3 = 0; _j3 <= arr[_i5].length - n; _j3++) {
+            prod = arr[_i5][_j3] * arr[_i5][_j3 + 1] * arr[_i5][_j3 + 2] * arr[_i5][_j3 + 3];
+
+            if (prod > max) {
+              max = prod;
+            }
+          }
+        }
+
+        return max;
+      }
     }]);
 
     return algorithms;

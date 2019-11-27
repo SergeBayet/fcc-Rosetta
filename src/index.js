@@ -805,6 +805,68 @@ export default class algorithms {
   /*
   Project Euler: Problem 11: Largest product in a grid
 
-In the 20×20 grid below, four numbers along a diagonal line have been marked in red.
+  In the 20×20 grid below, four numbers along a diagonal line have been marked in red.
   */
+
+  largestGridProduct(arr = [
+    [40, 17, 81, 18, 57],
+    [74, 4, 36, 16, 29],
+    [36, 42, 69, 73, 45],
+    [51, 54, 69, 16, 92],
+    [7, 97, 57, 32, 16]
+  ]) {
+
+    // Good luck!
+
+    const n = 4;
+    let prod, max = 0;
+    // Diagonally left
+
+    for (let i = 0; i <= arr.length - n; i++) {
+      for (let j = arr.length - 1; j >= n - 1; j--) {
+        prod = arr[i][j] * arr[i + 1][j - 1] * arr[i + 2][j - 2] * arr[i + 3][j - 3];
+
+        if (prod > max) {
+          max = prod;
+        }
+      }
+    }
+
+    // Diagonally right
+
+    for (let i = 0; i <= arr.length - n; i++) {
+      for (let j = 0; j <= arr.length - n; j++) {
+        prod = arr[i][j] * arr[i + 1][j + 1] * arr[i + 2][j + 2] * arr[i + 3][j + 3];
+        if (prod > max) {
+          max = prod;
+        }
+      }
+    }
+
+
+
+    // Vertical
+
+    for (let i = 0; i < arr[0].length; i++) {
+      for (let j = 0; j <= arr.length - n; j++) {
+        prod = arr[j][i] * arr[j + 1][i] * arr[j + 2][i] * arr[j + 3][i];
+        if (prod > max) {
+          max = prod;
+        }
+      }
+    }
+
+    // Horizontal
+
+    for (let i = 0; i < arr.length; i++) {
+      for (let j = 0; j <= arr[i].length - n; j++) {
+        prod = arr[i][j] * arr[i][j + 1] * arr[i][j + 2] * arr[i][j + 3];
+        if (prod > max) {
+          max = prod;
+        }
+      }
+    }
+
+    return max;
+  }
 }
