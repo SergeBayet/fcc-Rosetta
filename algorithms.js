@@ -727,6 +727,54 @@
 
         return sum;
       }
+      /* Rosetta Code: Sum multiples of 3 and 5
+       The objective is to write a function that finds the sum of all positive multiples of 3 or 5 below n.
+      */
+
+    }, {
+      key: "sumMults",
+      value: function sumMults(n) {
+        // Good luck!
+        var currentNumber = 3;
+        var mul = 0;
+
+        while (currentNumber < n) {
+          if (currentNumber % 5 == 0 || currentNumber % 3 == 0) {
+            mul += currentNumber;
+          }
+
+          currentNumber++;
+        }
+
+        return mul;
+      }
+      /*
+      Sum of a series
+      Task
+      Sum of a series
+      You are encouraged to solve this task according to the task description, using any language you may know.
+       Compute the   nth   term of a series,   i.e. the sum of the   n   first terms of the corresponding sequence.
+       Informally this value, or its limit when   n   tends to infinity, is also called the sum of the series, thus the title of this task.
+       For this task, use:
+                               S n = ∑ k = 1 n 1 k 2 {\displaystyle S_{n}=\sum _{k=1}^{n}{\frac {1}{k^{2}}}} 
+                and compute   S 1000 {\displaystyle S_{1000}} 
+        This approximates the   zeta function   for   S=2,   whose exact value
+                               ζ ( 2 ) = π 2 6 {\displaystyle \zeta (2)={\pi ^{2} \over 6}} 
+       is the solution of the Basel problem. 
+      */
+
+    }, {
+      key: "sumOfASeries",
+      value: function sumOfASeries(a, b) {
+        // Good luck!
+        var sum = 0;
+
+        for (var i = a; i <= b; i++) {
+          sum += 1 / (i * i);
+        }
+
+        return sum;
+      }
     }]);
 
     return algorithms;
