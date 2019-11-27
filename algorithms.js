@@ -82,519 +82,6 @@
     throw new TypeError("Invalid attempt to spread non-iterable instance");
   }
 
-  var inherits;
-
-  if (typeof Object.create === 'function') {
-    inherits = function inherits(ctor, superCtor) {
-      // implementation from standard node.js 'util' module
-      ctor.super_ = superCtor;
-      ctor.prototype = Object.create(superCtor.prototype, {
-        constructor: {
-          value: ctor,
-          enumerable: false,
-          writable: true,
-          configurable: true
-        }
-      });
-    };
-  } else {
-    inherits = function inherits(ctor, superCtor) {
-      ctor.super_ = superCtor;
-
-      var TempCtor = function TempCtor() {};
-
-      TempCtor.prototype = superCtor.prototype;
-      ctor.prototype = new TempCtor();
-      ctor.prototype.constructor = ctor;
-    };
-  }
-
-  var inherits$1 = inherits;
-
-  /**
-   * Echos the value of a value. Trys to print the value out
-   * in the best way possible given the different types.
-   *
-   * @param {Object} obj The object to print out.
-   * @param {Object} opts Optional options object that alters the output.
-   */
-
-  /* legacy: obj, showHidden, depth, colors*/
-
-  function inspect(obj, opts) {
-    // default options
-    var ctx = {
-      seen: [],
-      stylize: stylizeNoColor
-    }; // legacy...
-
-    if (arguments.length >= 3) ctx.depth = arguments[2];
-    if (arguments.length >= 4) ctx.colors = arguments[3];
-
-    if (isBoolean(opts)) {
-      // legacy...
-      ctx.showHidden = opts;
-    } else if (opts) {
-      // got an "options" object
-      _extend(ctx, opts);
-    } // set default options
-
-
-    if (isUndefined(ctx.showHidden)) ctx.showHidden = false;
-    if (isUndefined(ctx.depth)) ctx.depth = 2;
-    if (isUndefined(ctx.colors)) ctx.colors = false;
-    if (isUndefined(ctx.customInspect)) ctx.customInspect = true;
-    if (ctx.colors) ctx.stylize = stylizeWithColor;
-    return formatValue(ctx, obj, ctx.depth);
-  } // http://en.wikipedia.org/wiki/ANSI_escape_code#graphics
-
-  inspect.colors = {
-    'bold': [1, 22],
-    'italic': [3, 23],
-    'underline': [4, 24],
-    'inverse': [7, 27],
-    'white': [37, 39],
-    'grey': [90, 39],
-    'black': [30, 39],
-    'blue': [34, 39],
-    'cyan': [36, 39],
-    'green': [32, 39],
-    'magenta': [35, 39],
-    'red': [31, 39],
-    'yellow': [33, 39]
-  }; // Don't use 'blue' not visible on cmd.exe
-
-  inspect.styles = {
-    'special': 'cyan',
-    'number': 'yellow',
-    'boolean': 'yellow',
-    'undefined': 'grey',
-    'null': 'bold',
-    'string': 'green',
-    'date': 'magenta',
-    // "name": intentionally not styling
-    'regexp': 'red'
-  };
-
-  function stylizeWithColor(str, styleType) {
-    var style = inspect.styles[styleType];
-
-    if (style) {
-      return "\x1B[" + inspect.colors[style][0] + 'm' + str + "\x1B[" + inspect.colors[style][1] + 'm';
-    } else {
-      return str;
-    }
-  }
-
-  function stylizeNoColor(str, styleType) {
-    return str;
-  }
-
-  function arrayToHash(array) {
-    var hash = {};
-    array.forEach(function (val, idx) {
-      hash[val] = true;
-    });
-    return hash;
-  }
-
-  function formatValue(ctx, value, recurseTimes) {
-    // Provide a hook for user-specified inspect functions.
-    // Check that value is an object with an inspect function on it
-    if (ctx.customInspect && value && isFunction(value.inspect) && // Filter out the util module, it's inspect function is special
-    value.inspect !== inspect && // Also filter out any prototype objects using the circular check.
-    !(value.constructor && value.constructor.prototype === value)) {
-      var ret = value.inspect(recurseTimes, ctx);
-
-      if (!isString(ret)) {
-        ret = formatValue(ctx, ret, recurseTimes);
-      }
-
-      return ret;
-    } // Primitive types cannot have properties
-
-
-    var primitive = formatPrimitive(ctx, value);
-
-    if (primitive) {
-      return primitive;
-    } // Look up the keys of the object.
-
-
-    var keys = Object.keys(value);
-    var visibleKeys = arrayToHash(keys);
-
-    if (ctx.showHidden) {
-      keys = Object.getOwnPropertyNames(value);
-    } // IE doesn't make error fields non-enumerable
-    // http://msdn.microsoft.com/en-us/library/ie/dww52sbt(v=vs.94).aspx
-
-
-    if (isError(value) && (keys.indexOf('message') >= 0 || keys.indexOf('description') >= 0)) {
-      return formatError(value);
-    } // Some type of object without properties can be shortcutted.
-
-
-    if (keys.length === 0) {
-      if (isFunction(value)) {
-        var name = value.name ? ': ' + value.name : '';
-        return ctx.stylize('[Function' + name + ']', 'special');
-      }
-
-      if (isRegExp(value)) {
-        return ctx.stylize(RegExp.prototype.toString.call(value), 'regexp');
-      }
-
-      if (isDate(value)) {
-        return ctx.stylize(Date.prototype.toString.call(value), 'date');
-      }
-
-      if (isError(value)) {
-        return formatError(value);
-      }
-    }
-
-    var base = '',
-        array = false,
-        braces = ['{', '}']; // Make Array say that they are Array
-
-    if (isArray(value)) {
-      array = true;
-      braces = ['[', ']'];
-    } // Make functions say that they are functions
-
-
-    if (isFunction(value)) {
-      var n = value.name ? ': ' + value.name : '';
-      base = ' [Function' + n + ']';
-    } // Make RegExps say that they are RegExps
-
-
-    if (isRegExp(value)) {
-      base = ' ' + RegExp.prototype.toString.call(value);
-    } // Make dates with properties first say the date
-
-
-    if (isDate(value)) {
-      base = ' ' + Date.prototype.toUTCString.call(value);
-    } // Make error with message first say the error
-
-
-    if (isError(value)) {
-      base = ' ' + formatError(value);
-    }
-
-    if (keys.length === 0 && (!array || value.length == 0)) {
-      return braces[0] + base + braces[1];
-    }
-
-    if (recurseTimes < 0) {
-      if (isRegExp(value)) {
-        return ctx.stylize(RegExp.prototype.toString.call(value), 'regexp');
-      } else {
-        return ctx.stylize('[Object]', 'special');
-      }
-    }
-
-    ctx.seen.push(value);
-    var output;
-
-    if (array) {
-      output = formatArray(ctx, value, recurseTimes, visibleKeys, keys);
-    } else {
-      output = keys.map(function (key) {
-        return formatProperty(ctx, value, recurseTimes, visibleKeys, key, array);
-      });
-    }
-
-    ctx.seen.pop();
-    return reduceToSingleString(output, base, braces);
-  }
-
-  function formatPrimitive(ctx, value) {
-    if (isUndefined(value)) return ctx.stylize('undefined', 'undefined');
-
-    if (isString(value)) {
-      var simple = '\'' + JSON.stringify(value).replace(/^"|"$/g, '').replace(/'/g, "\\'").replace(/\\"/g, '"') + '\'';
-      return ctx.stylize(simple, 'string');
-    }
-
-    if (isNumber(value)) return ctx.stylize('' + value, 'number');
-    if (isBoolean(value)) return ctx.stylize('' + value, 'boolean'); // For some reason typeof null is "object", so special case here.
-
-    if (isNull(value)) return ctx.stylize('null', 'null');
-  }
-
-  function formatError(value) {
-    return '[' + Error.prototype.toString.call(value) + ']';
-  }
-
-  function formatArray(ctx, value, recurseTimes, visibleKeys, keys) {
-    var output = [];
-
-    for (var i = 0, l = value.length; i < l; ++i) {
-      if (hasOwnProperty(value, String(i))) {
-        output.push(formatProperty(ctx, value, recurseTimes, visibleKeys, String(i), true));
-      } else {
-        output.push('');
-      }
-    }
-
-    keys.forEach(function (key) {
-      if (!key.match(/^\d+$/)) {
-        output.push(formatProperty(ctx, value, recurseTimes, visibleKeys, key, true));
-      }
-    });
-    return output;
-  }
-
-  function formatProperty(ctx, value, recurseTimes, visibleKeys, key, array) {
-    var name, str, desc;
-    desc = Object.getOwnPropertyDescriptor(value, key) || {
-      value: value[key]
-    };
-
-    if (desc.get) {
-      if (desc.set) {
-        str = ctx.stylize('[Getter/Setter]', 'special');
-      } else {
-        str = ctx.stylize('[Getter]', 'special');
-      }
-    } else {
-      if (desc.set) {
-        str = ctx.stylize('[Setter]', 'special');
-      }
-    }
-
-    if (!hasOwnProperty(visibleKeys, key)) {
-      name = '[' + key + ']';
-    }
-
-    if (!str) {
-      if (ctx.seen.indexOf(desc.value) < 0) {
-        if (isNull(recurseTimes)) {
-          str = formatValue(ctx, desc.value, null);
-        } else {
-          str = formatValue(ctx, desc.value, recurseTimes - 1);
-        }
-
-        if (str.indexOf('\n') > -1) {
-          if (array) {
-            str = str.split('\n').map(function (line) {
-              return '  ' + line;
-            }).join('\n').substr(2);
-          } else {
-            str = '\n' + str.split('\n').map(function (line) {
-              return '   ' + line;
-            }).join('\n');
-          }
-        }
-      } else {
-        str = ctx.stylize('[Circular]', 'special');
-      }
-    }
-
-    if (isUndefined(name)) {
-      if (array && key.match(/^\d+$/)) {
-        return str;
-      }
-
-      name = JSON.stringify('' + key);
-
-      if (name.match(/^"([a-zA-Z_][a-zA-Z_0-9]*)"$/)) {
-        name = name.substr(1, name.length - 2);
-        name = ctx.stylize(name, 'name');
-      } else {
-        name = name.replace(/'/g, "\\'").replace(/\\"/g, '"').replace(/(^"|"$)/g, "'");
-        name = ctx.stylize(name, 'string');
-      }
-    }
-
-    return name + ': ' + str;
-  }
-
-  function reduceToSingleString(output, base, braces) {
-    var length = output.reduce(function (prev, cur) {
-      if (cur.indexOf('\n') >= 0) ;
-      return prev + cur.replace(/\u001b\[\d\d?m/g, '').length + 1;
-    }, 0);
-
-    if (length > 60) {
-      return braces[0] + (base === '' ? '' : base + '\n ') + ' ' + output.join(',\n  ') + ' ' + braces[1];
-    }
-
-    return braces[0] + base + ' ' + output.join(', ') + ' ' + braces[1];
-  } // NOTE: These type checking functions intentionally don't use `instanceof`
-  // because it is fragile and can be easily faked with `Object.create()`.
-
-
-  function isArray(ar) {
-    return Array.isArray(ar);
-  }
-  function isBoolean(arg) {
-    return typeof arg === 'boolean';
-  }
-  function isNull(arg) {
-    return arg === null;
-  }
-  function isNumber(arg) {
-    return typeof arg === 'number';
-  }
-  function isString(arg) {
-    return typeof arg === 'string';
-  }
-  function isUndefined(arg) {
-    return arg === void 0;
-  }
-  function isRegExp(re) {
-    return isObject(re) && objectToString(re) === '[object RegExp]';
-  }
-  function isObject(arg) {
-    return _typeof(arg) === 'object' && arg !== null;
-  }
-  function isDate(d) {
-    return isObject(d) && objectToString(d) === '[object Date]';
-  }
-  function isError(e) {
-    return isObject(e) && (objectToString(e) === '[object Error]' || e instanceof Error);
-  }
-  function isFunction(arg) {
-    return typeof arg === 'function';
-  }
-
-  function objectToString(o) {
-    return Object.prototype.toString.call(o);
-  }
-  function _extend(origin, add) {
-    // Don't do anything if add isn't an object
-    if (!add || !isObject(add)) return origin;
-    var keys = Object.keys(add);
-    var i = keys.length;
-
-    while (i--) {
-      origin[keys[i]] = add[keys[i]];
-    }
-
-    return origin;
-  }
-
-  function hasOwnProperty(obj, prop) {
-    return Object.prototype.hasOwnProperty.call(obj, prop);
-  }
-
-  var _functionsHaveNames;
-
-  function functionsHaveNames() {
-    if (typeof _functionsHaveNames !== 'undefined') {
-      return _functionsHaveNames;
-    }
-
-    return _functionsHaveNames = function () {
-      return function foo() {}.name === 'foo';
-    }();
-  }
-  // new assert.AssertionError({ message: message,
-  //                             actual: actual,
-  //                             expected: expected })
-
-  var regex = /\s*function\s+([^\(\s]*)\s*/; // based on https://github.com/ljharb/function.prototype.name/blob/adeeeec8bfcc6068b187d7d9fb3d5bb1d3a30899/implementation.js
-
-  function getName(func) {
-    if (!isFunction(func)) {
-      return;
-    }
-
-    if (functionsHaveNames()) {
-      return func.name;
-    }
-
-    var str = func.toString();
-    var match = str.match(regex);
-    return match && match[1];
-  }
-  function AssertionError(options) {
-    this.name = 'AssertionError';
-    this.actual = options.actual;
-    this.expected = options.expected;
-    this.operator = options.operator;
-
-    if (options.message) {
-      this.message = options.message;
-      this.generatedMessage = false;
-    } else {
-      this.message = getMessage(this);
-      this.generatedMessage = true;
-    }
-
-    var stackStartFunction = options.stackStartFunction || fail;
-
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, stackStartFunction);
-    } else {
-      // non v8 browsers so we can have a stacktrace
-      var err = new Error();
-
-      if (err.stack) {
-        var out = err.stack; // try to strip useless frames
-
-        var fn_name = getName(stackStartFunction);
-        var idx = out.indexOf('\n' + fn_name);
-
-        if (idx >= 0) {
-          // once we have located the function frame
-          // we need to strip out everything before it (and its line)
-          var next_line = out.indexOf('\n', idx + 1);
-          out = out.substring(next_line + 1);
-        }
-
-        this.stack = out;
-      }
-    }
-  } // assert.AssertionError instanceof Error
-
-  inherits$1(AssertionError, Error);
-
-  function truncate(s, n) {
-    if (typeof s === 'string') {
-      return s.length < n ? s : s.slice(0, n);
-    } else {
-      return s;
-    }
-  }
-
-  function inspect$1(something) {
-    if (functionsHaveNames() || !isFunction(something)) {
-      return inspect(something);
-    }
-
-    var rawname = getName(something);
-    var name = rawname ? ': ' + rawname : '';
-    return '[Function' + name + ']';
-  }
-
-  function getMessage(self) {
-    return truncate(inspect$1(self.actual), 128) + ' ' + self.operator + ' ' + truncate(inspect$1(self.expected), 128);
-  } // At present only the three keys mentioned above are used and
-  // understood by the spec. Implementations or sub modules can pass
-  // other keys to the AssertionError's constructor - they will be
-  // ignored.
-  // 3. All of the following functions must throw an AssertionError
-  // when a corresponding condition is not met, with a message that
-  // may be undefined if not provided.  All assertion methods provide
-  // both the actual and expected values to the assertion error for
-  // display purposes.
-
-
-  function fail(actual, expected, message, operator, stackStartFunction) {
-    throw new AssertionError({
-      message: message,
-      actual: actual,
-      expected: expected,
-      operator: operator,
-      stackStartFunction: stackStartFunction
-    });
-  } // EXTENSION! allows for well behaved errors defined elsewhere.
-
   var algorithms =
   /*#__PURE__*/
   function () {
@@ -1045,6 +532,177 @@
         if (n == 1) return 2;
         var RS = this.extendsRS(n);
         return RS[1][n];
+      }
+      /*
+      Rosetta Code: Hofstadter Q sequence
+       The Hofstadter Q sequence is defined as:
+       Q(1)=Q(2)=1,Q(n)=Q(n−Q(n−1))+Q(n−Q(n−2)),n>2.
+       It is defined like the Fibonacci sequence, but whereas the next term in the Fibonacci sequence is the sum of the previous two terms, in the Q sequence the previous two terms tell you how far to go back in the Q sequence to find the two numbers to sum to make the next term of the sequence.
+       Implement the Hofstadter Q Sequence equation as a function. The function should accept number, n, and return an integer.
+      */
+
+    }, {
+      key: "hofstadterQ",
+      value: function hofstadterQ(n) {
+        // Good luck!
+        var memo = [1, 1, 1];
+        var Q = hQ(n);
+
+        function hQ(n) {
+          if (memo[n]) {
+            return memo[n];
+          } else {
+            var i = hQ(n - hQ(n - 1)) + hQ(n - hQ(n - 2));
+            memo[n] = i;
+            return i;
+          }
+        }
+
+        return Q;
+      }
+      /*
+      Rosetta Code: Sudoku
+       Write a function to solve a partially filled-in normal 9x9 Sudoku grid and return the result. The blank fields are represented by 0s. Algorithmics of Sudoku may help implement this.
+       */
+
+    }, {
+      key: "solveSudoku",
+      value: function solveSudoku(puzzle) {
+        // Good luck!
+        var solution = _toConsumableArray(puzzle);
+
+        var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        var squares = [[], [], [], [], [], [], [], [], []];
+        var verticals = [[], [], [], [], [], [], [], [], []];
+
+        for (var square = 0; square < 9; square++) {
+          for (var digit = 0; digit < 9; digit++) {
+            var col = digit % 3 + square % 3 * 3;
+            var row = Math.floor(digit / 3) + Math.floor(square / 3) * 3;
+            squares[square].push(solution[row][col]);
+            verticals[square].push(solution[digit][square]);
+          }
+        }
+
+        var pass = 0;
+        var guessIt = false;
+        var cache = [];
+        var resolved = false;
+
+        while (!resolved && pass < 100) {
+          console.log('pass : ' + pass);
+          var nDigitResolved = 0;
+
+          var _loop = function _loop(line) {
+            var _loop2 = function _loop2(_digit) {
+              if (solution[line][_digit] == -1) {
+                var nSquare = Math.floor(_digit / 3) + Math.floor(line / 3) * 3;
+                var numberPossibilities = numbers.filter(function (x) {
+                  return !~solution[line].indexOf(x);
+                }).filter(function (x) {
+                  return !~verticals[_digit].indexOf(x);
+                }).filter(function (x) {
+                  return !~squares[nSquare].indexOf(x);
+                });
+
+                if (numberPossibilities.length == 1) {
+                  solution[line][_digit] = numberPossibilities[0];
+                  squares[nSquare][_digit % 3 + line % 3 * 3] = numberPossibilities[0];
+                  verticals[_digit][line] = numberPossibilities[0];
+                  console.log('added digit: digit[' + _digit + '] line [' + line + '] : ' + numberPossibilities[0] + ' (' + numberPossibilities + ')');
+                  nDigitResolved++;
+                } else if (numberPossibilities.length == 0) {
+                  console.log('not possible to add to digit[' + _digit + '] line [' + line + ']');
+                  console.table(solution);
+                  var lastCache = cache.length - 1;
+
+                  while (lastCache >= 0) {
+                    var ind = cache[lastCache].choice + 1;
+
+                    if (ind > cache[lastCache].possibilities.length - 1) {
+                      //console.log(ind, lastCache, cache[lastCache], cache[lastCache].possibilities.length);
+                      cache.pop();
+                      lastCache--;
+                    } else {
+                      cache[lastCache].choice = ind;
+                      solution = JSON.parse(JSON.stringify(cache[lastCache].solution));
+                      squares = JSON.parse(JSON.stringify(cache[lastCache].squares));
+                      verticals = JSON.parse(JSON.stringify(cache[lastCache].verticals));
+                      solution[cache[lastCache].line][cache[lastCache].digit] = cache[lastCache].possibilities[ind];
+                      nSquare = Math.floor(cache[lastCache].digit / 3) + Math.floor(cache[lastCache].line / 3) * 3;
+                      squares[nSquare][cache[lastCache].digit % 3 + cache[lastCache].line % 3 * 3] = cache[lastCache].possibilities[ind];
+                      verticals[cache[lastCache].digit][cache[lastCache].line] = cache[lastCache].possibilities[ind];
+                      guessIt = false;
+                      console.log('Try another one : digit[' + cache[lastCache].digit + '] line[' + cache[lastCache].line + ']: ' + cache[lastCache].possibilities[ind]);
+                      console.table(cache[lastCache].solution);
+                      nDigitResolved++;
+                      break;
+                    }
+                  }
+
+                  if (lastCache < 0) {
+                    console.log('Invalid grid');
+                    console.table(solution);
+                    return {
+                      v: {
+                        v: false
+                      }
+                    };
+                  }
+                } else if (guessIt) {
+                  // Make a choice!!!
+                  // Clone the solution at this instant so we can roll back.
+                  cache.push({
+                    solution: JSON.parse(JSON.stringify(solution)),
+                    squares: JSON.parse(JSON.stringify(squares)),
+                    verticals: JSON.parse(JSON.stringify(verticals)),
+                    line: line,
+                    digit: _digit,
+                    possibilities: numberPossibilities,
+                    choice: 0
+                  });
+                  guessIt = false;
+                  solution[line][_digit] = numberPossibilities[0];
+                  squares[nSquare][_digit % 3 + line % 3 * 3] = numberPossibilities[0];
+                  verticals[_digit][line] = numberPossibilities[0];
+                  console.log('Try : digit[' + _digit + '] line[' + line + ']: ' + numberPossibilities[0] + ' (' + numberPossibilities + ')');
+                  nDigitResolved++;
+                }
+              }
+            };
+
+            for (var _digit = 0; _digit < 9; _digit++) {
+              var _ret2 = _loop2(_digit);
+
+              if (_typeof(_ret2) === "object") return _ret2.v;
+            }
+
+            if (nDigitResolved == 0) {
+              guessIt = true;
+            }
+          };
+
+          for (var line = 0; line < 9; line++) {
+            var _ret = _loop(line);
+
+            if (_typeof(_ret) === "object") return _ret.v;
+          }
+
+          pass++;
+          resolved = true;
+
+          for (var i = 0; i < 9; i++) {
+            if (solution[i].some(function (x) {
+              return x == -1;
+            })) {
+              resolved = false;
+              break;
+            }
+          }
+        }
+
+        console.log('Resolved in ' + pass + ' passes');
+        return solution;
       }
     }]);
 

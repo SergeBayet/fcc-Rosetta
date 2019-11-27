@@ -1,4 +1,4 @@
-import { ifError } from "assert";
+
 
 const version = '1.0.0';
 
@@ -421,5 +421,156 @@ export default class algorithms {
     let RS = this.extendsRS(n);
     return RS[1][n];
   }
-}
+  /*
+  Rosetta Code: Hofstadter Q sequence
 
+  The Hofstadter Q sequence is defined as:
+
+  Q(1)=Q(2)=1,Q(n)=Q(n−Q(n−1))+Q(n−Q(n−2)),n>2.
+
+  It is defined like the Fibonacci sequence, but whereas the next term in the Fibonacci sequence is the sum of the previous two terms, in the Q sequence the previous two terms tell you how far to go back in the Q sequence to find the two numbers to sum to make the next term of the sequence.
+
+  Implement the Hofstadter Q Sequence equation as a function. The function should accept number, n, and return an integer.
+  */
+  hofstadterQ(n) {
+    // Good luck!
+
+    let memo = [1, 1, 1];
+    let Q = hQ(n);
+    function hQ(n) {
+      if (memo[n]) {
+        return memo[n];
+      }
+      else {
+        let i = hQ(n - hQ(n - 1)) + hQ(n - hQ(n - 2))
+        memo[n] = i;
+        return i;
+      }
+
+    }
+
+    return Q;
+  }
+
+  /*
+  Rosetta Code: Sudoku
+
+  Write a function to solve a partially filled-in normal 9x9 Sudoku grid and return the result. The blank fields are represented by 0s. Algorithmics of Sudoku may help implement this.
+
+  */
+  solveSudoku(puzzle) {
+    // Good luck!
+    let solution = [...puzzle];
+    let numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    let squares = [[], [], [], [], [], [], [], [], []];
+    let verticals = [[], [], [], [], [], [], [], [], []];
+
+    for (let square = 0; square < 9; square++) {
+      for (let digit = 0; digit < 9; digit++) {
+        let col = digit % 3 + (square % 3) * 3;
+        let row = Math.floor(digit / 3) + (Math.floor(square / 3) * 3);
+        squares[square].push(solution[row][col]);
+        verticals[square].push(solution[digit][square]);
+      }
+    }
+    let pass = 0;
+    let guessIt = false;
+    let cache = [];
+    let resolved = false;
+    while (!resolved && pass < 100) {
+      console.log('pass : ' + pass);
+      let nDigitResolved = 0;
+      for (let line = 0; line < 9; line++) {
+        for (let digit = 0; digit < 9; digit++) {
+          if (solution[line][digit] == -1) {
+            let nSquare = Math.floor(digit / 3) + Math.floor(line / 3) * 3;
+
+            let numberPossibilities = numbers.filter(x => !~solution[line].indexOf(x))
+              .filter(x => !~verticals[digit].indexOf(x))
+              .filter(x => !~squares[nSquare].indexOf(x));
+
+            if (numberPossibilities.length == 1) {
+              solution[line][digit] = numberPossibilities[0];
+              squares[nSquare][digit % 3 + (line % 3) * 3] = numberPossibilities[0];
+              verticals[digit][line] = numberPossibilities[0];
+              console.log('added digit: digit[' + digit + '] line [' + line + '] : ' + numberPossibilities[0] + ' (' + numberPossibilities + ')');
+              nDigitResolved++;
+            }
+            else if (numberPossibilities.length == 0) {
+              console.log('not possible to add to digit[' + digit + '] line [' + line + ']');
+              console.table(solution);
+              let lastCache = cache.length - 1;
+
+              while (lastCache >= 0) {
+                let ind = cache[lastCache].choice + 1;
+                if (ind > cache[lastCache].possibilities.length - 1) {
+                  //console.log(ind, lastCache, cache[lastCache], cache[lastCache].possibilities.length);
+                  cache.pop();
+                  lastCache--;
+                }
+                else {
+                  cache[lastCache].choice = ind;
+                  solution = JSON.parse(JSON.stringify(cache[lastCache].solution));
+                  squares = JSON.parse(JSON.stringify(cache[lastCache].squares));
+                  verticals = JSON.parse(JSON.stringify(cache[lastCache].verticals));;
+                  solution[cache[lastCache].line][cache[lastCache].digit] = cache[lastCache].possibilities[ind];
+                  nSquare = Math.floor(cache[lastCache].digit / 3) + Math.floor(cache[lastCache].line / 3) * 3;
+                  squares[nSquare][cache[lastCache].digit % 3 + (cache[lastCache].line % 3) * 3] = cache[lastCache].possibilities[ind];
+                  verticals[cache[lastCache].digit][cache[lastCache].line] = cache[lastCache].possibilities[ind];
+                  guessIt = false;
+                  console.log('Try another one : digit[' + cache[lastCache].digit + '] line[' + cache[lastCache].line + ']: ' + cache[lastCache].possibilities[ind]);
+                  console.table(cache[lastCache].solution);
+                  nDigitResolved++;
+                  break;
+                }
+              }
+              if (lastCache < 0) {
+                console.log('Invalid grid');
+                console.table(solution);
+                return false;
+              }
+
+
+            }
+            else if (guessIt) {
+              // Make a choice!!!
+              // Clone the solution at this instant so we can roll back.
+
+              cache.push({
+                solution: JSON.parse(JSON.stringify(solution)),
+                squares: JSON.parse(JSON.stringify(squares)),
+                verticals: JSON.parse(JSON.stringify(verticals)),
+                line: line,
+                digit: digit,
+                possibilities: numberPossibilities,
+                choice: 0,
+              })
+
+              guessIt = false;
+              solution[line][digit] = numberPossibilities[0];
+              squares[nSquare][digit % 3 + (line % 3) * 3] = numberPossibilities[0];
+              verticals[digit][line] = numberPossibilities[0];
+              console.log('Try : digit[' + digit + '] line[' + line + ']: ' + numberPossibilities[0] + ' (' + numberPossibilities + ')');
+              nDigitResolved++;
+
+            }
+          }
+        }
+        if (nDigitResolved == 0) {
+          guessIt = true;
+        }
+      }
+      pass++;
+      resolved = true;
+      for (let i = 0; i < 9; i++) {
+        if (solution[i].some(x => x == -1)) {
+          resolved = false;
+          break;
+        }
+      }
+    }
+    console.log('Resolved in ' + pass + ' passes');
+
+    return solution;
+  }
+}
