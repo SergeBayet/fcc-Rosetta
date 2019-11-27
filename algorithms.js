@@ -704,6 +704,29 @@
         console.log('Resolved in ' + pass + ' passes');
         return solution;
       }
+      /*
+      Rosetta Code: Sum digits of an integer
+         Write a function that takes a string as a parameter. This string represents a number that can be in any base (less than 37) and return the sum of its digits.
+         110 sums to 1
+        123410 sums to 10
+        fe16 sums to 29
+        f0e16 sums to 29
+       */
+
+    }, {
+      key: "sumDigits",
+      value: function sumDigits(n) {
+        // Good luck!
+        var digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        var string = n.toString().toUpperCase();
+        var sum = 0;
+
+        for (var i = 0; i < string.length; i++) {
+          sum += digits.indexOf(string.charAt(i));
+        }
+
+        return sum;
+      }
     }]);
 
     return algorithms;
