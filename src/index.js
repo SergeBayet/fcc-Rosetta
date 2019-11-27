@@ -725,4 +725,52 @@ export default class algorithms {
     }
     return ret.sort();
   }
+
+  /*
+  Rosetta Code: Word wrap
+
+  Even today, with proportional fonts and complex layouts, there are still cases where you need to wrap text at a specified column. The basic task is to wrap a paragraph of text in a simple way.
+
+  Write a function that can wrap this text to any number of characters. As an example, the text wrapped to 80 characters should look like the following:
+
+  Wrap text using a more sophisticated algorithm such as the Knuth and Plass TeX
+  algorithm. If your language provides this, you get easy extra credit, but you
+  must reference documentation indicating that the algorithm is something better
+  than a simple minimum length algorithm.
+
+  */
+  wrap(text, limit) {
+
+    if (text.length > limit) {
+      // find the last space within limit
+      var edge = text.slice(0, limit).lastIndexOf(' ');
+      if (edge > 0) {
+        var line = text.slice(0, edge);
+        var remainder = text.slice(edge + 1);
+        return line + '\n' + this.wrap(remainder, limit);
+      }
+    }
+    return text;
+  }
+  /*
+  Rosetta Code: Y combinatorPassed
+
+In strict functional programming and the lambda calculus, functions (lambda expressions) don't have state and are only allowed to refer to arguments of enclosing functions. This rules out the usual definition of a recursive function wherein a function is associated with the state of a variable and this variable's state is used in the body of the function. The Y combinator is itself a stateless function that, when applied to another stateless function, returns a recursive version of the function. The Y combinator is the simplest of the class of such functions, called fixed-point combinators.
+
+Define the stateless Y combinator function and use it to compute factorial. The factorial(N) function is already given to you. See also:
+
+    Jim Weirich: Adventures in Functional Programming.
+
+  */
+  YCombinator() {
+    Y = f => (x => x(x))(y => f(x => y(y)(x)));
+
+    factorial = this.Y(function (f) {
+      return function (n) {
+        return n > 1 ? n * f(n - 1) : 1;
+      };
+    });
+  }
+
+
 }
