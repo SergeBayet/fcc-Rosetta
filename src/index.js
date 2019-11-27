@@ -645,4 +645,84 @@ export default class algorithms {
     }
     return sum;
   }
+
+  /* Rosetta Code: Sum of squares
+
+  Write a function to find the sum of squares of an array of integers.
+
+  */
+
+  sumsq(array) {
+    // Good luck!
+    let sum = array.reduce((a, b) => (a + b * b), 0);
+    return sum;
+
+  }
+  /* 
+  Rosetta Code: Sum to 100
+
+  Find solutions to the sum to one hundred puzzle.
+
+  Add (insert) the mathematical operators + or ─ (plus or minus) before any of the digits in the decimal numeric string 123456789 such that the resulting mathematical expression adds up to a particular sum (in this iconic case, 100).
+
+  Example:
+
+  123 + 4 - 5 + 67 - 89   =   100
+
+  Write a function that takes a number as parameter. The function should return an array containing all solutions for the given number. The solutions should be strings representing the expressions. For example: "1+23-456+78-9". Sort the array before returning it.
+  */
+  sumTo100(n) {
+    let ret = [];
+    const ADD = 0,
+      SUB = 1,
+      JOIN = 2;
+
+    const nexpr = 2 * Math.pow(9, 4);
+
+    function evaluate(code) {
+      let
+        value = 0,
+        number = 0,
+        power = 1;
+
+      for (var k = 9; k >= 1; k--) {
+        number = power * k + number;
+        switch (code % 3) {
+          case ADD: value = value + number; number = 0; power = 1; break;
+          case SUB: value = value - number; number = 0; power = 1; break;
+          case JOIN: power = power * 10; break;
+        }
+        code = Math.floor(code / 3);
+      }
+      return value;
+    }
+
+    function format(code) {
+      let
+        s = "";
+      let
+        a = 3 * Math.pow(9, 4),
+        b = a / 3;
+
+      for (var k = 1; k <= 9; k++) {
+        switch (Math.floor((code % a) / b)) {
+          case ADD: if (k > 1) s = s + '+'; break;
+          case SUB: s = s + '-'; break;
+        }
+        a = b;
+        b = Math.floor(b / 3);
+        s = s + String.fromCharCode(0x30 + k);
+      }
+
+      console.log(evaluate(code) + " = " + s);
+      return s;
+    }
+    for (var i = 0; i < nexpr; i++) {
+      if (evaluate(i) == n) {
+        ret.push(format(i));
+      }
+
+    }
+    return ret.sort();
+  }
 }
