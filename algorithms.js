@@ -1557,14 +1557,35 @@
           table.push([a, b]);
         }
 
-        console.log(table.filter(function (x) {
-          return x[0] % 2 !== 0;
-        }));
         return table.filter(function (x) {
           return x[0] % 2 !== 0;
         }).reduce(function (sum, el) {
           return sum + el[1];
         }, 0);
+      }
+      /*
+      Rosetta Code: Euler method
+       Euler's method numerically approximates solutions of first-order ordinary differential equations (ODEs) with a given initial value. It is an explicit method for solving initial value problems (IVPs), as described in the wikipedia page.
+      */
+
+    }, {
+      key: "eulersMethod",
+      value: function eulersMethod(x1, y1, x2, h) {
+        // Good luck!
+        var x = x1,
+            y = y1;
+
+        while (x < x2 && x1 < x2 || x > x2 && x1 > x2) {
+          // Calculate the next values
+          y += h * cooling(y);
+          x += h;
+        }
+
+        return y;
+
+        function cooling(y) {
+          return -0.07 * (y - 20);
+        }
       }
     }]);
 
