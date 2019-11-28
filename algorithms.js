@@ -1464,6 +1464,28 @@
           return true;
         }
       }
+      /*
+      Rosetta Code: Entropy
+       Calculate the Shannon entropy H of a given input string.
+       Given the discreet random variable X
+      that is a string of N "symbols" (total characters) consisting of n
+       different characters (n=2 for binary), the Shannon entropy of X in bits/symbol is:
+       H2(X)=−∑ni=1countiNlog2(countiN)
+       where counti
+      is the count of character ni.
+      */
+
+    }, {
+      key: "entropy",
+      value: function entropy(str) {
+        // Good luck!
+        return _toConsumableArray(new Set(str)).map(function (chr) {
+          return str.match(new RegExp(chr, 'g')).length;
+        }).reduce(function (sum, frequency) {
+          var p = frequency / str.length;
+          return sum + p * Math.log2(1 / p);
+        }, 0);
+      }
     }]);
 
     return algorithms;
