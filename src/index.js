@@ -1010,8 +1010,8 @@ export default class algorithms {
     if (remainder > 0) {
       result = remainder.toString() + result;
     }
-
-    return parseInt(result.substring(0, 10));
+    return result;
+    // return parseInt(result.substring(0, 10));    // For freecodecamp test
     function leading(array, length, char) {
       return array.map(x => (char.repeat(length) + x).substr(-length));
     }
@@ -1070,6 +1070,35 @@ export default class algorithms {
     }
   }
   /*
+    Project Euler: Problem 16: Power digit sum
 
+    215 = 32768 and the sum of its digits is 3 + 2 + 7 + 6 + 8 = 26.
+
+    What is the sum of the digits of the number 2exponent?
   */
+  powerDigitSum(exponent) {
+    // Good luck!
+    // Doesn't work with big numbers ...
+    return Math.pow(2, exponent)
+      .toString()
+      .split('')
+      .reduce((a, b) => a + parseInt(b), 0);
+
+  }
+  powerDigitSumBigNumber(exponent) {
+    let self = this;
+    function power2exponent(exponent) {
+      if (exponent == 0) return '1';
+      let temp = '2';
+      for (let i = 2; i <= exponent; i++) {
+        temp = self.largeSum([temp, temp]);
+
+      }
+      return temp;
+    }
+    return power2exponent(exponent)
+      .toString()
+      .split('')
+      .reduce((a, b) => a + parseInt(b), 0);
+  }
 }
