@@ -1056,12 +1056,20 @@ export default class algorithms {
       let nTerms = 0;
       while (c !== 1) {
         c = (c % 2 == 0) ? c / 2 : 3 * c + 1;
-
         nTerms++;
       }
-
       return nTerms;
     }
 
   }
+  latticePaths(n) {
+    return rFact(2 * n) / Math.pow(rFact(n), 2);
+    function rFact(num) {
+      if (num === 0) { return 1; }
+      else { return num * rFact(num - 1); }
+    }
+  }
+  /*
+
+  */
 }
