@@ -1278,4 +1278,74 @@ export default class algorithms {
     }
     return true;
   }
+  /*
+  Rosetta Code: Emirp primes
+
+  An emirp (prime spelled backwards) are primes that when reversed (in their decimal representation) are a different prime.
+
+  Write a function that:
+
+      Shows the first n emirp numbers.
+      Shows the emirp numbers in a range.
+      Shows the number of emirps in a range.
+      Shows the nth emirp number.
+
+  The function should accept two parameters. The first will receive n or the range as an array. The second will receive a boolean, that specifies if the function returns the emirps as an array or a single number (the number of primes in the range or the nth prime). According to the parameters the function should return an array or a number.
+  */
+  emirps(n, option) {
+    // Good luck!
+    console.log(option);
+    let primes = new Set();
+    let emirps = [];
+    let count = 0;
+    let number = 11;
+    if (typeof n == 'number') {
+
+
+      while (count < n) {
+        let emirp = parseInt(number.toString().split('').reverse().join(''));
+        if ((emirp !== number) && isPrime(emirp) && isPrime(number)) {
+          emirps.push(number);
+          count++;
+        }
+        number += 2;
+      }
+    }
+    else {
+      number = (n[0] % 2 == 0) ? n[0] + 1 : n[0];
+      n = n[1];
+
+
+      while (number < n) {
+        let emirp = parseInt(number.toString().split('').reverse().join(''));
+        if ((emirp !== number) && isPrime(emirp) && isPrime(number)) {
+          emirps.push(number);
+          count++;
+        }
+        number += 2;
+      }
+    }
+
+    if (option === undefined) {
+      return number - 2;
+    }
+    if (option) {
+      return emirps;
+    }
+    else {
+      return count;
+    }
+    function isPrime(number) {
+      if (primes.has(number)) return true;
+      let root = Math.ceil(Math.sqrt(number))
+      for (let i = 2; i <= root; i++) {
+        if (number % i === 0) {
+          return false;
+        }
+      }
+      primes.add(number);
+
+      return true;
+    }
+  }
 }
