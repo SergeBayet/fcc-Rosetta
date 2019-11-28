@@ -1376,4 +1376,55 @@ export default class algorithms {
       }, 0);
   }
 
+  /*
+  Rosetta Code: Equilibrium index
+
+    An equilibrium index of a sequence is an index into the sequence such that the sum of elements at lower indices is equal to the sum of elements at higher indices.
+
+    For example, in a sequence A
+
+    :
+
+        A0=−7
+
+    A1=1
+    A2=5
+    A3=2
+    A4=−4
+    A5=3
+    A6=0
+
+    3 is an equilibrium index, because:
+
+        A0+A1+A2=A4+A5+A6
+
+    6 is also an equilibrium index, because:
+
+        A0+A1+A2+A3+A4+A5=0
+
+    (sum of zero elements is zero)
+
+    7 is not an equilibrium index, because it is not a valid index of sequence A
+
+    .
+
+    Write a function that, given a sequence, returns its equilibrium indices (if any).
+
+    Assume that the sequence may be very long.
+  */
+
+  equilibrium(a) {
+    // Good luck!
+    let res = [];
+    for (let i = 0; i < a.length; i++) {
+      let [left, right] = [a.slice(0, i), a.slice(i + 1)];
+      let sumLeft = left.reduce((a, b) => a + b, 0);
+      let sumRight = right.reduce((a, b) => a + b, 0);
+      if (sumLeft - sumRight == 0) {
+        res.push(i);
+      }
+
+    }
+    return res;
+  }
 }
