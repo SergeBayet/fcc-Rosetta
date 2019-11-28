@@ -88,13 +88,13 @@
     function algorithms(params) {
       _classCallCheck(this, algorithms);
 
-      console.log('hello from algorithms');
+      console.log("hello from algorithms");
     }
     /*
-     Rosetta Code: Gray code
-    	Gray code is a form of binary encoding where transitions between consecutive numbers differ by only one bit.
-    	This is a useful encoding for reducing hardware data hazards with values that change rapidly and/or connect to slower hardware as inputs.
-    	It is also useful for generating inputs for Karnaugh maps in order from left to right or top to bottom.
+    Rosetta Code: Gray code
+    Gray code is a form of binary encoding where transitions between consecutive numbers differ by only one bit.
+    This is a useful encoding for reducing hardware data hazards with values that change rapidly and/or connect to slower hardware as inputs.
+    It is also useful for generating inputs for Karnaugh maps in order from left to right or top to bottom.
     */
 
 
@@ -115,9 +115,8 @@
         }
       }
       /* Rosetta Code: Greatest common divisor
-      	Write a function that returns the greatest common divisor of two integers. 
-      
-      */
+      Write a function that returns the greatest common divisor of two integers. 
+      	*/
 
     }, {
       key: "gcd",
@@ -133,8 +132,8 @@
       }
       /*
       Rosetta Code: Greatest subsequential sum
-      	Given a sequence of integers, find a continuous subsequence which maximizes the sum of its elements, that is, the elements of no other single subsequence add up to a value larger than this one.
-      	An empty subsequence is considered to have the sum of 0 ; thus if all elements are negative, the result must be the empty sequence.
+      Given a sequence of integers, find a continuous subsequence which maximizes the sum of its elements, that is, the elements of no other single subsequence add up to a value larger than this one.
+      An empty subsequence is considered to have the sum of 0 ; thus if all elements are negative, the result must be the empty sequence.
       */
 
     }, {
@@ -164,17 +163,16 @@
       }
       /*
       Rosetta Code: Hailstone sequence
-      	The Hailstone sequence of numbers can be generated from a starting positive integer, n by:
-          If n is 1 then the sequence ends
-         If n is even then the next n of the sequence = n/2
-         If n is odd then the next n of the sequence = (3 * n) + 1
-      	The (unproven) Collatz conjecture is that the hailstone sequence for any starting number always terminates.
-      	The hailstone sequence is also known as hailstone numbers (because the values are usually subject to multiple descents and ascents like hailstones in a cloud), or as the Collatz sequence.
-      
-         Create a routine to generate the hailstone sequence for a number
-         Use the routine to show that the hailstone sequence for the number 27 has 112 elements starting with 27, 82, 41, 124 and ending with 8, 4, 2, 1
-         Show the number less than 100,000 which has the longest hailstone sequence together with that sequence's length. (But don't show the actual sequence!)
-        */
+      The Hailstone sequence of numbers can be generated from a starting positive integer, n by:
+         If n is 1 then the sequence ends
+        If n is even then the next n of the sequence = n/2
+        If n is odd then the next n of the sequence = (3 * n) + 1
+      The (unproven) Collatz conjecture is that the hailstone sequence for any starting number always terminates.
+      The hailstone sequence is also known as hailstone numbers (because the values are usually subject to multiple descents and ascents like hailstones in a cloud), or as the Collatz sequence.
+          Create a routine to generate the hailstone sequence for a number
+        Use the routine to show that the hailstone sequence for the number 27 has 112 elements starting with 27, 82, 41, 124 and ending with 8, 4, 2, 1
+        Show the number less than 100,000 which has the longest hailstone sequence together with that sequence's length. (But don't show the actual sequence!)
+       */
 
     }, {
       key: "hailstoneSequence",
@@ -195,7 +193,7 @@
         }
 
         function calculate(n) {
-          var sequence = []; //let index 
+          var sequence = []; //let index
 
           while (n > 1) {
             sequence.push(n);
@@ -215,9 +213,9 @@
       }
       /*
       Rosetta Code: Happy numbers
-      	A happy number is defined by the following process:
-      	Starting with any positive integer, replace the number by the sum of the squares of its digits, and repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1. Those numbers for which this process ends in 1 are happy numbers, while those that do not end in 1 are unhappy numbers.
-      	Implement a function that returns true if the number is happy, or false if not.
+      A happy number is defined by the following process:
+      Starting with any positive integer, replace the number by the sum of the squares of its digits, and repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1. Those numbers for which this process ends in 1 are happy numbers, while those that do not end in 1 are unhappy numbers.
+      Implement a function that returns true if the number is happy, or false if not.
       */
 
     }, {
@@ -233,6 +231,7 @@
           for (var i = 0; i < str.length; i++) {
             m += Math.pow(str.charAt(i), 2);
           }
+
           number = m;
           console.log(number);
         }
@@ -590,7 +589,7 @@
         var resolved = false;
 
         while (!resolved && pass < 100) {
-          console.log('pass : ' + pass);
+          console.log("pass : " + pass);
           var nDigitResolved = 0;
 
           var _loop = function _loop(line) {
@@ -609,10 +608,10 @@
                   solution[line][_digit] = numberPossibilities[0];
                   squares[nSquare][_digit % 3 + line % 3 * 3] = numberPossibilities[0];
                   verticals[_digit][line] = numberPossibilities[0];
-                  console.log('added digit: digit[' + _digit + '] line [' + line + '] : ' + numberPossibilities[0] + ' (' + numberPossibilities + ')');
+                  console.log("added digit: digit[" + _digit + "] line [" + line + "] : " + numberPossibilities[0] + " (" + numberPossibilities + ")");
                   nDigitResolved++;
                 } else if (numberPossibilities.length == 0) {
-                  console.log('not possible to add to digit[' + _digit + '] line [' + line + ']');
+                  console.log("not possible to add to digit[" + _digit + "] line [" + line + "]");
                   console.table(solution);
                   var lastCache = cache.length - 1;
 
@@ -633,7 +632,7 @@
                       squares[nSquare][cache[lastCache].digit % 3 + cache[lastCache].line % 3 * 3] = cache[lastCache].possibilities[ind];
                       verticals[cache[lastCache].digit][cache[lastCache].line] = cache[lastCache].possibilities[ind];
                       guessIt = false;
-                      console.log('Try another one : digit[' + cache[lastCache].digit + '] line[' + cache[lastCache].line + ']: ' + cache[lastCache].possibilities[ind]);
+                      console.log("Try another one : digit[" + cache[lastCache].digit + "] line[" + cache[lastCache].line + "]: " + cache[lastCache].possibilities[ind]);
                       console.table(cache[lastCache].solution);
                       nDigitResolved++;
                       break;
@@ -641,7 +640,7 @@
                   }
 
                   if (lastCache < 0) {
-                    console.log('Invalid grid');
+                    console.log("Invalid grid");
                     console.table(solution);
                     return {
                       v: {
@@ -665,7 +664,7 @@
                   solution[line][_digit] = numberPossibilities[0];
                   squares[nSquare][_digit % 3 + line % 3 * 3] = numberPossibilities[0];
                   verticals[_digit][line] = numberPossibilities[0];
-                  console.log('Try : digit[' + _digit + '] line[' + line + ']: ' + numberPossibilities[0] + ' (' + numberPossibilities + ')');
+                  console.log("Try : digit[" + _digit + "] line[" + line + "]: " + numberPossibilities[0] + " (" + numberPossibilities + ")");
                   nDigitResolved++;
                 }
               }
@@ -701,7 +700,7 @@
           }
         }
 
-        console.log('Resolved in ' + pass + ' passes');
+        console.log("Resolved in " + pass + " passes");
         return solution;
       }
       /*
@@ -846,11 +845,11 @@
           for (var k = 1; k <= 9; k++) {
             switch (Math.floor(code % a / b)) {
               case ADD:
-                if (k > 1) s = s + '+';
+                if (k > 1) s = s + "+";
                 break;
 
               case SUB:
-                s = s + '-';
+                s = s + "-";
                 break;
             }
 
@@ -886,12 +885,12 @@
       value: function wrap(text, limit) {
         if (text.length > limit) {
           // find the last space within limit
-          var edge = text.slice(0, limit).lastIndexOf(' ');
+          var edge = text.slice(0, limit).lastIndexOf(" ");
 
           if (edge > 0) {
             var line = text.slice(0, edge);
             var remainder = text.slice(edge + 1);
-            return line + '\n' + this.wrap(remainder, limit);
+            return line + "\n" + this.wrap(remainder, limit);
           }
         }
 
@@ -1055,8 +1054,8 @@
           var i = 1;
           var root = Math.ceil(Math.sqrt(n));
 
-          while (i <= root) // run loop i to sqrt(n)
-          {
+          while (i <= root) {
+            // run loop i to sqrt(n)
             if (n % i == 0) {
               factors.add(i);
 
@@ -1072,6 +1071,54 @@
         }
 
         return triangleNumber;
+      }
+      /*
+      Project Euler: Problem 13: Large sum
+       Work out the first ten digits of the sum of the following one-hundred 50-digit numbers.
+       */
+
+    }, {
+      key: "largeSum",
+      value: function largeSum() {
+        var arr = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : ["37107287533902102798797998220837590246510135740250", "46376937677490009712648124896970078050417018260538"];
+
+        var numbers = _toConsumableArray(arr);
+
+        var lengthMax = numbers.reduce(function (a, b) {
+          return Math.max(a.length, b.length);
+        }, 0);
+        console.log(lengthMax);
+        var result = "";
+        var remainder = 0;
+        numbers = leading(numbers, lengthMax, "0");
+        var pointer = lengthMax - 1;
+        console.log(numbers, pointer);
+
+        while (pointer >= 0) {
+          for (var i = 0; i < numbers.length - 1; i++) {
+            var _ref = [numbers[i].charAt(pointer), numbers[i + 1].charAt(pointer)],
+                a = _ref[0],
+                b = _ref[1];
+            var x = parseInt(a) + parseInt(b) + remainder;
+            console.log(i);
+            result = x.toString().substr(-1) + result;
+            remainder = Math.floor(x / 10);
+          }
+
+          pointer--;
+        }
+
+        if (remainder > 0) {
+          result = remainder.toString() + result;
+        }
+
+        return parseInt(result.substring(0, 10));
+
+        function leading(array, length, _char) {
+          return array.map(function (x) {
+            return (_char.repeat(length) + x).substr(-length);
+          });
+        }
       }
     }]);
 

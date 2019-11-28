@@ -1,12 +1,10 @@
-
-
-const version = '1.0.0';
+const version = "1.0.0";
 
 export default class algorithms {
   constructor(params) {
-    console.log('hello from algorithms');
+    console.log("hello from algorithms");
   }
-	/*
+  /*
   Rosetta Code: Gray code
 
 	Gray code is a form of binary encoding where transitions between consecutive numbers differ by only one bit.
@@ -16,23 +14,20 @@ export default class algorithms {
 	It is also useful for generating inputs for Karnaugh maps in order from left to right or top to bottom.
 	*/
   gray(enc, number) {
-
     if (enc) {
-
       // number XOR SHR(number)
 
       return number ^ (number >> 1);
-    }
-    else {
+    } else {
       let ret = number;
-      while (number = number >> 1) {
+      while ((number = number >> 1)) {
         ret = ret ^ number;
       }
       return ret;
     }
   }
 
-	/* Rosetta Code: Greatest common divisor
+  /* Rosetta Code: Greatest common divisor
 
 	Write a function that returns the greatest common divisor of two integers. 
 	
@@ -42,15 +37,14 @@ export default class algorithms {
     if (b > 0) {
       //console.log('Appel récursif gcd(' + b + ', ' + a + ' % ' + b + ')');
       //console.log('            => gcd(' + b + ', ' + a % b + ')');
-      return (this.gcd(b, a % b));
-    }
-    else {
+      return this.gcd(b, a % b);
+    } else {
       //console.log('Résultat final b = 0  =>  ' + a);
       return a;
     }
   }
 
-	/*
+  /*
 	Rosetta Code: Greatest subsequential sum
 
 	Given a sequence of integers, find a continuous subsequence which maximizes the sum of its elements, that is, the elements of no other single subsequence add up to a value larger than this one.
@@ -78,7 +72,7 @@ export default class algorithms {
 
     return ret;
   }
-	/*
+  /*
 	Rosetta Code: Hailstone sequence
 
 	The Hailstone sequence of numbers can be generated from a starting positive integer, n by:
@@ -104,7 +98,8 @@ export default class algorithms {
 
     res27 = calculate(27);
 
-    let number, max = 0;
+    let number,
+      max = 0;
     for (let i = 1; i <= 100000; i++) {
       let l = calculate(i);
       if (l.length > max) {
@@ -115,23 +110,22 @@ export default class algorithms {
 
     function calculate(n) {
       let sequence = [];
-      //let index 
+      //let index
       while (n > 1) {
         sequence.push(n);
         if (n % 2 === 0) {
           n = n / 2;
-        }
-        else {
+        } else {
           n = 3 * n + 1;
         }
       }
-      sequence.push(1)
+      sequence.push(1);
       return sequence;
     }
     return [[...res27.slice(0, 4).concat([8, 4, 2, 1])], [max, number]];
   }
 
-	/*
+  /*
 	Rosetta Code: Happy numbers
 
 	A happy number is defined by the following process:
@@ -149,7 +143,7 @@ export default class algorithms {
       let str = number.toString();
       for (let i = 0; i < str.length; i++) {
         m += str.charAt(i) ** 2;
-      };
+      }
       number = m;
 
       console.log(number);
@@ -158,7 +152,7 @@ export default class algorithms {
       return false;
     }
 
-    return true
+    return true;
   }
   /*
   Rosetta Code: Harshad or Niven series
@@ -203,10 +197,9 @@ export default class algorithms {
       let str = num.toString();
       for (let i = 0; i < str.length; i++) {
         m += parseInt(str.charAt(i));
-      };
+      }
       if (i % m == 0) {
-        return true
-
+        return true;
       }
       return false;
     }
@@ -300,7 +293,7 @@ export default class algorithms {
             A_name: elA.name,
             B_character: elB.character,
             B_nemesis: elB.nemesis
-          })
+          });
         }
       }
     }
@@ -343,19 +336,21 @@ export default class algorithms {
       for (b = 1; b <= c; b++) {
         for (a = 1; a <= b; a++) {
           if (this.gcd(a, this.gcd(b, c)) == 1) {
-
             let areaTriangle = this.area(a, b, c);
 
-            if ((areaTriangle - parseInt(areaTriangle) == 0) && areaTriangle > 0) {
-
+            if (
+              areaTriangle - parseInt(areaTriangle) == 0 &&
+              areaTriangle > 0
+            ) {
               res.push([a, b, c]);
             }
-
           }
         }
       }
     }
-    res.sort((a, b) => (this.area(a[0], a[1], a[2]) - this.area(b[0], b[1], b[2])));
+    res.sort(
+      (a, b) => this.area(a[0], a[1], a[2]) - this.area(b[0], b[1], b[2])
+    );
     return res.slice(0, n);
   }
 
@@ -440,13 +435,11 @@ export default class algorithms {
     function hQ(n) {
       if (memo[n]) {
         return memo[n];
-      }
-      else {
-        let i = hQ(n - hQ(n - 1)) + hQ(n - hQ(n - 2))
+      } else {
+        let i = hQ(n - hQ(n - 1)) + hQ(n - hQ(n - 2));
         memo[n] = i;
         return i;
       }
-
     }
 
     return Q;
@@ -467,8 +460,8 @@ export default class algorithms {
 
     for (let square = 0; square < 9; square++) {
       for (let digit = 0; digit < 9; digit++) {
-        let col = digit % 3 + (square % 3) * 3;
-        let row = Math.floor(digit / 3) + (Math.floor(square / 3) * 3);
+        let col = (digit % 3) + (square % 3) * 3;
+        let row = Math.floor(digit / 3) + Math.floor(square / 3) * 3;
         squares[square].push(solution[row][col]);
         verticals[square].push(solution[digit][square]);
       }
@@ -478,26 +471,43 @@ export default class algorithms {
     let cache = [];
     let resolved = false;
     while (!resolved && pass < 100) {
-      console.log('pass : ' + pass);
+      console.log("pass : " + pass);
       let nDigitResolved = 0;
       for (let line = 0; line < 9; line++) {
         for (let digit = 0; digit < 9; digit++) {
           if (solution[line][digit] == -1) {
             let nSquare = Math.floor(digit / 3) + Math.floor(line / 3) * 3;
 
-            let numberPossibilities = numbers.filter(x => !~solution[line].indexOf(x))
+            let numberPossibilities = numbers
+              .filter(x => !~solution[line].indexOf(x))
               .filter(x => !~verticals[digit].indexOf(x))
               .filter(x => !~squares[nSquare].indexOf(x));
 
             if (numberPossibilities.length == 1) {
               solution[line][digit] = numberPossibilities[0];
-              squares[nSquare][digit % 3 + (line % 3) * 3] = numberPossibilities[0];
+              squares[nSquare][(digit % 3) + (line % 3) * 3] =
+                numberPossibilities[0];
               verticals[digit][line] = numberPossibilities[0];
-              console.log('added digit: digit[' + digit + '] line [' + line + '] : ' + numberPossibilities[0] + ' (' + numberPossibilities + ')');
+              console.log(
+                "added digit: digit[" +
+                  digit +
+                  "] line [" +
+                  line +
+                  "] : " +
+                  numberPossibilities[0] +
+                  " (" +
+                  numberPossibilities +
+                  ")"
+              );
               nDigitResolved++;
-            }
-            else if (numberPossibilities.length == 0) {
-              console.log('not possible to add to digit[' + digit + '] line [' + line + ']');
+            } else if (numberPossibilities.length == 0) {
+              console.log(
+                "not possible to add to digit[" +
+                  digit +
+                  "] line [" +
+                  line +
+                  "]"
+              );
               console.table(solution);
               let lastCache = cache.length - 1;
 
@@ -507,32 +517,48 @@ export default class algorithms {
                   //console.log(ind, lastCache, cache[lastCache], cache[lastCache].possibilities.length);
                   cache.pop();
                   lastCache--;
-                }
-                else {
+                } else {
                   cache[lastCache].choice = ind;
-                  solution = JSON.parse(JSON.stringify(cache[lastCache].solution));
-                  squares = JSON.parse(JSON.stringify(cache[lastCache].squares));
-                  verticals = JSON.parse(JSON.stringify(cache[lastCache].verticals));;
-                  solution[cache[lastCache].line][cache[lastCache].digit] = cache[lastCache].possibilities[ind];
-                  nSquare = Math.floor(cache[lastCache].digit / 3) + Math.floor(cache[lastCache].line / 3) * 3;
-                  squares[nSquare][cache[lastCache].digit % 3 + (cache[lastCache].line % 3) * 3] = cache[lastCache].possibilities[ind];
-                  verticals[cache[lastCache].digit][cache[lastCache].line] = cache[lastCache].possibilities[ind];
+                  solution = JSON.parse(
+                    JSON.stringify(cache[lastCache].solution)
+                  );
+                  squares = JSON.parse(
+                    JSON.stringify(cache[lastCache].squares)
+                  );
+                  verticals = JSON.parse(
+                    JSON.stringify(cache[lastCache].verticals)
+                  );
+                  solution[cache[lastCache].line][cache[lastCache].digit] =
+                    cache[lastCache].possibilities[ind];
+                  nSquare =
+                    Math.floor(cache[lastCache].digit / 3) +
+                    Math.floor(cache[lastCache].line / 3) * 3;
+                  squares[nSquare][
+                    (cache[lastCache].digit % 3) +
+                      (cache[lastCache].line % 3) * 3
+                  ] = cache[lastCache].possibilities[ind];
+                  verticals[cache[lastCache].digit][cache[lastCache].line] =
+                    cache[lastCache].possibilities[ind];
                   guessIt = false;
-                  console.log('Try another one : digit[' + cache[lastCache].digit + '] line[' + cache[lastCache].line + ']: ' + cache[lastCache].possibilities[ind]);
+                  console.log(
+                    "Try another one : digit[" +
+                      cache[lastCache].digit +
+                      "] line[" +
+                      cache[lastCache].line +
+                      "]: " +
+                      cache[lastCache].possibilities[ind]
+                  );
                   console.table(cache[lastCache].solution);
                   nDigitResolved++;
                   break;
                 }
               }
               if (lastCache < 0) {
-                console.log('Invalid grid');
+                console.log("Invalid grid");
                 console.table(solution);
                 return false;
               }
-
-
-            }
-            else if (guessIt) {
+            } else if (guessIt) {
               // Make a choice!!!
               // Clone the solution at this instant so we can roll back.
 
@@ -543,16 +569,26 @@ export default class algorithms {
                 line: line,
                 digit: digit,
                 possibilities: numberPossibilities,
-                choice: 0,
-              })
+                choice: 0
+              });
 
               guessIt = false;
               solution[line][digit] = numberPossibilities[0];
-              squares[nSquare][digit % 3 + (line % 3) * 3] = numberPossibilities[0];
+              squares[nSquare][(digit % 3) + (line % 3) * 3] =
+                numberPossibilities[0];
               verticals[digit][line] = numberPossibilities[0];
-              console.log('Try : digit[' + digit + '] line[' + line + ']: ' + numberPossibilities[0] + ' (' + numberPossibilities + ')');
+              console.log(
+                "Try : digit[" +
+                  digit +
+                  "] line[" +
+                  line +
+                  "]: " +
+                  numberPossibilities[0] +
+                  " (" +
+                  numberPossibilities +
+                  ")"
+              );
               nDigitResolved++;
-
             }
           }
         }
@@ -569,7 +605,7 @@ export default class algorithms {
         }
       }
     }
-    console.log('Resolved in ' + pass + ' passes');
+    console.log("Resolved in " + pass + " passes");
 
     return solution;
   }
@@ -654,9 +690,8 @@ export default class algorithms {
 
   sumsq(array) {
     // Good luck!
-    let sum = array.reduce((a, b) => (a + b * b), 0);
+    let sum = array.reduce((a, b) => a + b * b, 0);
     return sum;
-
   }
   /* 
   Rosetta Code: Sum to 100
@@ -680,17 +715,26 @@ export default class algorithms {
     const nexpr = 2 * Math.pow(9, 4);
 
     function evaluate(code) {
-      let
-        value = 0,
+      let value = 0,
         number = 0,
         power = 1;
 
       for (var k = 9; k >= 1; k--) {
         number = power * k + number;
         switch (code % 3) {
-          case ADD: value = value + number; number = 0; power = 1; break;
-          case SUB: value = value - number; number = 0; power = 1; break;
-          case JOIN: power = power * 10; break;
+          case ADD:
+            value = value + number;
+            number = 0;
+            power = 1;
+            break;
+          case SUB:
+            value = value - number;
+            number = 0;
+            power = 1;
+            break;
+          case JOIN:
+            power = power * 10;
+            break;
         }
         code = Math.floor(code / 3);
       }
@@ -698,16 +742,18 @@ export default class algorithms {
     }
 
     function format(code) {
-      let
-        s = "";
-      let
-        a = 3 * Math.pow(9, 4),
+      let s = "";
+      let a = 3 * Math.pow(9, 4),
         b = a / 3;
 
       for (var k = 1; k <= 9; k++) {
         switch (Math.floor((code % a) / b)) {
-          case ADD: if (k > 1) s = s + '+'; break;
-          case SUB: s = s + '-'; break;
+          case ADD:
+            if (k > 1) s = s + "+";
+            break;
+          case SUB:
+            s = s + "-";
+            break;
         }
         a = b;
         b = Math.floor(b / 3);
@@ -721,7 +767,6 @@ export default class algorithms {
       if (evaluate(i) == n) {
         ret.push(format(i));
       }
-
     }
     return ret.sort();
   }
@@ -740,14 +785,13 @@ export default class algorithms {
 
   */
   wrap(text, limit) {
-
     if (text.length > limit) {
       // find the last space within limit
-      var edge = text.slice(0, limit).lastIndexOf(' ');
+      var edge = text.slice(0, limit).lastIndexOf(" ");
       if (edge > 0) {
         var line = text.slice(0, edge);
         var remainder = text.slice(edge + 1);
-        return line + '\n' + this.wrap(remainder, limit);
+        return line + "\n" + this.wrap(remainder, limit);
       }
     }
     return text;
@@ -765,8 +809,8 @@ export default class algorithms {
   YCombinator() {
     Y = f => (x => x(x))(y => f(x => y(y)(x)));
 
-    factorial = this.Y(function (f) {
-      return function (n) {
+    factorial = this.Y(function(f) {
+      return function(n) {
         return n > 1 ? n * f(n - 1) : 1;
       };
     });
@@ -782,7 +826,6 @@ export default class algorithms {
     let primes = new Set();
     let sum = 2;
     for (let i = n - 1; i >= 2; i--) {
-
       if (isPrime(i)) {
         sum += i;
       }
@@ -790,7 +833,7 @@ export default class algorithms {
 
     function isPrime(number) {
       if (primes.has(number)) return true;
-      let root = Math.ceil(Math.sqrt(number))
+      let root = Math.ceil(Math.sqrt(number));
       for (let i = 2; i <= root; i++) {
         if (number % i === 0) {
           return false;
@@ -808,23 +851,26 @@ export default class algorithms {
   In the 20×20 grid below, four numbers along a diagonal line have been marked in red.
   */
 
-  largestGridProduct(arr = [
-    [40, 17, 81, 18, 57],
-    [74, 4, 36, 16, 29],
-    [36, 42, 69, 73, 45],
-    [51, 54, 69, 16, 92],
-    [7, 97, 57, 32, 16]
-  ]) {
-
+  largestGridProduct(
+    arr = [
+      [40, 17, 81, 18, 57],
+      [74, 4, 36, 16, 29],
+      [36, 42, 69, 73, 45],
+      [51, 54, 69, 16, 92],
+      [7, 97, 57, 32, 16]
+    ]
+  ) {
     // Good luck!
 
     const n = 4;
-    let prod, max = 0;
+    let prod,
+      max = 0;
     // Diagonally left
 
     for (let i = 0; i <= arr.length - n; i++) {
       for (let j = arr.length - 1; j >= n - 1; j--) {
-        prod = arr[i][j] * arr[i + 1][j - 1] * arr[i + 2][j - 2] * arr[i + 3][j - 3];
+        prod =
+          arr[i][j] * arr[i + 1][j - 1] * arr[i + 2][j - 2] * arr[i + 3][j - 3];
 
         if (prod > max) {
           max = prod;
@@ -836,14 +882,13 @@ export default class algorithms {
 
     for (let i = 0; i <= arr.length - n; i++) {
       for (let j = 0; j <= arr.length - n; j++) {
-        prod = arr[i][j] * arr[i + 1][j + 1] * arr[i + 2][j + 2] * arr[i + 3][j + 3];
+        prod =
+          arr[i][j] * arr[i + 1][j + 1] * arr[i + 2][j + 2] * arr[i + 3][j + 3];
         if (prod > max) {
           max = prod;
         }
       }
     }
-
-
 
     // Vertical
 
@@ -900,7 +945,9 @@ export default class algorithms {
 
   divisibleTriangleNumber(n) {
     // Good luck!
-    let currentNumber = 1, nFactors = 0, triangleNumber;
+    let currentNumber = 1,
+      nFactors = 0,
+      triangleNumber;
     while (nFactors < n) {
       triangleNumber = getTriangleNumber(currentNumber);
       //console.log(triangleNumber);
@@ -910,19 +957,18 @@ export default class algorithms {
     }
 
     function getTriangleNumber(n) {
-      return (n * (n + 1)) / 2
-
+      return (n * (n + 1)) / 2;
     }
     function getFactors(n) {
       let factors = new Set();
       let i = 1;
       let root = Math.ceil(Math.sqrt(n));
 
-      while (i <= root) // run loop i to sqrt(n)
-      {
+      while (i <= root) {
+        // run loop i to sqrt(n)
         if (n % i == 0) {
           factors.add(i);
-          if (i != (n / i)) {
+          if (i != n / i) {
             factors.add(n / i);
           }
         }
@@ -931,5 +977,49 @@ export default class algorithms {
       return factors.size;
     }
     return triangleNumber;
+  }
+  /*
+  Project Euler: Problem 13: Large sum
+
+  Work out the first ten digits of the sum of the following one-hundred 50-digit numbers.
+
+  */
+
+  largeSum(
+    arr = [
+      "37107287533902102798797998220837590246510135740250",
+      "46376937677490009712648124896970078050417018260538"
+    ]
+  ) {
+    let numbers = [...arr];
+    let lengthMax = numbers.reduce((a, b) => Math.max(a.length, b.length), 0);
+    console.log(lengthMax);
+    let result = "";
+    let remainder = 0;
+    numbers = leading(numbers, lengthMax, "0");
+    let pointer = lengthMax - 1;
+    console.log(numbers, pointer);
+    while (pointer >= 0) {
+      for (let i = 0; i < numbers.length - 1; i++) {
+        let [a, b] = [
+          numbers[i].charAt(pointer),
+          numbers[i + 1].charAt(pointer)
+        ];
+        let x = parseInt(a) + parseInt(b) + remainder;
+        console.log(i);
+        result = x.toString().substr(-1) + result;
+
+        remainder = Math.floor(x / 10);
+      }
+      pointer--;
+    }
+    if (remainder > 0) {
+      result = remainder.toString() + result;
+    }
+
+    return parseInt(result.substring(0, 10));
+    function leading(array, length, char) {
+      return array.map(x => (char.repeat(length) + x).substr(-length));
+    }
   }
 }
