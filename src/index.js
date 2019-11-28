@@ -490,23 +490,23 @@ export default class algorithms {
               verticals[digit][line] = numberPossibilities[0];
               console.log(
                 "added digit: digit[" +
-                  digit +
-                  "] line [" +
-                  line +
-                  "] : " +
-                  numberPossibilities[0] +
-                  " (" +
-                  numberPossibilities +
-                  ")"
+                digit +
+                "] line [" +
+                line +
+                "] : " +
+                numberPossibilities[0] +
+                " (" +
+                numberPossibilities +
+                ")"
               );
               nDigitResolved++;
             } else if (numberPossibilities.length == 0) {
               console.log(
                 "not possible to add to digit[" +
-                  digit +
-                  "] line [" +
-                  line +
-                  "]"
+                digit +
+                "] line [" +
+                line +
+                "]"
               );
               console.table(solution);
               let lastCache = cache.length - 1;
@@ -535,18 +535,18 @@ export default class algorithms {
                     Math.floor(cache[lastCache].line / 3) * 3;
                   squares[nSquare][
                     (cache[lastCache].digit % 3) +
-                      (cache[lastCache].line % 3) * 3
+                    (cache[lastCache].line % 3) * 3
                   ] = cache[lastCache].possibilities[ind];
                   verticals[cache[lastCache].digit][cache[lastCache].line] =
                     cache[lastCache].possibilities[ind];
                   guessIt = false;
                   console.log(
                     "Try another one : digit[" +
-                      cache[lastCache].digit +
-                      "] line[" +
-                      cache[lastCache].line +
-                      "]: " +
-                      cache[lastCache].possibilities[ind]
+                    cache[lastCache].digit +
+                    "] line[" +
+                    cache[lastCache].line +
+                    "]: " +
+                    cache[lastCache].possibilities[ind]
                   );
                   console.table(cache[lastCache].solution);
                   nDigitResolved++;
@@ -579,14 +579,14 @@ export default class algorithms {
               verticals[digit][line] = numberPossibilities[0];
               console.log(
                 "Try : digit[" +
-                  digit +
-                  "] line[" +
-                  line +
-                  "]: " +
-                  numberPossibilities[0] +
-                  " (" +
-                  numberPossibilities +
-                  ")"
+                digit +
+                "] line[" +
+                line +
+                "]: " +
+                numberPossibilities[0] +
+                " (" +
+                numberPossibilities +
+                ")"
               );
               nDigitResolved++;
             }
@@ -809,8 +809,8 @@ export default class algorithms {
   YCombinator() {
     Y = f => (x => x(x))(y => f(x => y(y)(x)));
 
-    factorial = this.Y(function(f) {
-      return function(n) {
+    factorial = this.Y(function (f) {
+      return function (n) {
         return n > 1 ? n * f(n - 1) : 1;
       };
     });
@@ -992,26 +992,20 @@ export default class algorithms {
     ]
   ) {
     let numbers = [...arr];
-    let lengthMax = numbers.reduce((a, b) => Math.max(a.length, b.length), 0);
-    console.log(lengthMax);
+    let lengthMax = numbers.reduce((a, b) => Math.max(a, b.length), 0);
     let result = "";
     let remainder = 0;
     numbers = leading(numbers, lengthMax, "0");
-    let pointer = lengthMax - 1;
-    console.log(numbers, pointer);
-    while (pointer >= 0) {
-      for (let i = 0; i < numbers.length - 1; i++) {
-        let [a, b] = [
-          numbers[i].charAt(pointer),
-          numbers[i + 1].charAt(pointer)
-        ];
-        let x = parseInt(a) + parseInt(b) + remainder;
-        console.log(i);
-        result = x.toString().substr(-1) + result;
+    let unity = lengthMax - 1;
+    //console.log(numbers, unity);
+    while (unity >= 0) {
 
-        remainder = Math.floor(x / 10);
-      }
-      pointer--;
+      let unitySum = numbers.reduce((a, b) => {
+        return a + parseInt(b.charAt(unity))
+      }, 0) + remainder;
+      remainder = Math.floor(unitySum / 10);
+      result = unitySum.toString().substr(-1) + result;
+      unity--;
     }
     if (remainder > 0) {
       result = remainder.toString() + result;

@@ -1085,27 +1085,20 @@
         var numbers = _toConsumableArray(arr);
 
         var lengthMax = numbers.reduce(function (a, b) {
-          return Math.max(a.length, b.length);
+          return Math.max(a, b.length);
         }, 0);
-        console.log(lengthMax);
         var result = "";
         var remainder = 0;
         numbers = leading(numbers, lengthMax, "0");
-        var pointer = lengthMax - 1;
-        console.log(numbers, pointer);
+        var unity = lengthMax - 1; //console.log(numbers, unity);
 
-        while (pointer >= 0) {
-          for (var i = 0; i < numbers.length - 1; i++) {
-            var _ref = [numbers[i].charAt(pointer), numbers[i + 1].charAt(pointer)],
-                a = _ref[0],
-                b = _ref[1];
-            var x = parseInt(a) + parseInt(b) + remainder;
-            console.log(i);
-            result = x.toString().substr(-1) + result;
-            remainder = Math.floor(x / 10);
-          }
-
-          pointer--;
+        while (unity >= 0) {
+          var unitySum = numbers.reduce(function (a, b) {
+            return a + parseInt(b.charAt(unity));
+          }, 0) + remainder;
+          remainder = Math.floor(unitySum / 10);
+          result = unitySum.toString().substr(-1) + result;
+          unity--;
         }
 
         if (remainder > 0) {
