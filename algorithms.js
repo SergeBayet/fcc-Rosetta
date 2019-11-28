@@ -1533,6 +1533,39 @@
 
         return res;
       }
+      /*
+      Rosetta Code: Ethiopian multiplication
+       Ethiopian multiplication is a method of multiplying integers using only addition, doubling, and halving.
+       Method:
+         Take two numbers to be multiplied and write them down at the top of two columns
+        In the left-hand column repeatedly halve the last number, discarding any remainders, and write the result below the last in the same column, until you write a value of 1
+        In the right-hand column repeatedly double the last number and write the result below. stop when you add a result in the same row as where the left hand column shows 1
+        Examine the table produced and discard any row where the value in the left column is even
+        Sum the values in the right-hand column that remain to produce the result of multiplying the original two numbers together
+       */
+
+    }, {
+      key: "eth_mult",
+      value: function eth_mult(a, b) {
+        // Good luck!
+        var table = [[a, b]];
+
+        while (a !== 1) {
+          var _ref2 = [Math.floor(a / 2), b * 2];
+          a = _ref2[0];
+          b = _ref2[1];
+          table.push([a, b]);
+        }
+
+        console.log(table.filter(function (x) {
+          return x[0] % 2 !== 0;
+        }));
+        return table.filter(function (x) {
+          return x[0] % 2 !== 0;
+        }).reduce(function (sum, el) {
+          return sum + el[1];
+        }, 0);
+      }
     }]);
 
     return algorithms;
