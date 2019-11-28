@@ -1,5 +1,3 @@
-import { SSL_OP_LEGACY_SERVER_CONNECT } from "constants";
-
 const version = "1.0.0";
 
 export default class algorithms {
@@ -1469,6 +1467,24 @@ export default class algorithms {
     return y;
     function cooling(y) {
       return -0.07 * (y - 20);
+    }
+  }
+
+  /*
+  Rosetta Code: Evaluate binomial coefficients
+
+Write a function to calculate the binomial coefficient for the given value of n and k.
+
+This formula is recommended:
+
+(nk)=n!(n−k)!k!=n(n−1)(n−2)…(n−k+1)k(k−1)(k−2)…1
+  */
+  binom(n, k) {
+    // Good luck!
+    return rFact(n) / (rFact(n - k) * rFact(k));
+    function rFact(num) {
+      if (num === 0) { return 1; }
+      else { return num * rFact(num - 1); }
     }
   }
 }
