@@ -1796,9 +1796,35 @@ repeat this rule until no fraction in the list produces an integer when multipli
     for (var s = '', i = 0; i < len; i += 1) s += parseInt(iban.charAt(i), 36)
     for (var m = s.substr(0, 15) % 97, s = s.substr(15); s; s = s.substr(13)) m = (m + s.substr(0, 13)) % 97
     return m == 1
-
-
-
   }
-
+  /*
+    Rosetta Code: Identity matrix
+  
+    An identity matrix is a square matrix of size n×n
+  
+    , where the diagonal elements are all 1s (ones), and all the other elements are all 0s (zeroes).
+  
+        In=⎡⎣⎢100010001⎤⎦⎥
+  
+    Write a function that takes a number n as a parameter and returns the identity matrix of order n×n
+  .
+  */
+  idMatrix(n) {
+    // Good luck!
+    let matrix = [...Array(n)];
+    for (var i = 0; i < n; i++) {
+      matrix[i] = [...Array(n)];
+    }
+    for (let i = 0; i < n; i++) {
+      for (let j = 0; j < n; j++) {
+        if (i == j) {
+          matrix[i][j] = 1;
+        }
+        else {
+          matrix[i][j] = 0;
+        }
+      }
+    }
+    return matrix;
+  }
 }

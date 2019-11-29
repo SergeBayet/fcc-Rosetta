@@ -2034,6 +2034,41 @@
 
         return m == 1;
       }
+      /*
+        Rosetta Code: Identity matrix
+      
+        An identity matrix is a square matrix of size n×n
+      
+        , where the diagonal elements are all 1s (ones), and all the other elements are all 0s (zeroes).
+      
+            In=⎡⎣⎢100010001⎤⎦⎥
+      
+        Write a function that takes a number n as a parameter and returns the identity matrix of order n×n
+      .
+      */
+
+    }, {
+      key: "idMatrix",
+      value: function idMatrix(n) {
+        // Good luck!
+        var matrix = _toConsumableArray(Array(n));
+
+        for (var i = 0; i < n; i++) {
+          matrix[i] = _toConsumableArray(Array(n));
+        }
+
+        for (var _i6 = 0; _i6 < n; _i6++) {
+          for (var j = 0; j < n; j++) {
+            if (_i6 == j) {
+              matrix[_i6][j] = 1;
+            } else {
+              matrix[_i6][j] = 0;
+            }
+          }
+        }
+
+        return matrix;
+      }
     }]);
 
     return algorithms;
