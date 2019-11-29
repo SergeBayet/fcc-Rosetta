@@ -1645,4 +1645,34 @@ Write a function to generate Fibonacci n
     }
     return fib;
   }
+  /*
+  Rosetta Code: Fibonacci sequence
+
+  Write a function to generate the nth Fibonacci number.
+
+  The nth Fibonacci number is given by:
+
+  Fn = Fn-1 + Fn-2
+
+  The first two terms of the series are 0 and 1.
+
+  Hence, the series is: 0, 1, 1, 2, 3, 5, 8, 13...
+  */
+  fibonacci(n) {
+    // Good luck!
+    let fib = [0, 1];
+    let index = 2;
+    while (index < n) {
+      fib.push(fib[index - 2] + fib[index - 1]);
+      index++;
+    }
+
+    return fib[fib.length - 1];
+  }
+
+
+  fibWord(n) {
+    // Good luck!
+  }
+
 }
