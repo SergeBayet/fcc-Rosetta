@@ -1487,4 +1487,67 @@ This formula is recommended:
       else { return num * rFact(num - 1); }
     }
   }
+
+  /*
+    Rosetta Code: Execute a Markov algorithm
+  
+    Create an interpreter for a Markov Algorithm.
+  
+    Rules have the syntax:
+  
+    [ruleset] ::= (([comment] | [rule]) [newline]+)*
+    [comment] ::= # {[any character]}
+    [rule] ::= [pattern] [whitespace] -> [whitespace] [.] [replacement]
+    [whitespace] ::= ([tab] | [space]) [[whitespace]]
+  
+    There is one rule per line.
+  
+    If there is a . (period) present before the [replacement], then this is a terminating rule in which case the interpreter must halt execution.
+  
+    A ruleset consists of a sequence of rules, with optional comments.
+  */
+  markov(rules, test) {
+    // Good luck!
+    const regex = /#.*/gm;
+    let line = 0, pattern, replacement, terminating = false;
+
+    while (line < rules.length) {
+
+      if (regex.test(rules[line])) {
+        console.log('coucou');
+        line++;
+        continue;
+      }
+
+      [pattern, replacement] = rules[line].split(' -> ').map(x => x.trim());
+
+      if (replacement.charAt(0) == '.') {
+        terminating = true;
+        replacement = replacement.substr(1);
+      }
+
+      test = test.replace(pattern, replacement);
+      if (terminating) break;
+      line++;
+    }
+    return test;
+  }
+  /*
+  Rosetta Code: Factors of an integer
+
+  Write a function that returns the factors of a positive integer as an array.
+
+  These factors are the positive integers by which the number being factored can be divided to yield a positive integer result.
+  */
+  factors(num) {
+    // Good luck!
+    let res = [];
+    for (let i = 1; i <= num; i++) {
+      if (num % i == 0) {
+        res.push(i);
+      }
+    }
+    return res;
+  }
+
 }

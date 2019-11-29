@@ -62,6 +62,10 @@
     return Constructor;
   }
 
+  function _slicedToArray(arr, i) {
+    return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+  }
+
   function _toConsumableArray(arr) {
     return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
   }
@@ -74,12 +78,50 @@
     }
   }
 
+  function _arrayWithHoles(arr) {
+    if (Array.isArray(arr)) return arr;
+  }
+
   function _iterableToArray(iter) {
     if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
   }
 
+  function _iterableToArrayLimit(arr, i) {
+    if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
+      return;
+    }
+
+    var _arr = [];
+    var _n = true;
+    var _d = false;
+    var _e = undefined;
+
+    try {
+      for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+        _arr.push(_s.value);
+
+        if (i && _arr.length === i) break;
+      }
+    } catch (err) {
+      _d = true;
+      _e = err;
+    } finally {
+      try {
+        if (!_n && _i["return"] != null) _i["return"]();
+      } finally {
+        if (_d) throw _e;
+      }
+    }
+
+    return _arr;
+  }
+
   function _nonIterableSpread() {
     throw new TypeError("Invalid attempt to spread non-iterable instance");
+  }
+
+  function _nonIterableRest() {
+    throw new TypeError("Invalid attempt to destructure non-iterable instance");
   }
 
   var algorithms =
@@ -1607,6 +1649,83 @@
             return num * rFact(num - 1);
           }
         }
+      }
+      /*
+        Rosetta Code: Execute a Markov algorithm
+      
+        Create an interpreter for a Markov Algorithm.
+      
+        Rules have the syntax:
+      
+        [ruleset] ::= (([comment] | [rule]) [newline]+)*
+        [comment] ::= # {[any character]}
+        [rule] ::= [pattern] [whitespace] -> [whitespace] [.] [replacement]
+        [whitespace] ::= ([tab] | [space]) [[whitespace]]
+      
+        There is one rule per line.
+      
+        If there is a . (period) present before the [replacement], then this is a terminating rule in which case the interpreter must halt execution.
+      
+        A ruleset consists of a sequence of rules, with optional comments.
+      */
+
+    }, {
+      key: "markov",
+      value: function markov(rules, test) {
+        // Good luck!
+        var regex = /#.*/gm;
+        var line = 0,
+            pattern,
+            replacement,
+            terminating = false;
+
+        while (line < rules.length) {
+          if (regex.test(rules[line])) {
+            console.log('coucou');
+            line++;
+            continue;
+          }
+
+          var _rules$line$split$map = rules[line].split(' -> ').map(function (x) {
+            return x.trim();
+          });
+
+          var _rules$line$split$map2 = _slicedToArray(_rules$line$split$map, 2);
+
+          pattern = _rules$line$split$map2[0];
+          replacement = _rules$line$split$map2[1];
+
+          if (replacement.charAt(0) == '.') {
+            terminating = true;
+            replacement = replacement.substr(1);
+          }
+
+          test = test.replace(pattern, replacement);
+          if (terminating) break;
+          line++;
+        }
+
+        return test;
+      }
+      /*
+      Rosetta Code: Factors of an integer
+       Write a function that returns the factors of a positive integer as an array.
+       These factors are the positive integers by which the number being factored can be divided to yield a positive integer result.
+      */
+
+    }, {
+      key: "factors",
+      value: function factors(num) {
+        // Good luck!
+        var res = [];
+
+        for (var i = 1; i <= num; i++) {
+          if (num % i == 0) {
+            res.push(i);
+          }
+        }
+
+        return res;
       }
     }]);
 
