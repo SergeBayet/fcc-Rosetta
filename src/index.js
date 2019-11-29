@@ -1549,5 +1549,36 @@ This formula is recommended:
     }
     return res;
   }
+  /*
+  Rosetta Code: Farey sequence
 
+  The Farey sequence Fn of order n is the sequence of completely reduced fractions between 0 and 1 which, when in lowest terms, have denominators less than or equal to n, arranged in order of increasing size.
+
+  The Farey sequence is sometimes incorrectly called a Farey series.
+
+  Each Farey sequence:
+
+      starts with the value 0, denoted by the fraction 01
+
+  ends with the value 1, denoted by the fraction 11
+  .
+  */
+  farey(n) {
+    // Good luck!
+    let fractions = this.combinations(2, n + 1);
+    fractions.push([n, n]);
+    fractions = fractions.filter((el, index) => {
+      for (let i = 0; i < index; i++) {
+        if (el[0] / el[1] == fractions[i][0] / fractions[i][1]) {
+          console.log(el[0] / el[1], index);
+          return false;
+        }
+      }
+      return true;
+    }).sort((a, b) => {
+      return a[0] / a[1] > b[0] / b[1];
+    }).map(el => el[0] + '/' + el[1]);
+
+    return fractions;
+  }
 }

@@ -1727,6 +1727,38 @@
 
         return res;
       }
+      /*
+      Rosetta Code: Farey sequence
+       The Farey sequence Fn of order n is the sequence of completely reduced fractions between 0 and 1 which, when in lowest terms, have denominators less than or equal to n, arranged in order of increasing size.
+       The Farey sequence is sometimes incorrectly called a Farey series.
+       Each Farey sequence:
+           starts with the value 0, denoted by the fraction 01
+       ends with the value 1, denoted by the fraction 11
+      .
+      */
+
+    }, {
+      key: "farey",
+      value: function farey(n) {
+        // Good luck!
+        var fractions = this.combinations(2, n + 1);
+        fractions.push([n, n]);
+        fractions = fractions.filter(function (el, index) {
+          for (var i = 0; i < index; i++) {
+            if (el[0] / el[1] == fractions[i][0] / fractions[i][1]) {
+              console.log(el[0] / el[1], index);
+              return false;
+            }
+          }
+
+          return true;
+        }).sort(function (a, b) {
+          return a[0] / a[1] > b[0] / b[1];
+        }).map(function (el) {
+          return el[0] + '/' + el[1];
+        });
+        return fractions;
+      }
     }]);
 
     return algorithms;
