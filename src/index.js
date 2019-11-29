@@ -1714,5 +1714,54 @@ Write a function to generate Fibonacci n
         }, 0);
     }
   }
+  /*
+  Rosetta Code: Fractran
 
+FRACTRAN is a Turing-complete esoteric programming language invented by the mathematician John Horton Conway.
+
+A FRACTRAN program is an ordered list of positive fractions P=(f1,f2,…,fm)
+, together with an initial positive integer input n
+
+.
+
+The program is run by updating the integer n
+
+as follows:
+
+    for the first fraction, fi
+
+, in the list for which nfi is an integer, replace n with nfi
+;
+repeat this rule until no fraction in the list produces an integer when multiplied by n
+, then halt.
+  */
+  fractran(progStr) {
+    // Good luck!
+    let fractions = progStr.split(', ').map(x => x.split('/'));
+
+    let sequence = [];
+    let n = 2;
+    let i = 0;
+    let length = 0;
+    while (i < fractions.length && length < 10) {
+
+      let nFi = n * fractions[i][0] / fractions[i][1];
+
+      if (Number.isInteger(nFi)) {
+        console.log(`ok -> n = ${n}, ${n} * (${fractions[i][0]} / ${fractions[i][1]}) = ${nFi}`);
+        sequence.push(nFi);
+        n = nFi;
+        i = 0;
+        length++;
+
+      }
+      else {
+        console.log(`not ok -> n = ${n}, ${n} * (${fractions[i][0]} / ${fractions[i][1]}) = ${nFi}`);
+        i++;
+      }
+
+    }
+    return sequence;
+
+  }
 }

@@ -1896,6 +1896,50 @@
           }, 0);
         }
       }
+      /*
+      Rosetta Code: Fractran
+      FRACTRAN is a Turing-complete esoteric programming language invented by the mathematician John Horton Conway.
+      A FRACTRAN program is an ordered list of positive fractions P=(f1,f2,…,fm)
+      , together with an initial positive integer input n
+      .
+      The program is run by updating the integer n
+      as follows:
+         for the first fraction, fi
+      , in the list for which nfi is an integer, replace n with nfi
+      ;
+      repeat this rule until no fraction in the list produces an integer when multiplied by n
+      , then halt.
+      */
+
+    }, {
+      key: "fractran",
+      value: function fractran(progStr) {
+        // Good luck!
+        var fractions = progStr.split(', ').map(function (x) {
+          return x.split('/');
+        });
+        var sequence = [];
+        var n = 2;
+        var i = 0;
+        var length = 0;
+
+        while (i < fractions.length && length < 10) {
+          var nFi = n * fractions[i][0] / fractions[i][1];
+
+          if (Number.isInteger(nFi)) {
+            console.log("ok -> n = ".concat(n, ", ").concat(n, " * (").concat(fractions[i][0], " / ").concat(fractions[i][1], ") = ").concat(nFi));
+            sequence.push(nFi);
+            n = nFi;
+            i = 0;
+            length++;
+          } else {
+            console.log("not ok -> n = ".concat(n, ", ").concat(n, " * (").concat(fractions[i][0], " / ").concat(fractions[i][1], ") = ").concat(nFi));
+            i++;
+          }
+        }
+
+        return sequence;
+      }
     }]);
 
     return algorithms;
