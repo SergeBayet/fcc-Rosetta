@@ -1827,4 +1827,27 @@ repeat this rule until no fraction in the list produces an integer when multipli
     }
     return matrix;
   }
+  /*
+  Rosetta Code: Iterated digits squaring
+
+  If you add the square of the digits of a Natural number (an integer bigger than zero), you always end with either 1 or 89:
+
+  15 -> 26 -> 40 -> 16 -> 37 -> 58 -> 89
+  7 -> 49 -> 97 -> 130 -> 10 -> 1
+
+  Write a function that takes a number as a parameter and returns 1 or 89 after performing the mentioned process.
+  */
+  iteratedSquare(n) {
+    // Good luck!
+    while (n !== 1 && n !== 89) {
+      let a = n.toString().split('');
+      if (a[1] == undefined) {
+        n = a[0] ** 2;
+      }
+      else {
+        n = a[0] ** 2 + a[1] ** 2;
+      }
+    }
+    return n;
+  }
 }
