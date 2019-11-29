@@ -1850,4 +1850,45 @@ repeat this rule until no fraction in the list produces an integer when multipli
     }
     return n;
   }
+
+  /*
+  Rosetta Code: Jaro distance
+
+  The Jaro distance is a measure of similarity between two strings. The higher the Jaro distance for two strings is, the more similar the strings are. The score is normalized such that 0 equates to no similarity and 1 is an exact match. 
+  */
+
+  jaro(s, t) {
+    // Good luck!
+    let m = 0;
+    let transpositions = 0;
+    let maxDistance = (Math.max(s.length, t.length) / 2) - 1;
+    let s_matches = [...Array(s.length)];
+    let t_matches = [...Array(t.length)];
+    for (let i = 0; i < s.length; i++) {
+      let start = Math.max(0, i - maxDistance);
+      let end = Math.min(i + maxDistance + 1, t.length);
+      for (let j = start; j < end; j++) {
+        if (t_matches[j]) continue;
+        if (s.charAt(i) !== t.charAt(j)) continue;
+        m++;
+
+        s_matches[i] = true;
+        t_matches[j] = true;
+        break;
+
+      }
+    }
+
+    if (m == 0) return 0;
+    let k = 0;
+    for (let i = 0; i < s.length; i++) {
+      if (!s_matches[i]) continue;
+      while (!t_matches[k]) k++;
+      if (s.charAt(i) != t.charAt(k)) transpositions++;
+      k++;
+    }
+    transpositions = transpositions / 2;
+    return (m / s.length + m / t.length + (m - transpositions) / m) / 3;
+
+  }
 }
