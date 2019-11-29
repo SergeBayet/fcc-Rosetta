@@ -1842,9 +1842,59 @@
 
         return fib[fib.length - 1];
       }
+      /*
+        Rosetta Code: Fibonacci word
+      
+        The Fibonacci Word may be created in a manner analogous to the Fibonacci Sequence as described here:
+      
+        Define  F_Word1  as  1
+        Define  F_Word2  as  0
+        Form   F_Word3  as  F_Word2   concatenated with  F_Word1   i.e.:  01
+        Form   F_Wordn  as  F_Wordn-1  concatenated with  F_wordn-2
+      
+        Write a function to return the Fibonacci Words up to n. n will be provided as a parameter to the function. The function should return an array of objects. The objects should be of the form: { N: 1, Length: 1, Entropy: 0, Word: '1' }.
+      */
+
     }, {
       key: "fibWord",
-      value: function fibWord(n) {// Good luck!
+      value: function fibWord(n) {
+        // Good luck! 
+        var words = [{
+          N: 1,
+          Length: 1,
+          Entropy: 0,
+          Word: '1'
+        }, {
+          N: 2,
+          Length: 1,
+          Entropy: 0,
+          Word: '0'
+        }];
+        var index = 2;
+
+        while (index <= n) {
+          var str = words[index - 1].Word + words[index - 2].Word;
+          var newWord = {
+            N: index + 1,
+            Length: str.length,
+            Entropy: entropy(str),
+            Word: str
+          };
+          words.push(newWord);
+          index++;
+        }
+
+        return words;
+
+        function entropy(str) {
+          // Good luck!
+          return _toConsumableArray(new Set(str)).map(function (chr) {
+            return str.match(new RegExp(chr, 'g')).length;
+          }).reduce(function (sum, frequency) {
+            var p = frequency / str.length;
+            return sum + p * Math.log2(1 / p);
+          }, 0);
+        }
       }
     }]);
 
