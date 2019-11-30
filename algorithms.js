@@ -2410,6 +2410,49 @@
 
         var colsLength = _toConsumableArray(Array(cols));
 
+        for (var _i9 = 0; _i9 < colsLength.length; _i9++) {
+          var max = 0;
+
+          for (var j = 0; j < input.length; j++) {
+            console.log(input[j][_i9]);
+
+            if (input[j][_i9] == undefined) {
+              input[j].push("");
+            }
+
+            if (input[j][_i9].length > max) {
+              max = input[j][_i9].length;
+            }
+          }
+
+          colsLength[_i9] = max;
+        }
+
+        for (var _i10 = 0; _i10 < input.length; _i10++) {
+          for (var _j4 = 0; _j4 < colsLength.length; _j4++) {
+            var l = colsLength[_j4] - input[_i10][_j4].length + 1;
+
+            switch (justification) {
+              case "left":
+                input[_i10][_j4] = input[_i10][_j4] + " ".repeat(l);
+                break;
+
+              case "right":
+                input[_i10][_j4] = " ".repeat(l) + input[_i10][_j4];
+                break;
+
+              case "center":
+                var c = 1;
+                if (l % 2 == 1) c = 0;
+                l = (l - 1) / 2;
+                input[_i10][_j4] = " ".repeat(l + c) + input[_i10][_j4] + " ".repeat(l + 1);
+                break;
+            }
+          }
+
+          input[_i10] = input[_i10].join("");
+        }
+
         console.log(colsLength);
         return input;
       }

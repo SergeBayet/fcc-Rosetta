@@ -2210,6 +2210,42 @@ Implement a function that returns the sum of the n-th row.
     }
     console.log(cols);
     let colsLength = [...Array(cols)];
+    for (let i = 0; i < colsLength.length; i++) {
+      let max = 0;
+      for (let j = 0; j < input.length; j++) {
+        console.log(input[j][i]);
+        if (input[j][i] == undefined) {
+          input[j].push("");
+        }
+        if (input[j][i].length > max) {
+          max = input[j][i].length;
+        }
+      }
+      colsLength[i] = max;
+    }
+    for (let i = 0; i < input.length; i++) {
+      for (let j = 0; j < colsLength.length; j++) {
+        let l = colsLength[j] - input[i][j].length + 1;
+        switch (justification) {
+          case "left":
+            input[i][j] = input[i][j] + " ".repeat(l);
+            break;
+          case "right":
+            input[i][j] = " ".repeat(l) + input[i][j];
+            break;
+          case "center":
+            let c = 1;
+            if (l % 2 == 1) c = 0;
+            l = (l - 1) / 2;
+            input[i][j] = " ".repeat(l + c) + input[i][j] + " ".repeat(l + 1);
+            break;
+            break;
+          default:
+            break;
+        }
+      }
+      input[i] = input[i].join("");
+    }
     console.log(colsLength);
     return input;
   }
