@@ -2298,9 +2298,8 @@
         }
 
         items.sort(function (a, b) {
-          return a.value / a.weight < b.value / b.weight;
+          return a.ratio < b.ratio;
         });
-        console.table(items);
         var n = 0;
 
         while (n < items.length) {
@@ -2315,6 +2314,104 @@
 
         console.log(load, value, maxweight - load);
         return value;
+      }
+      /*
+      Rosetta Code: 9 billion names of God the integer
+      This task is a variation of the short story by Arthur C. Clarke.
+      (Solvers should be aware of the consequences of completing this task.)
+      In detail, to specify what is meant by a "name":
+         The integer 1 has 1 name "1".
+        The integer 2 has 2 names "1+1" and "2".
+        The integer 3 has 3 names "1+1+1", "2+1", and "3".
+        The integer 4 has 5 names "1+1+1+1", "2+1+1", "2+2", "3+1", "4".
+        The integer 5 has 7 names "1+1+1+1+1", "2+1+1+1", "2+2+1", "3+1+1", "3+2", "4+1", "5".
+      This can be visualized in the following form:
+               1
+            1   1
+          1   1   1
+        1   2   1   1
+      1   2   2   1   1
+      1   3   3   2   1   1
+      Where row n
+      corresponds to integer n, and each column C in row m from left to right corresponds to the number of names beginning with C.
+      Optionally note that the sum of the n-th row P(n) is the integer partition function.
+      Implement a function that returns the sum of the n-th row.
+      */
+
+    }, {
+      key: "numberOfNames",
+      value: function numberOfNames(num) {
+        var cache = [[1]];
+
+        function cumu(n) {
+          var r, l, x, Aa, Mi;
+
+          for (l = cache.length; l < n + 1; l++) {
+            r = [0];
+
+            for (x = 1; x < l + 1; x++) {
+              r.push(r[r.length - 1] + (Aa = cache[l - x < 0 ? cache.length - (l - x) : l - x])[(Mi = Math.min(x, l - x)) < 0 ? Aa.length - Mi : Mi]);
+            }
+
+            cache.push(r);
+          }
+
+          return cache[n];
+        }
+
+        function row(n) {
+          var r = cumu(n),
+              leArray = [],
+              i;
+
+          for (i = 0; i < n; i++) {
+            leArray.push(r[i + 1] - r[i]);
+          }
+
+          return leArray;
+        }
+
+        var sum;
+
+        for (var i = 1; i <= num; i++) {
+          var r = row(i);
+          console.log(r);
+          sum = r.reduce(function (a, b) {
+            return a + b;
+          }, 0);
+        }
+
+        return sum;
+      }
+      /*
+      Rosetta Code: Align columns
+       Given a text file of many lines, where fields within a line are delineated by a single $ character, write a program that aligns each column of fields by ensuring that words in each column are separated by at least one space. Further, allow for each word in a column to be either left justified, right justified, or center justified within its column.
+       */
+
+    }, {
+      key: "formatText",
+      value: function formatText(input, justification) {
+        // Good luck!
+        var cols = 0;
+
+        for (var i = 0; i < input.length; i++) {
+          if (input[i].charAt(input[i].length - 1) == "$") {
+            input[i] = input[i].substr(0, input[i].length - 1);
+          }
+
+          input[i] = input[i].split("$");
+
+          if (input[i].length > cols) {
+            cols = input[i].length;
+          }
+        }
+
+        console.log(cols);
+
+        var colsLength = _toConsumableArray(Array(cols));
+
+        console.log(colsLength);
+        return input;
       }
     }]);
 
