@@ -2068,4 +2068,59 @@ Which number was he?
     }
     return false;
   }
+
+  /*
+  Rosetta Code: Knapsack problem/0-1
+
+  The 0-1 knapsack problem is defined as follows:
+
+  You are given an array of objects representing items to be put in a knapsack. The objects have 3 attributes: name, weight, and value. The items need to be selected so that the total weight does not exceed the maximum weight and the value is maximized.
+
+  Write a function to solve the knapsack problem. The function is given the array of objects and the maximum weight as parameters. It should return the maximum total value possible.
+  */
+  knapsack2(items, maxweight) {
+    // Dynamic programming function
+    let K = [];
+    for (let i = 0; i <= items.length; i++) {
+      K.push([...Array(items.length + 1)]);
+    }
+    for (let i = 0; i <= items.length; i++) {
+      for (let w = 0; w <= maxweight; w++) {
+        if (i == 0 || w == 0) {
+          K[i][w] = 0;
+        } else if (items[i - 1].weight <= w) {
+          K[i][w] = Math.max(
+            items[i - 1].value + K[i - 1][w - items[i - 1].weight],
+            K[i - 1][w]
+          );
+        } else {
+          K[i][w] = K[i - 1][w];
+        }
+      }
+    }
+    return K[items.length][maxweight];
+  }
+  knapsack(items, maxweight) {
+    // Good luck!
+    // Glouton function : not optimal
+    let load = 0;
+    let value = 0;
+    for (let i = 0; i < items.length; i++) {
+      items[i].ratio = items[i].value / items[i].weight;
+    }
+    items.sort((a, b) => a.value / a.weight < b.value / b.weight);
+    console.table(items);
+    let n = 0;
+    let remaining;
+    while (n < items.length) {
+      if (load + items[n].weight <= maxweight) {
+        load += items[n].weight;
+        value += items[n].value;
+        console.log(items[n]);
+      }
+      n++;
+    }
+    console.log(load, value, maxweight - load);
+    return value;
+  }
 }

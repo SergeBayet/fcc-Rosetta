@@ -2254,6 +2254,68 @@
 
         return false;
       }
+      /*
+      Rosetta Code: Knapsack problem/0-1
+       The 0-1 knapsack problem is defined as follows:
+       You are given an array of objects representing items to be put in a knapsack. The objects have 3 attributes: name, weight, and value. The items need to be selected so that the total weight does not exceed the maximum weight and the value is maximized.
+       Write a function to solve the knapsack problem. The function is given the array of objects and the maximum weight as parameters. It should return the maximum total value possible.
+      */
+
+    }, {
+      key: "knapsack2",
+      value: function knapsack2(items, maxweight) {
+        // Dynamic programming function
+        var K = [];
+
+        for (var i = 0; i <= items.length; i++) {
+          K.push(_toConsumableArray(Array(items.length + 1)));
+        }
+
+        for (var _i8 = 0; _i8 <= items.length; _i8++) {
+          for (var w = 0; w <= maxweight; w++) {
+            if (_i8 == 0 || w == 0) {
+              K[_i8][w] = 0;
+            } else if (items[_i8 - 1].weight <= w) {
+              K[_i8][w] = Math.max(items[_i8 - 1].value + K[_i8 - 1][w - items[_i8 - 1].weight], K[_i8 - 1][w]);
+            } else {
+              K[_i8][w] = K[_i8 - 1][w];
+            }
+          }
+        }
+
+        return K[items.length][maxweight];
+      }
+    }, {
+      key: "knapsack",
+      value: function knapsack(items, maxweight) {
+        // Good luck!
+        // Glouton function : not optimal
+        var load = 0;
+        var value = 0;
+
+        for (var i = 0; i < items.length; i++) {
+          items[i].ratio = items[i].value / items[i].weight;
+        }
+
+        items.sort(function (a, b) {
+          return a.value / a.weight < b.value / b.weight;
+        });
+        console.table(items);
+        var n = 0;
+
+        while (n < items.length) {
+          if (load + items[n].weight <= maxweight) {
+            load += items[n].weight;
+            value += items[n].value;
+            console.log(items[n]);
+          }
+
+          n++;
+        }
+
+        console.log(load, value, maxweight - load);
+        return value;
+      }
     }]);
 
     return algorithms;
