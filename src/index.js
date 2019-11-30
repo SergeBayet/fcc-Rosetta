@@ -490,23 +490,23 @@ export default class algorithms {
               verticals[digit][line] = numberPossibilities[0];
               console.log(
                 "added digit: digit[" +
-                digit +
-                "] line [" +
-                line +
-                "] : " +
-                numberPossibilities[0] +
-                " (" +
-                numberPossibilities +
-                ")"
+                  digit +
+                  "] line [" +
+                  line +
+                  "] : " +
+                  numberPossibilities[0] +
+                  " (" +
+                  numberPossibilities +
+                  ")"
               );
               nDigitResolved++;
             } else if (numberPossibilities.length == 0) {
               console.log(
                 "not possible to add to digit[" +
-                digit +
-                "] line [" +
-                line +
-                "]"
+                  digit +
+                  "] line [" +
+                  line +
+                  "]"
               );
               console.table(solution);
               let lastCache = cache.length - 1;
@@ -535,18 +535,18 @@ export default class algorithms {
                     Math.floor(cache[lastCache].line / 3) * 3;
                   squares[nSquare][
                     (cache[lastCache].digit % 3) +
-                    (cache[lastCache].line % 3) * 3
+                      (cache[lastCache].line % 3) * 3
                   ] = cache[lastCache].possibilities[ind];
                   verticals[cache[lastCache].digit][cache[lastCache].line] =
                     cache[lastCache].possibilities[ind];
                   guessIt = false;
                   console.log(
                     "Try another one : digit[" +
-                    cache[lastCache].digit +
-                    "] line[" +
-                    cache[lastCache].line +
-                    "]: " +
-                    cache[lastCache].possibilities[ind]
+                      cache[lastCache].digit +
+                      "] line[" +
+                      cache[lastCache].line +
+                      "]: " +
+                      cache[lastCache].possibilities[ind]
                   );
                   console.table(cache[lastCache].solution);
                   nDigitResolved++;
@@ -579,14 +579,14 @@ export default class algorithms {
               verticals[digit][line] = numberPossibilities[0];
               console.log(
                 "Try : digit[" +
-                digit +
-                "] line[" +
-                line +
-                "]: " +
-                numberPossibilities[0] +
-                " (" +
-                numberPossibilities +
-                ")"
+                  digit +
+                  "] line[" +
+                  line +
+                  "]: " +
+                  numberPossibilities[0] +
+                  " (" +
+                  numberPossibilities +
+                  ")"
               );
               nDigitResolved++;
             }
@@ -809,8 +809,8 @@ export default class algorithms {
   YCombinator() {
     Y = f => (x => x(x))(y => f(x => y(y)(x)));
 
-    factorial = this.Y(function (f) {
-      return function (n) {
+    factorial = this.Y(function(f) {
+      return function(n) {
         return n > 1 ? n * f(n - 1) : 1;
       };
     });
@@ -999,10 +999,10 @@ export default class algorithms {
     let unity = lengthMax - 1;
     //console.log(numbers, unity);
     while (unity >= 0) {
-
-      let unitySum = numbers.reduce((a, b) => {
-        return a + parseInt(b.charAt(unity))
-      }, 0) + remainder;
+      let unitySum =
+        numbers.reduce((a, b) => {
+          return a + parseInt(b.charAt(unity));
+        }, 0) + remainder;
       remainder = Math.floor(unitySum / 10);
       result = unitySum.toString().substr(-1) + result;
       unity--;
@@ -1051,22 +1051,23 @@ export default class algorithms {
     }
     return result;
     function termsCollatz(start) {
-
       let c = start;
       let nTerms = 0;
       while (c !== 1) {
-        c = (c % 2 == 0) ? c / 2 : 3 * c + 1;
+        c = c % 2 == 0 ? c / 2 : 3 * c + 1;
         nTerms++;
       }
       return nTerms;
     }
-
   }
   latticePaths(n) {
     return rFact(2 * n) / Math.pow(rFact(n), 2);
     function rFact(num) {
-      if (num === 0) { return 1; }
-      else { return num * rFact(num - 1); }
+      if (num === 0) {
+        return 1;
+      } else {
+        return num * rFact(num - 1);
+      }
     }
   }
   /*
@@ -1081,24 +1082,22 @@ export default class algorithms {
     // Doesn't work with big numbers ...
     return Math.pow(2, exponent)
       .toString()
-      .split('')
+      .split("")
       .reduce((a, b) => a + parseInt(b), 0);
-
   }
   powerDigitSumBigNumber(exponent) {
     let self = this;
     function power2exponent(exponent) {
-      if (exponent == 0) return '1';
-      let temp = '2';
+      if (exponent == 0) return "1";
+      let temp = "2";
       for (let i = 2; i <= exponent; i++) {
         temp = self.largeSum([temp, temp]);
-
       }
       return temp;
     }
     return power2exponent(exponent)
       .toString()
-      .split('')
+      .split("")
       .reduce((a, b) => a + parseInt(b), 0);
   }
   /*
@@ -1116,81 +1115,77 @@ export default class algorithms {
     for (let i = 1; i <= limit; i++) {
       numbers.push(this.numberToLetters(i));
     }
-    numbers = numbers.join('');
-    numbers = numbers.replace(/\s/g, '');
-
+    numbers = numbers.join("");
+    numbers = numbers.replace(/\s/g, "");
 
     // Good luck!
     return numbers.length;
   }
   numberToLetters(n) {
     let numbers = {
-      1: 'one',
-      2: 'two',
-      3: 'three',
-      4: 'four',
-      5: 'five',
-      6: 'six',
-      7: 'seven',
-      8: 'eight',
-      9: 'nine',
-      10: 'ten',
-      11: 'eleven',
-      12: 'twelve',
-      13: 'thirteen',
-      14: 'fourteen',
-      15: 'fifteen',
-      16: 'sixteen',
-      17: 'seventeen',
-      18: 'eighteen',
-      19: 'nineteen',
-      20: 'twenty',
-      30: 'thirty',
-      40: 'forty',
-      50: 'fifty',
-      60: 'sixty',
-      70: 'seventy',
-      80: 'eighty',
-      90: 'ninety',
-      100: 'hundred',
-      1000: 'thousand'
-    }
+      1: "one",
+      2: "two",
+      3: "three",
+      4: "four",
+      5: "five",
+      6: "six",
+      7: "seven",
+      8: "eight",
+      9: "nine",
+      10: "ten",
+      11: "eleven",
+      12: "twelve",
+      13: "thirteen",
+      14: "fourteen",
+      15: "fifteen",
+      16: "sixteen",
+      17: "seventeen",
+      18: "eighteen",
+      19: "nineteen",
+      20: "twenty",
+      30: "thirty",
+      40: "forty",
+      50: "fifty",
+      60: "sixty",
+      70: "seventy",
+      80: "eighty",
+      90: "ninety",
+      100: "hundred",
+      1000: "thousand"
+    };
     let result = [];
-    let nString = n.toString().split('');
+    let nString = n.toString().split("");
     let unity = nString.length;
 
     for (let i = 0; i < nString.length; i++) {
-
       switch (unity % 3) {
-        case 0:     // Hundreds
+        case 0: // Hundreds
           if (numbers[nString[i]] !== undefined) {
             result.push(numbers[nString[i]]);
-            result.push('hundred');
-            result.push('and');
+            result.push("hundred");
+            result.push("and");
           }
 
           break;
-        case 2:     // Tens
+        case 2: // Tens
           if (numbers[nString[i] + nString[i + 1]] !== undefined) {
             result.push(numbers[nString[i] + nString[i + 1]]);
             i++;
-          }
-          else if (numbers[nString[i] + '0'] !== undefined) {
-            result.push(numbers[nString[i] + '0']);
+          } else if (numbers[nString[i] + "0"] !== undefined) {
+            result.push(numbers[nString[i] + "0"]);
           }
           break;
-        case 1:     // Ones
-
+        case 1: // Ones
           result.push(numbers[nString[i]]);
           if (unity == 4) {
-            result.push('thousand');
+            result.push("thousand");
           }
           break;
       }
       unity--;
     }
     //console.log(result);
-    result = result.join(' ');
+    result = result.join(" ");
     if (result.endsWith(" and ")) result = result.substr(0, result.length - 5);
     return result;
   }
@@ -1225,8 +1220,7 @@ export default class algorithms {
           res[pos] = pos + i;
           comb_(pos + 1, i);
         }
-      }
-      else {
+      } else {
         returnValue.push([...res]);
       }
     }
@@ -1248,8 +1242,8 @@ export default class algorithms {
   */
   quibble(words) {
     // Good luck!
-    let ret = '{' + words.join(',') + '}';
-    let pos = ret.lastIndexOf(',');
+    let ret = "{" + words.join(",") + "}";
+    let pos = ret.lastIndexOf(",");
     if (pos !== -1) {
       ret = ret.substr(0, pos) + " and " + ret.substr(pos + 1);
     }
@@ -1297,26 +1291,34 @@ export default class algorithms {
     let emirps = [];
     let count = 0;
     let number = 11;
-    if (typeof n == 'number') {
-
-
+    if (typeof n == "number") {
       while (count < n) {
-        let emirp = parseInt(number.toString().split('').reverse().join(''));
-        if ((emirp !== number) && isPrime(emirp) && isPrime(number)) {
+        let emirp = parseInt(
+          number
+            .toString()
+            .split("")
+            .reverse()
+            .join("")
+        );
+        if (emirp !== number && isPrime(emirp) && isPrime(number)) {
           emirps.push(number);
           count++;
         }
         number += 2;
       }
-    }
-    else {
-      number = (n[0] % 2 == 0) ? n[0] + 1 : n[0];
+    } else {
+      number = n[0] % 2 == 0 ? n[0] + 1 : n[0];
       n = n[1];
 
-
       while (number < n) {
-        let emirp = parseInt(number.toString().split('').reverse().join(''));
-        if ((emirp !== number) && isPrime(emirp) && isPrime(number)) {
+        let emirp = parseInt(
+          number
+            .toString()
+            .split("")
+            .reverse()
+            .join("")
+        );
+        if (emirp !== number && isPrime(emirp) && isPrime(number)) {
           emirps.push(number);
           count++;
         }
@@ -1329,13 +1331,12 @@ export default class algorithms {
     }
     if (option) {
       return emirps;
-    }
-    else {
+    } else {
       return count;
     }
     function isPrime(number) {
       if (primes.has(number)) return true;
-      let root = Math.ceil(Math.sqrt(number))
+      let root = Math.ceil(Math.sqrt(number));
       for (let i = 2; i <= root; i++) {
         if (number % i === 0) {
           return false;
@@ -1366,7 +1367,7 @@ export default class algorithms {
 
     return [...new Set(str)]
       .map(chr => {
-        return str.match(new RegExp(chr, 'g')).length;
+        return str.match(new RegExp(chr, "g")).length;
       })
       .reduce((sum, frequency) => {
         let p = frequency / str.length;
@@ -1421,7 +1422,6 @@ export default class algorithms {
       if (sumLeft - sumRight == 0) {
         res.push(i);
       }
-
     }
     return res;
   }
@@ -1446,8 +1446,9 @@ export default class algorithms {
       [a, b] = [Math.floor(a / 2), b * 2];
       table.push([a, b]);
     }
-    return table.filter(x => x[0] % 2 !== 0).reduce((sum, el) => sum + el[1], 0);
-
+    return table
+      .filter(x => x[0] % 2 !== 0)
+      .reduce((sum, el) => sum + el[1], 0);
   }
   /*
   Rosetta Code: Euler method
@@ -1483,8 +1484,11 @@ This formula is recommended:
     // Good luck!
     return rFact(n) / (rFact(n - k) * rFact(k));
     function rFact(num) {
-      if (num === 0) { return 1; }
-      else { return num * rFact(num - 1); }
+      if (num === 0) {
+        return 1;
+      } else {
+        return num * rFact(num - 1);
+      }
     }
   }
 
@@ -1509,19 +1513,21 @@ This formula is recommended:
   markov(rules, test) {
     // Good luck!
     const regex = /#.*/gm;
-    let line = 0, pattern, replacement, terminating = false;
+    let line = 0,
+      pattern,
+      replacement,
+      terminating = false;
 
     while (line < rules.length) {
-
       if (regex.test(rules[line])) {
-        console.log('coucou');
+        console.log("coucou");
         line++;
         continue;
       }
 
-      [pattern, replacement] = rules[line].split(' -> ').map(x => x.trim());
+      [pattern, replacement] = rules[line].split(" -> ").map(x => x.trim());
 
-      if (replacement.charAt(0) == '.') {
+      if (replacement.charAt(0) == ".") {
         terminating = true;
         replacement = replacement.substr(1);
       }
@@ -1567,16 +1573,19 @@ This formula is recommended:
     // Good luck!
     let fractions = this.combinations(2, n + 1);
     fractions.push([n, n]);
-    fractions = fractions.filter((el, index) => {
-      for (let i = 0; i < index; i++) {
-        if (el[0] / el[1] == fractions[i][0] / fractions[i][1]) {
-          return false;
+    fractions = fractions
+      .filter((el, index) => {
+        for (let i = 0; i < index; i++) {
+          if (el[0] / el[1] == fractions[i][0] / fractions[i][1]) {
+            return false;
+          }
         }
-      }
-      return true;
-    }).sort((a, b) => {
-      return a[0] / a[1] > b[0] / b[1];
-    }).map(el => el[0] + '/' + el[1]);
+        return true;
+      })
+      .sort((a, b) => {
+        return a[0] / a[1] > b[0] / b[1];
+      })
+      .map(el => el[0] + "/" + el[1]);
 
     return fractions;
   }
@@ -1628,9 +1637,8 @@ Write a function to generate Fibonacci n
     // Good luck!
     let fib;
     if (n == 2) {
-      fib = w == 'f' ? [1, 1] : [2, 1];
-    }
-    else {
+      fib = w == "f" ? [1, 1] : [2, 1];
+    } else {
       fib = this.fib_luc(n - 1, n, w);
     }
 
@@ -1683,10 +1691,10 @@ Write a function to generate Fibonacci n
   */
 
   fibWord(n) {
-    // Good luck! 
+    // Good luck!
     let words = [
-      { N: 1, Length: 1, Entropy: 0, Word: '1' },
-      { N: 2, Length: 1, Entropy: 0, Word: '0' }
+      { N: 1, Length: 1, Entropy: 0, Word: "1" },
+      { N: 2, Length: 1, Entropy: 0, Word: "0" }
     ];
     let index = 2;
     while (index <= n) {
@@ -1706,7 +1714,7 @@ Write a function to generate Fibonacci n
 
       return [...new Set(str)]
         .map(chr => {
-          return str.match(new RegExp(chr, 'g')).length;
+          return str.match(new RegExp(chr, "g")).length;
         })
         .reduce((sum, frequency) => {
           let p = frequency / str.length;
@@ -1737,32 +1745,31 @@ repeat this rule until no fraction in the list produces an integer when multipli
   */
   fractran(progStr) {
     // Good luck!
-    let fractions = progStr.split(', ').map(x => x.split('/'));
+    let fractions = progStr.split(", ").map(x => x.split("/"));
 
     let sequence = [];
     let n = 2;
     let i = 0;
     let length = 0;
     while (i < fractions.length && length < 10) {
-
-      let nFi = n * fractions[i][0] / fractions[i][1];
+      let nFi = (n * fractions[i][0]) / fractions[i][1];
 
       if (Number.isInteger(nFi)) {
-        console.log(`ok -> n = ${n}, ${n} * (${fractions[i][0]} / ${fractions[i][1]}) = ${nFi}`);
+        console.log(
+          `ok -> n = ${n}, ${n} * (${fractions[i][0]} / ${fractions[i][1]}) = ${nFi}`
+        );
         sequence.push(nFi);
         n = nFi;
         i = 0;
         length++;
-
-      }
-      else {
-        console.log(`not ok -> n = ${n}, ${n} * (${fractions[i][0]} / ${fractions[i][1]}) = ${nFi}`);
+      } else {
+        console.log(
+          `not ok -> n = ${n}, ${n} * (${fractions[i][0]} / ${fractions[i][1]}) = ${nFi}`
+        );
         i++;
       }
-
     }
     return sequence;
-
   }
   /*
 
@@ -1779,23 +1786,80 @@ repeat this rule until no fraction in the list produces an integer when multipli
   */
   isIbanValid(iban) {
     var ibanLen = {
-      NO: 15, BE: 16, DK: 18, FI: 18, FO: 18, GL: 18, NL: 18, MK: 19,
-      SI: 19, AT: 20, BA: 20, EE: 20, KZ: 20, LT: 20, LU: 20, CR: 21,
-      CH: 21, HR: 21, LI: 21, LV: 21, BG: 22, BH: 22, DE: 22, GB: 22,
-      GE: 22, IE: 22, ME: 22, RS: 22, AE: 23, GI: 23, IL: 23, AD: 24,
-      CZ: 24, ES: 24, MD: 24, PK: 24, RO: 24, SA: 24, SE: 24, SK: 24,
-      VG: 24, TN: 24, PT: 25, IS: 26, TR: 26, FR: 27, GR: 27, IT: 27,
-      MC: 27, MR: 27, SM: 27, AL: 28, AZ: 28, CY: 28, DO: 28, GT: 28,
-      HU: 28, LB: 28, PL: 28, BR: 29, PS: 29, KW: 30, MU: 30, MT: 31
-    }
-    iban = iban.replace(/\s/g, '')
-    if (!iban.match(/^[\dA-Z]+$/)) return false
-    var len = iban.length
-    if (len != ibanLen[iban.substr(0, 2)]) return false
-    iban = iban.substr(4) + iban.substr(0, 4)
-    for (var s = '', i = 0; i < len; i += 1) s += parseInt(iban.charAt(i), 36)
-    for (var m = s.substr(0, 15) % 97, s = s.substr(15); s; s = s.substr(13)) m = (m + s.substr(0, 13)) % 97
-    return m == 1
+      NO: 15,
+      BE: 16,
+      DK: 18,
+      FI: 18,
+      FO: 18,
+      GL: 18,
+      NL: 18,
+      MK: 19,
+      SI: 19,
+      AT: 20,
+      BA: 20,
+      EE: 20,
+      KZ: 20,
+      LT: 20,
+      LU: 20,
+      CR: 21,
+      CH: 21,
+      HR: 21,
+      LI: 21,
+      LV: 21,
+      BG: 22,
+      BH: 22,
+      DE: 22,
+      GB: 22,
+      GE: 22,
+      IE: 22,
+      ME: 22,
+      RS: 22,
+      AE: 23,
+      GI: 23,
+      IL: 23,
+      AD: 24,
+      CZ: 24,
+      ES: 24,
+      MD: 24,
+      PK: 24,
+      RO: 24,
+      SA: 24,
+      SE: 24,
+      SK: 24,
+      VG: 24,
+      TN: 24,
+      PT: 25,
+      IS: 26,
+      TR: 26,
+      FR: 27,
+      GR: 27,
+      IT: 27,
+      MC: 27,
+      MR: 27,
+      SM: 27,
+      AL: 28,
+      AZ: 28,
+      CY: 28,
+      DO: 28,
+      GT: 28,
+      HU: 28,
+      LB: 28,
+      PL: 28,
+      BR: 29,
+      PS: 29,
+      KW: 30,
+      MU: 30,
+      MT: 31
+    };
+    iban = iban.replace(/\s/g, "");
+    if (!iban.match(/^[\dA-Z]+$/)) return false;
+    var len = iban.length;
+    if (len != ibanLen[iban.substr(0, 2)]) return false;
+    iban = iban.substr(4) + iban.substr(0, 4);
+    for (var s = "", i = 0; i < len; i += 1) s += parseInt(iban.charAt(i), 36);
+    for (var m = s.substr(0, 15) % 97, s = s.substr(15); s; s = s.substr(13))
+      m = (m + s.substr(0, 13)) % 97;
+    return m == 1;
   }
   /*
     Rosetta Code: Identity matrix
@@ -1819,8 +1883,7 @@ repeat this rule until no fraction in the list produces an integer when multipli
       for (let j = 0; j < n; j++) {
         if (i == j) {
           matrix[i][j] = 1;
-        }
-        else {
+        } else {
           matrix[i][j] = 0;
         }
       }
@@ -1840,11 +1903,10 @@ repeat this rule until no fraction in the list produces an integer when multipli
   iteratedSquare(n) {
     // Good luck!
     while (n !== 1 && n !== 89) {
-      let a = n.toString().split('');
+      let a = n.toString().split("");
       if (a[1] == undefined) {
         n = a[0] ** 2;
-      }
-      else {
+      } else {
         n = a[0] ** 2 + a[1] ** 2;
       }
     }
@@ -1861,7 +1923,7 @@ repeat this rule until no fraction in the list produces an integer when multipli
     // Good luck!
     let m = 0;
     let transpositions = 0;
-    let maxDistance = (Math.max(s.length, t.length) / 2) - 1;
+    let maxDistance = Math.max(s.length, t.length) / 2 - 1;
     let s_matches = [...Array(s.length)];
     let t_matches = [...Array(t.length)];
     for (let i = 0; i < s.length; i++) {
@@ -1875,7 +1937,6 @@ repeat this rule until no fraction in the list produces an integer when multipli
         s_matches[i] = true;
         t_matches[j] = true;
         break;
-
       }
     }
 
@@ -1889,7 +1950,6 @@ repeat this rule until no fraction in the list produces an integer when multipli
     }
     transpositions = transpositions / 2;
     return (m / s.length + m / t.length + (m - transpositions) / m) / 3;
-
   }
 
   /*
@@ -1936,19 +1996,17 @@ Among them was a clever chap name Josephus who worked out the problem, stood at 
 Which number was he?
   */
   josephus(n, k, s) {
-    s = s | 1
-    for (var ps = [], i = n; i--;) {
-      ps[i] = i
+    s = s | 1;
+    for (var ps = [], i = n; i--; ) {
+      ps[i] = i;
     }
     for (var ks = [], i = --k; ps.length > s; i = (i + k) % ps.length) {
-      ks.push(ps.splice(i, 1))
+      ks.push(ps.splice(i, 1));
     }
     return ps[0] + 1;
-
-
   }
   /*
-  osetta Code: K-d tree
+  Rosetta Code: K-d tree
 
   A k-d tree (short for k-dimensional tree) is a space-partitioning data structure for organizing points in a k-dimensional space. k-d trees are a useful data structure for several applications, such as searches involving a multidimensional search key (e.g. range searches and nearest neighbor searches). k-d trees are a special case of binary space partitioning trees. k-d trees are not suitable, however, for efficiently finding the nearest neighbor in high dimensional spaces. As a general rule, if the dimensionality is k, the number of points in the data, N, should be N ≫ 2k. Otherwise, when k-d trees are used with high-dimensional data, most of the points in the tree will be evaluated and the efficiency is no better than exhaustive search, and other methods such as approximate nearest-neighbor are used instead.
 
@@ -1973,6 +2031,41 @@ Which number was he?
     }
     distances.sort((a, b) => a.distance > b.distance);
     return distances[0].point;
+  }
+  /*
 
+
+  A positive integer is a Kaprekar number if:
+
+      It is 1, or,
+      The decimal representation of its square may be split once into two parts consisting of positive integers which sum to the original number.
+
+  Note that a split resulting in a part consisting purely of 0s is not valid, as 0 is not considered positive.Example
+
+  Kaprekar numbers:
+
+      2223 is a Kaprekar number, as 2223 * 2223 = 4941729, 4941729 may be split to 494 and 1729, and 494 + 1729 = 2223
+      The series of Kaprekar numbers is known as A006886, and begins as 1, 9, 45, 55, ...
+
+  Write a function that takes a number n
+  , a base bs, and returns true if the number is a Kaprekar number for the given base. Otherwise, the function returns false.
+  */
+
+  isKaprekar(n, bs) {
+    // Good luck!
+    if (n == 1) return true;
+
+    let nBaseSquared = (n ** 2).toString(bs);
+
+    for (let i = 0; i < nBaseSquared.length; i++) {
+      let left = nBaseSquared.substr(0, i);
+      let right = nBaseSquared.substr(i);
+
+      if (parseInt(left, bs) + parseInt(right, bs) == n) {
+        console.log(left, right);
+        return true;
+      }
+    }
+    return false;
   }
 }

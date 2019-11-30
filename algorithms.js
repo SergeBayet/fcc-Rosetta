@@ -1224,7 +1224,7 @@
       value: function powerDigitSum(exponent) {
         // Good luck!
         // Doesn't work with big numbers ...
-        return Math.pow(2, exponent).toString().split('').reduce(function (a, b) {
+        return Math.pow(2, exponent).toString().split("").reduce(function (a, b) {
           return a + parseInt(b);
         }, 0);
       }
@@ -1234,8 +1234,8 @@
         var self = this;
 
         function power2exponent(exponent) {
-          if (exponent == 0) return '1';
-          var temp = '2';
+          if (exponent == 0) return "1";
+          var temp = "2";
 
           for (var i = 2; i <= exponent; i++) {
             temp = self.largeSum([temp, temp]);
@@ -1244,7 +1244,7 @@
           return temp;
         }
 
-        return power2exponent(exponent).toString().split('').reduce(function (a, b) {
+        return power2exponent(exponent).toString().split("").reduce(function (a, b) {
           return a + parseInt(b);
         }, 0);
       }
@@ -1264,8 +1264,8 @@
           numbers.push(this.numberToLetters(i));
         }
 
-        numbers = numbers.join('');
-        numbers = numbers.replace(/\s/g, ''); // Good luck!
+        numbers = numbers.join("");
+        numbers = numbers.replace(/\s/g, ""); // Good luck!
 
         return numbers.length;
       }
@@ -1273,38 +1273,38 @@
       key: "numberToLetters",
       value: function numberToLetters(n) {
         var numbers = {
-          1: 'one',
-          2: 'two',
-          3: 'three',
-          4: 'four',
-          5: 'five',
-          6: 'six',
-          7: 'seven',
-          8: 'eight',
-          9: 'nine',
-          10: 'ten',
-          11: 'eleven',
-          12: 'twelve',
-          13: 'thirteen',
-          14: 'fourteen',
-          15: 'fifteen',
-          16: 'sixteen',
-          17: 'seventeen',
-          18: 'eighteen',
-          19: 'nineteen',
-          20: 'twenty',
-          30: 'thirty',
-          40: 'forty',
-          50: 'fifty',
-          60: 'sixty',
-          70: 'seventy',
-          80: 'eighty',
-          90: 'ninety',
-          100: 'hundred',
-          1000: 'thousand'
+          1: "one",
+          2: "two",
+          3: "three",
+          4: "four",
+          5: "five",
+          6: "six",
+          7: "seven",
+          8: "eight",
+          9: "nine",
+          10: "ten",
+          11: "eleven",
+          12: "twelve",
+          13: "thirteen",
+          14: "fourteen",
+          15: "fifteen",
+          16: "sixteen",
+          17: "seventeen",
+          18: "eighteen",
+          19: "nineteen",
+          20: "twenty",
+          30: "thirty",
+          40: "forty",
+          50: "fifty",
+          60: "sixty",
+          70: "seventy",
+          80: "eighty",
+          90: "ninety",
+          100: "hundred",
+          1000: "thousand"
         };
         var result = [];
-        var nString = n.toString().split('');
+        var nString = n.toString().split("");
         var unity = nString.length;
 
         for (var i = 0; i < nString.length; i++) {
@@ -1313,8 +1313,8 @@
               // Hundreds
               if (numbers[nString[i]] !== undefined) {
                 result.push(numbers[nString[i]]);
-                result.push('hundred');
-                result.push('and');
+                result.push("hundred");
+                result.push("and");
               }
 
               break;
@@ -1324,8 +1324,8 @@
               if (numbers[nString[i] + nString[i + 1]] !== undefined) {
                 result.push(numbers[nString[i] + nString[i + 1]]);
                 i++;
-              } else if (numbers[nString[i] + '0'] !== undefined) {
-                result.push(numbers[nString[i] + '0']);
+              } else if (numbers[nString[i] + "0"] !== undefined) {
+                result.push(numbers[nString[i] + "0"]);
               }
 
               break;
@@ -1335,7 +1335,7 @@
               result.push(numbers[nString[i]]);
 
               if (unity == 4) {
-                result.push('thousand');
+                result.push("thousand");
               }
 
               break;
@@ -1345,7 +1345,7 @@
         } //console.log(result);
 
 
-        result = result.join(' ');
+        result = result.join(" ");
         if (result.endsWith(" and ")) result = result.substr(0, result.length - 5);
         return result;
       }
@@ -1401,8 +1401,8 @@
       key: "quibble",
       value: function quibble(words) {
         // Good luck!
-        var ret = '{' + words.join(',') + '}';
-        var pos = ret.lastIndexOf(',');
+        var ret = "{" + words.join(",") + "}";
+        var pos = ret.lastIndexOf(",");
 
         if (pos !== -1) {
           ret = ret.substr(0, pos) + " and " + ret.substr(pos + 1);
@@ -1455,9 +1455,9 @@
         var count = 0;
         var number = 11;
 
-        if (typeof n == 'number') {
+        if (typeof n == "number") {
           while (count < n) {
-            var emirp = parseInt(number.toString().split('').reverse().join(''));
+            var emirp = parseInt(number.toString().split("").reverse().join(""));
 
             if (emirp !== number && isPrime(emirp) && isPrime(number)) {
               emirps.push(number);
@@ -1471,7 +1471,7 @@
           n = n[1];
 
           while (number < n) {
-            var _emirp = parseInt(number.toString().split('').reverse().join(''));
+            var _emirp = parseInt(number.toString().split("").reverse().join(""));
 
             if (_emirp !== number && isPrime(_emirp) && isPrime(number)) {
               emirps.push(number);
@@ -1522,7 +1522,7 @@
       value: function entropy(str) {
         // Good luck!
         return _toConsumableArray(new Set(str)).map(function (chr) {
-          return str.match(new RegExp(chr, 'g')).length;
+          return str.match(new RegExp(chr, "g")).length;
         }).reduce(function (sum, frequency) {
           var p = frequency / str.length;
           return sum + p * Math.log2(1 / p);
@@ -1681,12 +1681,12 @@
 
         while (line < rules.length) {
           if (regex.test(rules[line])) {
-            console.log('coucou');
+            console.log("coucou");
             line++;
             continue;
           }
 
-          var _rules$line$split$map = rules[line].split(' -> ').map(function (x) {
+          var _rules$line$split$map = rules[line].split(" -> ").map(function (x) {
             return x.trim();
           });
 
@@ -1695,7 +1695,7 @@
           pattern = _rules$line$split$map2[0];
           replacement = _rules$line$split$map2[1];
 
-          if (replacement.charAt(0) == '.') {
+          if (replacement.charAt(0) == ".") {
             terminating = true;
             replacement = replacement.substr(1);
           }
@@ -1754,7 +1754,7 @@
         }).sort(function (a, b) {
           return a[0] / a[1] > b[0] / b[1];
         }).map(function (el) {
-          return el[0] + '/' + el[1];
+          return el[0] + "/" + el[1];
         });
         return fractions;
       }
@@ -1799,7 +1799,7 @@
         var fib;
 
         if (n == 2) {
-          fib = w == 'f' ? [1, 1] : [2, 1];
+          fib = w == "f" ? [1, 1] : [2, 1];
         } else {
           fib = this.fib_luc(n - 1, n, w);
         }
@@ -1858,17 +1858,17 @@
     }, {
       key: "fibWord",
       value: function fibWord(n) {
-        // Good luck! 
+        // Good luck!
         var words = [{
           N: 1,
           Length: 1,
           Entropy: 0,
-          Word: '1'
+          Word: "1"
         }, {
           N: 2,
           Length: 1,
           Entropy: 0,
-          Word: '0'
+          Word: "0"
         }];
         var index = 2;
 
@@ -1889,7 +1889,7 @@
         function entropy(str) {
           // Good luck!
           return _toConsumableArray(new Set(str)).map(function (chr) {
-            return str.match(new RegExp(chr, 'g')).length;
+            return str.match(new RegExp(chr, "g")).length;
           }).reduce(function (sum, frequency) {
             var p = frequency / str.length;
             return sum + p * Math.log2(1 / p);
@@ -1915,8 +1915,8 @@
       key: "fractran",
       value: function fractran(progStr) {
         // Good luck!
-        var fractions = progStr.split(', ').map(function (x) {
-          return x.split('/');
+        var fractions = progStr.split(", ").map(function (x) {
+          return x.split("/");
         });
         var sequence = [];
         var n = 2;
@@ -2018,13 +2018,13 @@
           MU: 30,
           MT: 31
         };
-        iban = iban.replace(/\s/g, '');
+        iban = iban.replace(/\s/g, "");
         if (!iban.match(/^[\dA-Z]+$/)) return false;
         var len = iban.length;
         if (len != ibanLen[iban.substr(0, 2)]) return false;
         iban = iban.substr(4) + iban.substr(0, 4);
 
-        for (var s = '', i = 0; i < len; i += 1) {
+        for (var s = "", i = 0; i < len; i += 1) {
           s += parseInt(iban.charAt(i), 36);
         }
 
@@ -2082,7 +2082,7 @@
       value: function iteratedSquare(n) {
         // Good luck!
         while (n !== 1 && n !== 89) {
-          var a = n.toString().split('');
+          var a = n.toString().split("");
 
           if (a[1] == undefined) {
             n = Math.pow(a[0], 2);
@@ -2191,7 +2191,7 @@
         return ps[0] + 1;
       }
       /*
-      osetta Code: K-d tree
+      Rosetta Code: K-d tree
        A k-d tree (short for k-dimensional tree) is a space-partitioning data structure for organizing points in a k-dimensional space. k-d trees are a useful data structure for several applications, such as searches involving a multidimensional search key (e.g. range searches and nearest neighbor searches). k-d trees are a special case of binary space partitioning trees. k-d trees are not suitable, however, for efficiently finding the nearest neighbor in high dimensional spaces. As a general rule, if the dimensionality is k, the number of points in the data, N, should be N ≫ 2k. Otherwise, when k-d trees are used with high-dimensional data, most of the points in the tree will be evaluated and the efficiency is no better than exhaustive search, and other methods such as approximate nearest-neighbor are used instead.
        Write a function to perform a nearest neighbour search using k-d tree. The function takes two parameters: an array of k-dimensional points, and a single k-dimensional point whose nearest neighbour should be returned by the function. A k-dimensional point will be given as an array of k elements.
        */
@@ -2222,6 +2222,37 @@
           return a.distance > b.distance;
         });
         return distances[0].point;
+      }
+      /*
+        A positive integer is a Kaprekar number if:
+           It is 1, or,
+          The decimal representation of its square may be split once into two parts consisting of positive integers which sum to the original number.
+       Note that a split resulting in a part consisting purely of 0s is not valid, as 0 is not considered positive.Example
+       Kaprekar numbers:
+           2223 is a Kaprekar number, as 2223 * 2223 = 4941729, 4941729 may be split to 494 and 1729, and 494 + 1729 = 2223
+          The series of Kaprekar numbers is known as A006886, and begins as 1, 9, 45, 55, ...
+       Write a function that takes a number n
+      , a base bs, and returns true if the number is a Kaprekar number for the given base. Otherwise, the function returns false.
+      */
+
+    }, {
+      key: "isKaprekar",
+      value: function isKaprekar(n, bs) {
+        // Good luck!
+        if (n == 1) return true;
+        var nBaseSquared = Math.pow(n, 2).toString(bs);
+
+        for (var i = 0; i < nBaseSquared.length; i++) {
+          var left = nBaseSquared.substr(0, i);
+          var right = nBaseSquared.substr(i);
+
+          if (parseInt(left, bs) + parseInt(right, bs) == n) {
+            console.log(left, right);
+            return true;
+          }
+        }
+
+        return false;
       }
     }]);
 
