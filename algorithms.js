@@ -2542,6 +2542,46 @@
           return a.length == b.length ? a > b : a.length < b.length;
         });
       }
+      /*
+      Rosetta Code: Split a character string based on change of character
+      Split a (character) string into comma (plus a blank) delimited strings based on a change of character (left to right). Blanks should be treated as any other character (except they are problematic to display clearly). The same applies to commas. For instance, the string:
+      "gHHH5YY++///\"
+      should be split as:
+      ["g", "HHH", "5", "YY", "++", "///", "\" ];
+      */
+
+    }, {
+      key: "split",
+      value: function split(str) {
+        // Good luck!
+        var arr = [];
+        var currentString = str.charAt(0);
+
+        for (var i = 1; i < str.length; i++) {
+          if (str.charAt(i) !== str.charAt(i - 1)) {
+            arr.push(currentString);
+            currentString = str.charAt(i);
+          } else {
+            currentString += str.charAt(i);
+          }
+        }
+
+        if (currentString != '') {
+          arr.push(currentString);
+        }
+
+        return arr;
+      }
+      /*
+      Rosetta Code: Cut a rectangle
+      A given rectangle is made from m × n squares. If m and n are not both odd, then it is possible to cut a path through the rectangle along the square edges such that the rectangle splits into two connected pieces with the same shape (after rotating one of the pieces by 180°). All such paths for 2 × 2 and 4 × 3 rectangles are shown below.
+      Write a function that calculates the number of different ways to cut an m × n rectangle.
+      */
+
+    }, {
+      key: "cutRectangle",
+      value: function cutRectangle(w, h) {// Good luck!
+      }
     }]);
 
     return algorithms;
