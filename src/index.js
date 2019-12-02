@@ -2257,8 +2257,39 @@ Write a function that takes an array of objects as a parameter. The function sho
   sortByKey(arr) {
     // Good luck!
 
-    return arr.sort((a, b) => (a.key > b.key));;
+    return arr.sort((a, b) => (a.key > b.key));
 
+  }
+  /*
+  Rosetta Code: Sort disjoint sublist
+
+Given a list of values and a set of integer indices into that value list, the task is to sort the values at the given indices, but preserving the values at indices outside the set of those to be sorted.
+
+Make your function work with the following list of values and set of indices:
+
+values: [7, 6, 5, 4, 3, 2, 1, 0]
+
+indices(0-based): {6, 1, 7}
+
+Where the correct result would be:
+
+[7, 0, 5, 4, 3, 2, 1, 6].
+  */
+  sortDisjoint(values, indices) {
+    // Good luck!
+    let subArr = [];
+    indices.sort((a, b) => a > b);
+
+    for (let i = 0; i < indices.length; i++) {
+      subArr.push(values[indices[i]]);
+    }
+    subArr.sort((a, b) => a > b);
+
+    for (let i = 0; i < indices.length; i++) {
+      values[indices[i]] = subArr[i];
+    }
+    console.log(values);
+    return values;
   }
 
 }
