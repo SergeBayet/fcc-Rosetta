@@ -2580,7 +2580,112 @@
 
     }, {
       key: "cutRectangle",
-      value: function cutRectangle(w, h) {// Good luck!
+      value: function cutRectangle(w, h) {
+        // Good luck!
+        if (w % 2 == 1 && h % 2 == 1) {
+          return false;
+        }
+
+        var rect = '0'.repeat(h).split('').map(function (x) {
+          return x.repeat(w).split('');
+        });
+        var nSquares = w * h / 2;
+        console.table(rect);
+        console.log(nSquares);
+        var possibilities = Math.pow(2, nSquares) - 1;
+        console.log(possibilities);
+        var mask = '1'.repeat(nSquares) + '0'.repeat(nSquares - 1);
+        console.log(permut(mask));
+
+        function permut(string) {
+          if (string.length < 2) return string; // This is our break condition
+
+          var permutations = []; // This array will hold our permutations
+
+          for (var i = 0; i < string.length; i++) {
+            var _char2 = string[i]; // Cause we don't want any duplicates:
+
+            if (string.indexOf(_char2) != i) // if char was used already
+              continue; // skip it this time
+
+            var remainingString = string.slice(0, i) + string.slice(i + 1, string.length); //Note: you can concat Strings via '+' in JS
+
+            var _iteratorNormalCompletion3 = true;
+            var _didIteratorError3 = false;
+            var _iteratorError3 = undefined;
+
+            try {
+              for (var _iterator3 = permut(remainingString)[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+                var subPermutation = _step3.value;
+                permutations.push(_char2 + subPermutation);
+              }
+            } catch (err) {
+              _didIteratorError3 = true;
+              _iteratorError3 = err;
+            } finally {
+              try {
+                if (!_iteratorNormalCompletion3 && _iterator3["return"] != null) {
+                  _iterator3["return"]();
+                }
+              } finally {
+                if (_didIteratorError3) {
+                  throw _iteratorError3;
+                }
+              }
+            }
+          }
+
+          return permutations;
+        }
+      }
+      /*
+      Rosetta Code: Sorting algorithms/Bogosort
+      
+      Bogosort a list of numbers.
+      
+      Bogosort simply shuffles a collection randomly until it is sorted.
+      
+      "Bogosort" is a perversely inefficient algorithm only used as an in-joke.
+      
+      Its average run-time is O(n!) because the chance that any given shuffle of a set will end up in sorted order is about one in n factorial, and the worst case is infinite since there's no guarantee that a random shuffling will ever produce a sorted sequence.
+      
+      Its best case is O(n) since a single pass through the elements may suffice to order them.
+      
+      Pseudocode:
+      
+      while not InOrder(list) do
+        Shuffle(list)
+      done
+      
+      */
+
+    }, {
+      key: "bogosort",
+      value: function bogosort(v) {
+        // Good luck!
+        var a = _toConsumableArray(v).sort(function (a, b) {
+          return a > b;
+        });
+
+        console.log(v, a);
+
+        while (!sorted()) {
+          v.sort(function (a, b) {
+            return Math.random() > 0.5 ? a < b : a > b;
+          });
+        }
+
+        function sorted() {
+          for (var i = 0; i < v.length; i++) {
+            if (v[i] !== a[i]) {
+              return false;
+            }
+          }
+
+          return true;
+        }
+
+        return v;
       }
     }]);
 

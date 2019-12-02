@@ -2361,5 +2361,73 @@ Write a function that calculates the number of different ways to cut an m × n r
   */
   cutRectangle(w, h) {
     // Good luck!
+    if (w % 2 == 1 && h % 2 == 1) {
+      return false;
+    }
+    let rect = ('0'.repeat(h)).split('').map(x => x.repeat(w).split(''));
+    let nSquares = w * h / 2;
+    console.table(rect);
+    console.log(nSquares);
+    let possibilities = Math.pow(2, nSquares) - 1;
+    console.log(possibilities);
+    let mask = '1'.repeat(nSquares) + '0'.repeat(nSquares - 1)
+    console.log(permut(mask));
+    function permut(string) {
+      if (string.length < 2) return string; // This is our break condition
+
+      var permutations = []; // This array will hold our permutations
+
+      for (var i = 0; i < string.length; i++) {
+        var char = string[i];
+
+        // Cause we don't want any duplicates:
+        if (string.indexOf(char) != i) // if char was used already
+          continue;           // skip it this time
+
+        var remainingString = string.slice(0, i) + string.slice(i + 1, string.length); //Note: you can concat Strings via '+' in JS
+
+        for (var subPermutation of permut(remainingString))
+          permutations.push(char + subPermutation)
+
+      }
+      return permutations;
+    }
+  }
+  /*
+  Rosetta Code: Sorting algorithms/Bogosort
+  
+  Bogosort a list of numbers.
+  
+  Bogosort simply shuffles a collection randomly until it is sorted.
+  
+  "Bogosort" is a perversely inefficient algorithm only used as an in-joke.
+  
+  Its average run-time is O(n!) because the chance that any given shuffle of a set will end up in sorted order is about one in n factorial, and the worst case is infinite since there's no guarantee that a random shuffling will ever produce a sorted sequence.
+  
+  Its best case is O(n) since a single pass through the elements may suffice to order them.
+  
+  Pseudocode:
+  
+  while not InOrder(list) do
+    Shuffle(list)
+  done
+  
+  */
+  bogosort(v) {
+    // Good luck!
+    let a = [...v].sort((a, b) => a > b);
+    console.log(v, a);
+    while (!sorted()) {
+      v.sort((a, b) => Math.random() > 0.5 ? a < b : a > b);
+    }
+    function sorted() {
+      for (let i = 0; i < v.length; i++) {
+        if (v[i] !== a[i]) {
+          return false;
+        }
+      }
+      return true;
+    }
+    return v;
   }
 }
