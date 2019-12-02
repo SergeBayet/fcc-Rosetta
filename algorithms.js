@@ -2529,6 +2529,19 @@
         });
         return arr;
       }
+      /*
+      Rosetta Code: Sort using a custom comparator
+       Write a function to sort an array (or list) of strings in order of descending length, and in ascending lexicographic order for strings of equal length.
+      */
+
+    }, {
+      key: "lengthSorter",
+      value: function lengthSorter(arr) {
+        // Good luck!
+        return arr.sort(function (a, b) {
+          return a.length == b.length ? a > b : a.length < b.length;
+        });
+      }
     }]);
 
     return algorithms;

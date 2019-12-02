@@ -2312,4 +2312,15 @@ Where the correct result would be:
     arr.sort((a, b) => a[1] > b[1]);
     return arr;
   }
+  /*
+  Rosetta Code: Sort using a custom comparator
+
+  Write a function to sort an array (or list) of strings in order of descending length, and in ascending lexicographic order for strings of equal length.
+  */
+  lengthSorter(arr) {
+    // Good luck!
+
+    return arr.sort((a, b) => a.length == b.length ? a > b : a.length < b.length);;
+  }
+
 }
