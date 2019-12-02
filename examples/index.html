@@ -1,153 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>algorithms.js</title>
-  </head>
 
-  <body>
-    <script src="../algorithms.js"></script>
-    <script>
-      let a = new algorithms();
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>algorithms.js</title>
+</head>
 
-      // Tests
+<body>
+  <script src="../algorithms.js"></script>
+  <script>
+    let a = new algorithms();
 
-      /* 	console.log(a.gray(false, 45));
-          console.log(a.gray(true, 177));
-          console.log(a.gray(true, 177));
-          console.log(a.gray(true, 425));
-          console.log(a.gray(true, 870));
-          console.log(a.gray(false, 233));
-          console.log(a.gray(false, 381));
-          console.log(a.gray(false, 725));
+    // Tests
+
+    /* 	console.log(a.gray(false, 45));
+        console.log(a.gray(true, 177));
+        console.log(a.gray(true, 177));
+        console.log(a.gray(true, 425));
+        console.log(a.gray(true, 870));
+        console.log(a.gray(false, 233));
+        console.log(a.gray(false, 381));
+        console.log(a.gray(false, 725));
 
 
-          console.log(a.gcd(24, 36));
+        console.log(a.gcd(24, 36));
 
-          console.log(a.maximumSubsequence([1, 2, -1, 3, 10, -10]));
-          console.log(a.maximumSubsequence([0, 8, 10, -2, -4, -1, -5, -3]));
+        console.log(a.maximumSubsequence([1, 2, -1, 3, 10, -10]));
+        console.log(a.maximumSubsequence([0, 8, 10, -2, -4, -1, -5, -3]));
 
-          console.log("Hailstone sequence");
-          console.log(a.hailstoneSequence()); */
+        console.log("Hailstone sequence");
+        console.log(a.hailstoneSequence()); */
 
-      /* console.log(a.happy(1));
+    /* console.log(a.happy(1));
 
-        console.log(a.isHarshadOrNiven());
-        console.log(a.arrToObj([1, 2, 3, 4, 5], ["a", "b", "c", "d", "e"]))
+      console.log(a.isHarshadOrNiven());
+      console.log(a.arrToObj([1, 2, 3, 4, 5], ["a", "b", "c", "d", "e"]))
 
-        console.log(a.hashJoin([{ age: 27, name: "Jonah" }, { age: 18, name: "Alan" }, { age: 28, name: "Glory" }, { age: 18, name: "Popeye" }, { age: 28, name: "Alan" }], [{ character: "Jonah", nemesis: "Whales" }, { character: "Jonah", nemesis: "Spiders" }, { character: "Alan", nemesis: "Ghosts" }, { character: "Alan", nemesis: "Zombies" }, { character: "Glory", nemesis: "Buffy" }, { character: "Bob", nemesis: "foo" }]));
+      console.log(a.hashJoin([{ age: 27, name: "Jonah" }, { age: 18, name: "Alan" }, { age: 28, name: "Glory" }, { age: 18, name: "Popeye" }, { age: 28, name: "Alan" }], [{ character: "Jonah", nemesis: "Whales" }, { character: "Jonah", nemesis: "Spiders" }, { character: "Alan", nemesis: "Ghosts" }, { character: "Alan", nemesis: "Zombies" }, { character: "Glory", nemesis: "Buffy" }, { character: "Bob", nemesis: "foo" }]));
 
-        console.log(a.heronianTriangle(10));
+      console.log(a.heronianTriangle(10));
 
-        console.log(a.ffr(7));
-        console.log(a.ffs(3)); */
+      console.log(a.ffr(7));
+      console.log(a.ffs(3)); */
 
-      //console.log(a.hofstadterQ(1500));
-      /*  let sudo = [[-1, -1, 3, -1, 2, -1, 6, -1, -1], [9, -1, -1, 3, -1, 5, -1, -1, 1], [-1, -1, 1, 8, -1, 6, 4, -1, -1], [-1, -1, 8, 1, -1, 2, 9, -1, -1], [7, -1, -1, -1, -1, -1, -1, -1, 8], [-1, -1, 6, 7, -1, 8, 2, -1, -1], [-1, -1, 2, 6, -1, 9, 5, -1, -1], [8, -1, -1, 2, -1, 3, -1, -1, 9], [-1, -1, 5, -1, 1, -1, 3, -1, -1]];
-         console.table([[-1, -1, 3, -1, 2, -1, 6, -1, -1], [9, -1, -1, 3, -1, 5, -1, -1, 1], [-1, -1, 1, 8, -1, 6, 4, -1, -1], [-1, -1, 8, 1, -1, 2, 9, -1, -1], [7, -1, -1, -1, -1, -1, -1, -1, 8], [-1, -1, 6, 7, -1, 8, 2, -1, -1], [-1, -1, 2, 6, -1, 9, 5, -1, -1], [8, -1, -1, 2, -1, 3, -1, -1, 9], [-1, -1, 5, -1, 1, -1, 3, -1, -1]]);
-         console.table(a.solveSudoku(sudo))
+    //console.log(a.hofstadterQ(1500));
+    /*  let sudo = [[-1, -1, 3, -1, 2, -1, 6, -1, -1], [9, -1, -1, 3, -1, 5, -1, -1, 1], [-1, -1, 1, 8, -1, 6, 4, -1, -1], [-1, -1, 8, 1, -1, 2, 9, -1, -1], [7, -1, -1, -1, -1, -1, -1, -1, 8], [-1, -1, 6, 7, -1, 8, 2, -1, -1], [-1, -1, 2, 6, -1, 9, 5, -1, -1], [8, -1, -1, 2, -1, 3, -1, -1, 9], [-1, -1, 5, -1, 1, -1, 3, -1, -1]];
+       console.table([[-1, -1, 3, -1, 2, -1, 6, -1, -1], [9, -1, -1, 3, -1, 5, -1, -1, 1], [-1, -1, 1, 8, -1, 6, 4, -1, -1], [-1, -1, 8, 1, -1, 2, 9, -1, -1], [7, -1, -1, -1, -1, -1, -1, -1, 8], [-1, -1, 6, 7, -1, 8, 2, -1, -1], [-1, -1, 2, 6, -1, 9, 5, -1, -1], [8, -1, -1, 2, -1, 3, -1, -1, 9], [-1, -1, 5, -1, 1, -1, 3, -1, -1]]);
+       console.table(a.solveSudoku(sudo))
 
-         console.table([[4, 8, 3, 9, 2, 1, 6, 5, 7], [9, 6, 7, 3, 4, 5, 8, 2, 1], [2, 5, 1, 8, 7, 6, 4, 9, 3], [5, 4, 8, 1, 3, 2, 9, 7, 6], [7, 2, 9, 5, 6, 4, 1, 3, 8], [1, 3, 6, 7, 9, 8, 2, 4, 5], [3, 7, 2, 6, 8, 9, 5, 1, 4], [8, 1, 4, 2, 5, 3, 7, 6, 9], [6, 9, 5, 4, 1, 7, 3, 8, 2]]);
-      */
-      /*  console.log(a.sumDigits("fa0"));
-         console.log(a.sumMults(1000));
-         console.log(a.sumOfASeries(20, 100));
-         console.log(a.sumsq([25, 32, 12, 7, 20]));
-         console.log(a.sumTo100(0)); */
+       console.table([[4, 8, 3, 9, 2, 1, 6, 5, 7], [9, 6, 7, 3, 4, 5, 8, 2, 1], [2, 5, 1, 8, 7, 6, 4, 9, 3], [5, 4, 8, 1, 3, 2, 9, 7, 6], [7, 2, 9, 5, 6, 4, 1, 3, 8], [1, 3, 6, 7, 9, 8, 2, 4, 5], [3, 7, 2, 6, 8, 9, 5, 1, 4], [8, 1, 4, 2, 5, 3, 7, 6, 9], [6, 9, 5, 4, 1, 7, 3, 8, 2]]);
+    */
+    /*  console.log(a.sumDigits("fa0"));
+       console.log(a.sumMults(1000));
+       console.log(a.sumOfASeries(20, 100));
+       console.log(a.sumsq([25, 32, 12, 7, 20]));
+       console.log(a.sumTo100(0)); */
 
-      //console.log(a.wrap("Wrap text using a more sophisticated algorithm such as the Knuth and Plass TeX algorithm. If your language provides this, you get easy extra credit, but you must reference documentation indicating that the algorithm is something better than a simple minimum length algorithm.", 80));
-      //console.log(a.primeSummations(2001));
-      /*const grid = [
-          [8, 2, 22, 97, 38, 15, 0, 40, 0, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 8],
-          [49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 98, 43, 69, 48, 4, 56, 62, 0],
-          [81, 49, 31, 73, 55, 79, 14, 29, 93, 71, 40, 67, 53, 88, 30, 3, 49, 13, 36, 65],
-          [52, 70, 95, 23, 4, 60, 11, 42, 69, 24, 68, 56, 1, 32, 56, 71, 37, 2, 36, 91],
-          [22, 31, 16, 71, 51, 67, 63, 89, 41, 92, 36, 54, 22, 40, 40, 28, 66, 33, 13, 80],
-          [24, 47, 32, 60, 99, 3, 45, 2, 44, 75, 33, 53, 78, 36, 84, 20, 35, 17, 12, 50],
-          [32, 98, 81, 28, 64, 23, 67, 10, 26, 38, 40, 67, 59, 54, 70, 66, 18, 38, 64, 70],
-          [67, 26, 20, 68, 2, 62, 12, 20, 95, 63, 94, 39, 63, 8, 40, 91, 66, 49, 94, 21],
-          [24, 55, 58, 5, 66, 73, 99, 26, 97, 17, 78, 78, 96, 83, 14, 88, 34, 89, 63, 72],
-          [21, 36, 23, 9, 75, 0, 76, 44, 20, 45, 35, 14, 0, 61, 33, 97, 34, 31, 33, 95],
-          [78, 17, 53, 28, 22, 75, 31, 67, 15, 94, 3, 80, 4, 62, 16, 14, 9, 53, 56, 92],
-          [16, 39, 5, 42, 96, 35, 31, 47, 55, 58, 88, 24, 0, 17, 54, 24, 36, 29, 85, 57],
-          [86, 56, 0, 48, 35, 71, 89, 7, 5, 44, 44, 37, 44, 60, 21, 58, 51, 54, 17, 58],
-          [19, 80, 81, 68, 5, 94, 47, 69, 28, 73, 92, 13, 86, 52, 17, 77, 4, 89, 55, 40],
-          [4, 52, 8, 83, 97, 35, 99, 16, 7, 97, 57, 32, 16, 26, 26, 79, 33, 27, 98, 66],
-          [88, 36, 68, 87, 57, 62, 20, 72, 3, 46, 33, 67, 46, 55, 12, 32, 63, 93, 53, 69],
-          [4, 42, 16, 73, 38, 25, 39, 11, 24, 94, 72, 18, 8, 46, 29, 32, 40, 62, 76, 36],
-          [20, 69, 36, 41, 72, 30, 23, 88, 34, 62, 99, 69, 82, 67, 59, 85, 74, 4, 36, 16],
-          [20, 73, 35, 29, 78, 31, 90, 1, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57, 5, 54],
-          [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
-        ];
-        console.table(a.largestGridProduct(grid));*/
-      //console.log(a.divisibleTriangleNumber(10));
-      //console.log(a.largeSum());
-      //console.log(a.longestCollatzSequence(1000000))
-      //console.log(a.latticePaths(6));
-      //console.log(a.powerDigitSumBigNumber(1000));
-      //console.log(a.numberToLetters(1000));
-      //console.log(a.numberLetterCounts(1000));
-      /* console.log(a.combinations(3, 5));
-          console.log(a.quibble(["ABC", "DEF", "G", "H"]));
-          console.log(a.azSorted(["AA", "ACB", "BB", "CC"])); */
-      //  console.log(a.emirps([7700, 8000], true));
-      //  console.log(a.emirps(10001, true));
-      //console.log(a.equilibrium([-7, 1, 5, 2, -4, 3, 0]));
-      // console.log(a.eth_mult(12, 27));
-      // console.log(a.eulersMethod(0, 100, 100, 10));
-      // console.log(a.binom(7, 2));
-      // console.log(a.markov(["A0 -> 1B", "0A1 -> C01", "1A1 -> C11", "0B0 -> A01", "1B0 -> A11", "B1 -> 1B", "0C0 -> B01", "1C0 -> B11", "0C1 -> H01", "1C1 -> H11"], "000000A000000"));
-      // console.log(a.factors(48));
-      // console.log(a.farey(5));
-      // console.log(a.fib_luc(3, 15, 'l'));
-      // console.log(a.fibonacci(3));
-      // console.log(a.fibWord(20));
-      // console.log(a.fractran("17/91, 78/85, 19/51, 23/38, 29/33, 77/29, 95/23, 77/19, 1/17, 11/13, 13/11, 15/14, 15/2, 55/1"));
-      // console.log(a.isIbanValid('GB82 WEST 1234 5698 7654 32'));
-      // console.log(a.isIbanValid('SA03 8000 0000 6080 1016 7519'));
-      // console.log(a.idMatrix(4));
-      // console.log(a.iteratedSquare(12));
-      // console.log(a.jaro("MARTHA", "MARHTA"));
-      // console.log(a.jortsort([1, 2, 3, 4, 5]));
-      // console.log(a.jortsort([1, 2, 3, 5, 4]));
-      // console.log(a.josephus(20, 2));
-      // console.log(a.kdNN([[2, 3], [5, 4], [9, 6], [4, 7], [8, 1], [7, 2]], [9, 2]));
-      /* console.log(a.isKaprekar(1, 10));
-      console.log(
-        a.knapsack2(
-          [
-            { name: "map", weight: 9, value: 150 },
-            { name: "compass", weight: 13, value: 35 },
-            { name: "water", weight: 153, value: 200 },
-            { name: "sandwich", weight: 50, value: 160 },
-            { name: "glucose", weight: 15, value: 60 },
-            { name: "tin", weight: 68, value: 45 },
-            { name: "banana", weight: 27, value: 60 },
-            { name: "apple", weight: 39, value: 40 }
-          ],
-          200
-        )
-      ); */
-      //console.log(a.numberOfNames(12));
-      console.log(
-        a.formatText(
-          [
-            "Given$a$text$file$of$many$lines",
-            "where$fields$within$a$line$",
-            'are$delineated$by$a$single$"dollar"$character',
-            "write$a$program",
-            "that$aligns$each$column$of$fields$",
-            "by$ensuring$that$words$in$each$",
-            "column$are$separated$by$at$least$one$space.",
-            "Further,$allow$for$each$word$in$a$column$to$be$either$left$",
-            "justified,$right$justified",
-            "or$center$justified$within$its$column."
-          ],
-          "center"
-        )
-      );
-    </script>
-  </body>
+    //console.log(a.wrap("Wrap text using a more sophisticated algorithm such as the Knuth and Plass TeX algorithm. If your language provides this, you get easy extra credit, but you must reference documentation indicating that the algorithm is something better than a simple minimum length algorithm.", 80));
+    //console.log(a.primeSummations(2001));
+    /*const grid = [
+        [8, 2, 22, 97, 38, 15, 0, 40, 0, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 8],
+        [49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 98, 43, 69, 48, 4, 56, 62, 0],
+        [81, 49, 31, 73, 55, 79, 14, 29, 93, 71, 40, 67, 53, 88, 30, 3, 49, 13, 36, 65],
+        [52, 70, 95, 23, 4, 60, 11, 42, 69, 24, 68, 56, 1, 32, 56, 71, 37, 2, 36, 91],
+        [22, 31, 16, 71, 51, 67, 63, 89, 41, 92, 36, 54, 22, 40, 40, 28, 66, 33, 13, 80],
+        [24, 47, 32, 60, 99, 3, 45, 2, 44, 75, 33, 53, 78, 36, 84, 20, 35, 17, 12, 50],
+        [32, 98, 81, 28, 64, 23, 67, 10, 26, 38, 40, 67, 59, 54, 70, 66, 18, 38, 64, 70],
+        [67, 26, 20, 68, 2, 62, 12, 20, 95, 63, 94, 39, 63, 8, 40, 91, 66, 49, 94, 21],
+        [24, 55, 58, 5, 66, 73, 99, 26, 97, 17, 78, 78, 96, 83, 14, 88, 34, 89, 63, 72],
+        [21, 36, 23, 9, 75, 0, 76, 44, 20, 45, 35, 14, 0, 61, 33, 97, 34, 31, 33, 95],
+        [78, 17, 53, 28, 22, 75, 31, 67, 15, 94, 3, 80, 4, 62, 16, 14, 9, 53, 56, 92],
+        [16, 39, 5, 42, 96, 35, 31, 47, 55, 58, 88, 24, 0, 17, 54, 24, 36, 29, 85, 57],
+        [86, 56, 0, 48, 35, 71, 89, 7, 5, 44, 44, 37, 44, 60, 21, 58, 51, 54, 17, 58],
+        [19, 80, 81, 68, 5, 94, 47, 69, 28, 73, 92, 13, 86, 52, 17, 77, 4, 89, 55, 40],
+        [4, 52, 8, 83, 97, 35, 99, 16, 7, 97, 57, 32, 16, 26, 26, 79, 33, 27, 98, 66],
+        [88, 36, 68, 87, 57, 62, 20, 72, 3, 46, 33, 67, 46, 55, 12, 32, 63, 93, 53, 69],
+        [4, 42, 16, 73, 38, 25, 39, 11, 24, 94, 72, 18, 8, 46, 29, 32, 40, 62, 76, 36],
+        [20, 69, 36, 41, 72, 30, 23, 88, 34, 62, 99, 69, 82, 67, 59, 85, 74, 4, 36, 16],
+        [20, 73, 35, 29, 78, 31, 90, 1, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57, 5, 54],
+        [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
+      ];
+      console.table(a.largestGridProduct(grid));*/
+    //console.log(a.divisibleTriangleNumber(10));
+    //console.log(a.largeSum());
+    //console.log(a.longestCollatzSequence(1000000))
+    //console.log(a.latticePaths(6));
+    //console.log(a.powerDigitSumBigNumber(1000));
+    //console.log(a.numberToLetters(1000));
+    //console.log(a.numberLetterCounts(1000));
+    /* console.log(a.combinations(3, 5));
+        console.log(a.quibble(["ABC", "DEF", "G", "H"]));
+        console.log(a.azSorted(["AA", "ACB", "BB", "CC"])); */
+    //  console.log(a.emirps([7700, 8000], true));
+    //  console.log(a.emirps(10001, true));
+    //console.log(a.equilibrium([-7, 1, 5, 2, -4, 3, 0]));
+    // console.log(a.eth_mult(12, 27));
+    // console.log(a.eulersMethod(0, 100, 100, 10));
+    // console.log(a.binom(7, 2));
+    // console.log(a.markov(["A0 -> 1B", "0A1 -> C01", "1A1 -> C11", "0B0 -> A01", "1B0 -> A11", "B1 -> 1B", "0C0 -> B01", "1C0 -> B11", "0C1 -> H01", "1C1 -> H11"], "000000A000000"));
+    // console.log(a.factors(48));
+    // console.log(a.farey(5));
+    // console.log(a.fib_luc(3, 15, 'l'));
+    // console.log(a.fibonacci(3));
+    // console.log(a.fibWord(20));
+    // console.log(a.fractran("17/91, 78/85, 19/51, 23/38, 29/33, 77/29, 95/23, 77/19, 1/17, 11/13, 13/11, 15/14, 15/2, 55/1"));
+    // console.log(a.isIbanValid('GB82 WEST 1234 5698 7654 32'));
+    // console.log(a.isIbanValid('SA03 8000 0000 6080 1016 7519'));
+    // console.log(a.idMatrix(4));
+    // console.log(a.iteratedSquare(12));
+    // console.log(a.jaro("MARTHA", "MARHTA"));
+    // console.log(a.jortsort([1, 2, 3, 4, 5]));
+    // console.log(a.jortsort([1, 2, 3, 5, 4]));
+    // console.log(a.josephus(20, 2));
+    // console.log(a.kdNN([[2, 3], [5, 4], [9, 6], [4, 7], [8, 1], [7, 2]], [9, 2]));
+    /* console.log(a.isKaprekar(1, 10));
+    console.log(
+      a.knapsack2(
+        [
+          { name: "map", weight: 9, value: 150 },
+          { name: "compass", weight: 13, value: 35 },
+          { name: "water", weight: 153, value: 200 },
+          { name: "sandwich", weight: 50, value: 160 },
+          { name: "glucose", weight: 15, value: 60 },
+          { name: "tin", weight: 68, value: 45 },
+          { name: "banana", weight: 27, value: 60 },
+          { name: "apple", weight: 39, value: 40 }
+        ],
+        200
+      )
+    ); */
+    //console.log(a.numberOfNames(12));
+    /* console.log(
+      a.formatText(
+        [
+          "Given$a$text$file$of$many$lines",
+          "where$fields$within$a$line$",
+          'are$delineated$by$a$single$"dollar"$character',
+          "write$a$program",
+          "that$aligns$each$column$of$fields$",
+          "by$ensuring$that$words$in$each$",
+          "column$are$separated$by$at$least$one$space.",
+          "Further,$allow$for$each$word$in$a$column$to$be$either$left$",
+          "justified,$right$justified",
+          "or$center$justified$within$its$column."
+        ],
+        "center"
+      )
+    ); */
+    console.log(a.sortByKey([{ key: 3, value: "foo" }, { key: 2, value: "bar" }, { key: 4, value: "baz" }, { key: 1, value: 42 }, { key: 5, value: "another string" }]));
+  </script>
+</body>
+
 </html>

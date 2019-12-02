@@ -2456,6 +2456,19 @@
         console.log(colsLength);
         return input;
       }
+      /*
+      Rosetta Code: Sort an array of composite structures
+      Write a function that takes an array of objects as a parameter. The function should sort the array according to the 'key' attribute of the objects and return the sorted array.
+      */
+
+    }, {
+      key: "sortByKey",
+      value: function sortByKey(arr) {
+        // Good luck!
+        return arr.sort(function (a, b) {
+          return a.key > b.key;
+        });
+      }
     }]);
 
     return algorithms;

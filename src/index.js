@@ -490,23 +490,23 @@ export default class algorithms {
               verticals[digit][line] = numberPossibilities[0];
               console.log(
                 "added digit: digit[" +
-                  digit +
-                  "] line [" +
-                  line +
-                  "] : " +
-                  numberPossibilities[0] +
-                  " (" +
-                  numberPossibilities +
-                  ")"
+                digit +
+                "] line [" +
+                line +
+                "] : " +
+                numberPossibilities[0] +
+                " (" +
+                numberPossibilities +
+                ")"
               );
               nDigitResolved++;
             } else if (numberPossibilities.length == 0) {
               console.log(
                 "not possible to add to digit[" +
-                  digit +
-                  "] line [" +
-                  line +
-                  "]"
+                digit +
+                "] line [" +
+                line +
+                "]"
               );
               console.table(solution);
               let lastCache = cache.length - 1;
@@ -535,18 +535,18 @@ export default class algorithms {
                     Math.floor(cache[lastCache].line / 3) * 3;
                   squares[nSquare][
                     (cache[lastCache].digit % 3) +
-                      (cache[lastCache].line % 3) * 3
+                    (cache[lastCache].line % 3) * 3
                   ] = cache[lastCache].possibilities[ind];
                   verticals[cache[lastCache].digit][cache[lastCache].line] =
                     cache[lastCache].possibilities[ind];
                   guessIt = false;
                   console.log(
                     "Try another one : digit[" +
-                      cache[lastCache].digit +
-                      "] line[" +
-                      cache[lastCache].line +
-                      "]: " +
-                      cache[lastCache].possibilities[ind]
+                    cache[lastCache].digit +
+                    "] line[" +
+                    cache[lastCache].line +
+                    "]: " +
+                    cache[lastCache].possibilities[ind]
                   );
                   console.table(cache[lastCache].solution);
                   nDigitResolved++;
@@ -579,14 +579,14 @@ export default class algorithms {
               verticals[digit][line] = numberPossibilities[0];
               console.log(
                 "Try : digit[" +
-                  digit +
-                  "] line[" +
-                  line +
-                  "]: " +
-                  numberPossibilities[0] +
-                  " (" +
-                  numberPossibilities +
-                  ")"
+                digit +
+                "] line[" +
+                line +
+                "]: " +
+                numberPossibilities[0] +
+                " (" +
+                numberPossibilities +
+                ")"
               );
               nDigitResolved++;
             }
@@ -809,8 +809,8 @@ export default class algorithms {
   YCombinator() {
     Y = f => (x => x(x))(y => f(x => y(y)(x)));
 
-    factorial = this.Y(function(f) {
-      return function(n) {
+    factorial = this.Y(function (f) {
+      return function (n) {
         return n > 1 ? n * f(n - 1) : 1;
       };
     });
@@ -1997,7 +1997,7 @@ Which number was he?
   */
   josephus(n, k, s) {
     s = s | 1;
-    for (var ps = [], i = n; i--; ) {
+    for (var ps = [], i = n; i--;) {
       ps[i] = i;
     }
     for (var ks = [], i = --k; ps.length > s; i = (i + k) % ps.length) {
@@ -2164,9 +2164,9 @@ Implement a function that returns the sum of the n-th row.
         for (x = 1; x < l + 1; x++) {
           r.push(
             r[r.length - 1] +
-              (Aa = cache[l - x < 0 ? cache.length - (l - x) : l - x])[
-                (Mi = Math.min(x, l - x)) < 0 ? Aa.length - Mi : Mi
-              ]
+            (Aa = cache[l - x < 0 ? cache.length - (l - x) : l - x])[
+            (Mi = Math.min(x, l - x)) < 0 ? Aa.length - Mi : Mi
+            ]
           );
         }
         cache.push(r);
@@ -2249,4 +2249,16 @@ Implement a function that returns the sum of the n-th row.
     console.log(colsLength);
     return input;
   }
+  /*
+  Rosetta Code: Sort an array of composite structures
+
+Write a function that takes an array of objects as a parameter. The function should sort the array according to the 'key' attribute of the objects and return the sorted array.
+  */
+  sortByKey(arr) {
+    // Good luck!
+
+    return arr.sort((a, b) => (a.key > b.key));;
+
+  }
+
 }
