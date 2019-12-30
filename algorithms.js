@@ -2716,6 +2716,43 @@
 
         return n;
       }
+      /*
+      Rosetta Code: Last Friday of each month
+      Write a function that returns the date of the last Friday of a given month for a given year.
+       */
+
+    }, {
+      key: "lastFriday",
+      value: function lastFriday(year, month) {
+        var i = 31;
+        var event = new Date(year + "-" + month + "-31"); //console.log(event);
+
+        while (checkIfDateNotValid(event)) {
+          i--;
+          event = new Date(year + "-" + month + "-" + i);
+        }
+
+        var day = 0;
+
+        while (day !== 5) {
+          if (event.setDate(i)) {
+            day = event.getDay();
+          }
+
+          i--;
+        }
+
+        return ++i;
+
+        function checkIfDateNotValid(d) {
+          try {
+            var d = new Date(d);
+            return !(d.getTime() === d.getTime()); //NAN is the only type which is not equal to itself.
+          } catch (e) {
+            return true;
+          }
+        }
+      }
     }]);
 
     return algorithms;
