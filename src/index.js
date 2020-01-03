@@ -2488,4 +2488,86 @@ Write a function that returns the date of the last Friday of a given month for a
 
     }
   }
+  /*
+  Rosetta Code: Taxicab numbers
+
+  A   taxicab number (the definition that is being used here) is a positive integer that can be 
+  expressed as the sum of two positive cubes in more than one way.
+
+  The first taxicab number is 1729, which is:
+
+  13   +   123       and
+
+  93   +   103.
+
+  Taxicab numbers are also known as:
+
+      taxi numbers
+      taxi-cab numbers
+      taxi cab numbers
+      Hardy-Ramanujan numbers
+
+  Write a function that returns the lowest n taxicab numbers. For each of the taxicab numbers, show 
+  the number as well as its constituent cubes.
+  */
+  taxicabNumbers(n) {
+    // Good luck!
+
+    let taxicabs = [];
+    let addition = 0;
+    let left = 1;
+    let right = 1;
+    while (addition < 1000) {
+
+      let nextLeftAddition = Math.pow(left + 1, 3) + Math.pow(right, 3);
+      let nextRightAddition = Math.pow(left, 3) + Math.pow(right + 1, 3);
+      if (nextLeftAddition < nextRightAddition) {
+        left++;
+      }
+      else {
+        right++;
+      }
+      addition = Math.pow(left, 3) + Math.pow(right, 3);
+      console.log(left + "³ + " + right + "³ = " + addition);
+    }
+    return taxicabs;
+  }
+  /*
+  Rosetta Code: Tokenize a string with escaping
+
+  Write a function or program that can split a string at each non-escaped occurrence of a separator 
+  character.
+
+  It should accept three input parameters:
+
+      The string
+      The separator character
+      The escape character
+
+  It should output a list of strings.
+  */
+  tokenize(str, esc, sep) {
+    let pointer = 0;
+
+    let tokens = [];
+    let currentToken = '';
+    while (pointer < str.length) {
+      if (str.charAt(pointer) == esc) {
+        pointer++;
+        currentToken += str.charAt(pointer);
+      }
+      else if (str.charAt(pointer) == sep) {
+        tokens.push(currentToken);
+        currentToken = '';
+      }
+      else {
+        currentToken += str.charAt(pointer);
+      }
+      pointer++;
+    }
+
+    tokens.push(currentToken);
+
+    return tokens;
+  }
 }

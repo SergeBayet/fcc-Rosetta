@@ -2753,6 +2753,82 @@
           }
         }
       }
+      /*
+      Rosetta Code: Taxicab numbers
+       A   taxicab number (the definition that is being used here) is a positive integer that can be 
+      expressed as the sum of two positive cubes in more than one way.
+       The first taxicab number is 1729, which is:
+       13   +   123       and
+       93   +   103.
+       Taxicab numbers are also known as:
+           taxi numbers
+          taxi-cab numbers
+          taxi cab numbers
+          Hardy-Ramanujan numbers
+       Write a function that returns the lowest n taxicab numbers. For each of the taxicab numbers, show 
+      the number as well as its constituent cubes.
+      */
+
+    }, {
+      key: "taxicabNumbers",
+      value: function taxicabNumbers(n) {
+        // Good luck!
+        var taxicabs = [];
+        var addition = 0;
+        var left = 1;
+        var right = 1;
+
+        while (addition < 1000) {
+          var nextLeftAddition = Math.pow(left + 1, 3) + Math.pow(right, 3);
+          var nextRightAddition = Math.pow(left, 3) + Math.pow(right + 1, 3);
+
+          if (nextLeftAddition < nextRightAddition) {
+            left++;
+          } else {
+            right++;
+          }
+
+          addition = Math.pow(left, 3) + Math.pow(right, 3);
+          console.log(left + "³ + " + right + "³ = " + addition);
+        }
+
+        return taxicabs;
+      }
+      /*
+      Rosetta Code: Tokenize a string with escaping
+       Write a function or program that can split a string at each non-escaped occurrence of a separator 
+      character.
+       It should accept three input parameters:
+           The string
+          The separator character
+          The escape character
+       It should output a list of strings.
+      */
+
+    }, {
+      key: "tokenize",
+      value: function tokenize(str, esc, sep) {
+        var pointer = 0;
+        var tokens = [];
+        var currentToken = '';
+
+        while (pointer < str.length) {
+          if (str.charAt(pointer) == esc) {
+            pointer++;
+            currentToken += str.charAt(pointer);
+          } else if (str.charAt(pointer) == sep) {
+            tokens.push(currentToken);
+            currentToken = '';
+          } else {
+            currentToken += str.charAt(pointer);
+          }
+
+          pointer++;
+        }
+
+        tokens.push(currentToken);
+        return tokens;
+      }
     }]);
 
     return algorithms;
